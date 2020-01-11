@@ -48,4 +48,4 @@ print(Style.DIM + 'and in dim text') # to put some style
 print(Style.RESET_ALL) # reset all changes
 ```
 
-## Now
+## WELL I REFERRED THE FOLLOWING SITE: <https://github.com/shiena/ansicolor>
