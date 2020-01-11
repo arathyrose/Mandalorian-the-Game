@@ -5,3 +5,6 @@ speed="normal"
 power_up_active=[0,0]
 control_pressed=""
 game_start_time=0
+screen_length=120
+screen_height=30
+gravity = 1

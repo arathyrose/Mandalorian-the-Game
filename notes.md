@@ -49,3 +49,8 @@ print(Style.RESET_ALL) # reset all changes
 ```
 
 ## WELL I REFERRED THE FOLLOWING SITE: <https://github.com/shiena/ansicolor>
+
+## FOR CLEARING THE SCREEN USE
+
+- <http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.htm>
+- <https://rosettacode.org/wiki/Terminal_control/Cursor_positioning#Python>
