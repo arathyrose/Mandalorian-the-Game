@@ -4,28 +4,33 @@ from termcolor import colored
 import global_stuff
 import inputs
 import term
-
+import gameboard
+import time
 if __name__ == "__main__":
     term.clrscr()
 
-    keys=inputs.NBInput()
-    keys.nbTerm() #enable non-blocking input
-    keys.flush()
-
+    board=gameboard.gameboard(40,200)
     print("THE MANDALORIAN : THE GAME")
     print()
     print("Enter your name: ")
     global_stuff.username = input()
+
+    # set up input
+    keys=inputs.NBInput()
+    keys.nbTerm() #enable non-blocking input
+    keys.flush()
     # the game loop goes here
     while(1):
         term.clrscr()
         # TODO: print the board
+        board.print()
         # get input
         if keys.kbHit(): # poll for input
             global_stuff.control_pressed = keys.getCh()
             print(global_stuff.control_pressed)
             if(global_stuff.control_pressed=='q'):
                 break
+        time.sleep(0.2)
     #...
     term.clrscr()
     print("GAME OVER")
