@@ -9,7 +9,7 @@ import time
 if __name__ == "__main__":
     term.clrscr()
 
-    board=gameboard.gameboard(40,200)
+    board=gameboard.gameboard(30,120)
     print("THE MANDALORIAN : THE GAME")
     print()
     print("Enter your name: ")
