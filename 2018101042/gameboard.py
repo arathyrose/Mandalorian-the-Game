@@ -14,45 +14,46 @@ from colorama import Fore, Back, Style
 from colored_printing import color_text
 from termcolor import colored
 
+
 class gameboard:
     def __init__(self, rows, columns):
         self.rows = rows
         self.columns = columns
-        self.board = np.full((rows, columns,2), " "*10) 
+        self.board = np.full((rows, columns, 2), " "*10)
         # the structure of each element of the 2D matrix of tuples is: {ASCII CHAR, TYPE}
-        
+
         # The upper part
         for i in range(0, 2):
             for j in range(self.columns):
-                self.board[i][j][0]=" "
-                self.board[i][j][1]="Top Bar"
+                self.board[i][j][0] = " "
+                self.board[i][j][1] = "Top Bar"
         # put the game name
         gamename = "THE MANDALORIAN"
         leng = len(gamename)
         startat = int(columns/2-leng/2)
         for i in range(leng):
-            self.board[0][i+startat][0] = gamename[i] # put the game name
+            self.board[0][i+startat][0] = gamename[i]  # put the game name
         # The game body
         for i in range(1, self.rows-3):
             for j in range(self.columns):
-                self.board[i][j][0]=" "
-                self.board[i][j][1]="Normal"
+                self.board[i][j][0] = " "
+                self.board[i][j][1] = "Normal"
         # the lower part
         for i in range(self.rows-3, self.rows):
             for j in range(self.columns):
-                self.board[i][j][0]=" "
-                self.board[i][j][1]="Bottom Bar"
-
+                self.board[i][j][0] = " "
+                self.board[i][j][1] = "Bottom Bar"
 
     def print(self):
         # The top menu
         print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):
             for j in range(self.columns):
-                #k=self.board[i][j][0]
-                #l=self.board[i][j][1]
-                #print(self.board[i][j])
-                #print(i,j,k,l,self.board[i][j][2])
-                #print(colored(self.board[i][j][0],(self.board[i][j][1]),self.board[i][j][2]),end="")
-                print(color_text(self.board[i][j][0],self.board[i][j][1]),end="")
+                # k=self.board[i][j][0]
+                # l=self.board[i][j][1]
+                # print(self.board[i][j])
+                # print(i,j,k,l,self.board[i][j][2])
+                # print(colored(self.board[i][j][0],(self.board[i][j][1]),self.board[i][j][2]),end="")
+                print(color_text(self.board[i][j]
+                                 [0], self.board[i][j][1]), end="")
             print()

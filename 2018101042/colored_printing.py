@@ -21,7 +21,7 @@ COLORS = {
     'Top Bar': '\x1b[1;97;44m',
     'Bottom Bar': '\x1b[1;97;44m',
     'Normal': '\x1b[0;40;49m',
-    
+
     'Bridge Color': '\x1b[48;5;130m',
 
     'Bullets Color': '\x1b[38;5;208m',
@@ -46,6 +46,7 @@ def color_text(text, color):
         except:
             return text
 
+
 if __name__ == "__main__":
-    print(color_text("Hello",'Water Color'),end="")
+    print(color_text("Hello", 'Water Color'), end="")
     print('Hello')
