@@ -4,3 +4,4 @@ time_left=300
 speed="normal"
 power_up_active=[0,0]
 control_pressed=""
+game_start_time=0

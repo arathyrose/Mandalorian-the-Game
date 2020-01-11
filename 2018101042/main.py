@@ -14,16 +14,19 @@ if __name__ == "__main__":
     print()
     print("Enter your name: ")
     global_stuff.username = input()
-
     # set up input
     keys=inputs.NBInput()
     keys.nbTerm() #enable non-blocking input
     keys.flush()
+
+    global_stuff.game_start_time=time.time() #get the start time of the game
+
     # the game loop goes here
     while(1):
         term.clrscr()
         # TODO: print the board
         board.print()
+        
         # get input
         if keys.kbHit(): # poll for input
             global_stuff.control_pressed = keys.getCh()
