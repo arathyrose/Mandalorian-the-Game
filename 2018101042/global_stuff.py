@@ -1,6 +1,6 @@
 username = "Player"
 score = 0
-coins_collected=0
+coins_collected = 0
 time_left = 300
 speed = "normal"
 power_up_active = [0, 0]
@@ -9,4 +9,4 @@ game_start_time = 0
 screen_length = 120
 screen_height = 30
 gravity = 1
-shown_until=screen_length
+shown_until = screen_length

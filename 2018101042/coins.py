@@ -1,4 +1,5 @@
-""" Denotes moneyy!
+""" 
+Denotes moneyy!
 
 It inherits from OBSTACLES and has the following attributes
 
@@ -8,13 +9,17 @@ It inherits from OBSTACLES and has the following attributes
 and the following functions
 
 - be collected
-- display it """
+- display it 
+"""
 
 from obstacle import obstacle
 import global_stuff
+
+
 class coins(obstacle):
-    def __init__(self,xpos,ypos):
-        super().__init__(xpos,ypos,1,1,['0'],'Coin')
-    def collect(self,board):
+    def __init__(self, xpos, ypos):
+        super().__init__(xpos, ypos, 1, 1, ['0'], 'Coin')
+
+    def collect(self, board):
         super().destroy_self(board)
-        global_stuff.coins_collected+=1
+        global_stuff.coins_collected += 1

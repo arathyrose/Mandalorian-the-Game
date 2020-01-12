@@ -15,6 +15,7 @@ and the following functions:
 '''
 from obj import obj
 
+
 class obstacle(obj):
-    def __init__(self, xpos,ypos,length,width,shape,style):
-        super().__init__( xpos,ypos,length,width,shape,style)
+    def __init__(self, xpos, ypos, length, width, shape, style):
+        super().__init__(xpos, ypos, length, width, shape, style)
