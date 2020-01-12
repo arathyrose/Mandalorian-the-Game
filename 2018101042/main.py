@@ -39,6 +39,7 @@ if __name__ == "__main__":
     fb.randomly_add_coins_everywhere()
     fb.randomly_add_hbeams()
     fb.randomly_add_vbeams()
+    fb.randomly_add_coins_dbeams()
     board.write_full_on_board(fb, 0)
     """ print("BOARD")
     #print(board.board)

@@ -90,3 +90,18 @@ class full_board():
                 print(e)
                 continue
     
+    def randomly_add_coins_dbeams(self):
+        print("Generating diagonal beams....")
+        for i in range(5):
+            xpos=int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
+            ypos=int(random.randint(
+                3, int(self.columns/5-1)) + (self.columns/5)*i)-3
+            print(xpos,ypos,end="diag\n")
+            getch.getch()
+            hb=beam(xpos,ypos,"d"+str(random.randint(1,2)))
+            try:
+                hb.write_self_on_board(self)
+            except Exception as e:
+                print('ERROR in',xpos,ypos)
+                print(e)
+                continue

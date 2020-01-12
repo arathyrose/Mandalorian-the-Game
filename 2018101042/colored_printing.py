@@ -30,6 +30,8 @@ COLORS = {
     
     'Hbeam': '\x1b[38;5;200m',
     'Vbeam': '\x1b[38;5;200m',
+    'Dbeam1': '\x1b[38;5;200m',
+    'Dbeam2': '\x1b[38;5;200m',
     'Bridge Color': '\x1b[48;5;130m',
 
     'Bullets Color': '\x1b[38;5;208m',

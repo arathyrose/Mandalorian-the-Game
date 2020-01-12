@@ -27,7 +27,7 @@ class beam(obstacle):
             sh=k.tolist()
             super().__init__(xpos,ypos,2*safe_region+1,length_of_beam+2*safe_region,sh,"Hbeam")
         elif(orientation=="vertical" or orientation=="v"):
-            # beam is of dimension int(length_of_beam/2)+2 x 2*safe_region
+            # beam is of dimension int(length_of_beam/2)+2*safe_region x 2*safe_region
             k=np.full((int(length_of_beam/2)+2*safe_region,2*safe_region+1)," ")
             k[safe_region][safe_region]='█'
             for i in range(safe_region+1,safe_region+int(length_of_beam/2)-1):
@@ -35,7 +35,21 @@ class beam(obstacle):
             k[safe_region+int(length_of_beam/2)-1][safe_region]='█'
             sh=k.tolist()
             super().__init__(xpos,ypos,int(length_of_beam/2)+2*safe_region,2*safe_region+1,sh,"Vbeam")
-        elif(orientation=="diagonal"):
-            pass
-
-        
+        elif(orientation=="diagonal1" or orientation=='d1'):
+            # beam is of dimension (int(length_of_beam/1.5)+2*safe_region)^2
+            k=np.full((int(length_of_beam/1.5)+2*safe_region,int(length_of_beam/1.5)+2*safe_region)," ")
+            k[safe_region][safe_region]='█'
+            for i in range(safe_region+1,safe_region+int(length_of_beam/1.5)-1):
+                k[i][i]='\\'
+            k[safe_region+int(length_of_beam/1.5)-1][safe_region+int(length_of_beam/1.5)-1]='█'
+            sh=k.tolist()
+            super().__init__(xpos,ypos,int(length_of_beam/1.5)+2*safe_region,int(length_of_beam/1.5)+2*safe_region,sh,"Dbeam1")
+        elif(orientation=="diagonal2" or orientation=='d2'):
+            # beam is of dimension (int(length_of_beam/1.5)+2*safe_region)^2
+            k=np.full((int(length_of_beam/1.5)+2*safe_region,int(length_of_beam/1.5)+2*safe_region)," ")
+            k[safe_region+int(length_of_beam/1.5)-1-safe_region][safe_region]='█'
+            for i in range(safe_region+1,safe_region+int(length_of_beam/1.5)-1):
+                k[safe_region+int(length_of_beam/1.5)-1-i][i]='/'
+            k[safe_region+int(length_of_beam/1.5)-1-safe_region-int(length_of_beam/1.5)+1][safe_region+int(length_of_beam/1.5)-1]='█'
+            sh=k.tolist()
+            super().__init__(xpos,ypos,int(length_of_beam/1.5)+2*safe_region,int(length_of_beam/1.5)+2*safe_region,sh,"Dbeam2")
