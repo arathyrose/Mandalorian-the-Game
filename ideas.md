@@ -177,3 +177,8 @@ and the following functions
 [x] display the time remaining
 [ ] display the powerups active
 [ ] Bossy
+[ ] make life red in color with white bg
+[ ] make time left green in color with white bg
+[ ] bullets (again)
+[ ] make the hero white backgrounded with cyan trim color
+[x] limited and displayed the number of bullets

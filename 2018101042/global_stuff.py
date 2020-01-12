@@ -17,3 +17,5 @@ total_life=5
 lives_remaining=total_life
 frame_refresh_time=0.05
 move_left_time=0.5
+bullets_left=3 # count of deployable bullets
+total_bullets=10

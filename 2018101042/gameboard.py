@@ -46,6 +46,7 @@ class gameboard:
         self.score_update()        # put the score
         self.life_display()
         self.time_display()
+        self.bullets_display()
     def gamename_display(self):
         # put the game name
         gamename = "THE MANDALORIAN: THE GAME"
@@ -75,7 +76,7 @@ class gameboard:
         lf+=k
         leng=len(lf)
         for i in range(leng):
-            self.board[self.rows-2][i][0] = lf[i]  # put the game name
+            self.board[self.rows-3][i][0] = lf[i]  # put the game name
     def time_display(self):
         #put the time
         lf="TIME LEFT:"
@@ -93,11 +94,22 @@ class gameboard:
         lf+=k
         leng=len(lf)
         for i in range(leng):
+            self.board[self.rows-2][i][0] = lf[i]  # put the game name
+    def bullets_display(self):
+        #put the bullets left
+        lf="BULLETS LEFT:      "
+        k=""
+        for _ in range(global_stuff.bullets_left):
+            k+="> "
+        lf+=k
+        leng=len(lf)
+        for i in range(leng):
             self.board[self.rows-1][i][0] = lf[i]  # put the game name
     def print(self):
         self.score_update()
         self.life_display()
         self.time_display()
+        self.bullets_display()
         # The top menu
         print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):
