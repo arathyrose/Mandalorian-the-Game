@@ -76,7 +76,7 @@ if __name__ == "__main__":
             if(global_stuff.control_pressed == 'q'):
                 break
         # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
-        if(time.time()-last_shift_time >= 0.5):
+        if(time.time()-last_shift_time >= global_stuff.move_left_time):
             last_shift_time = time.time()
             h.collision_manager(board)
             #print('SHIFTING EVERYTHING')
@@ -87,7 +87,7 @@ if __name__ == "__main__":
                 h.move("down")  # gravity :)
                 gravity_ok = 0
                 h.collision_manager(board)
-        time.sleep(0.05)
+        time.sleep(global_stuff.frame_refresh_time)
     # ...
     term.clrscr()
     print("GAME OVER")

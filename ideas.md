@@ -169,7 +169,7 @@ and the following functions
 
 [ ] Collision with beams
 [ ] power-ups
-[ ] globalize the speed of the game
+[x] globalize the speed of the game
 [ ] bullets
 [ ] destroy beams
 [ ] main boss guy

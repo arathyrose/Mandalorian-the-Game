@@ -15,3 +15,5 @@ length_of_beam = 10
 safe_region = 1
 total_life=5
 lives_remaining=total_life
+frame_refresh_time=0.05
+move_left_time=0.5
