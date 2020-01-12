@@ -15,7 +15,7 @@ from colored_printing import color_text
 from termcolor import colored
 import global_stuff
 from full_board import full_board
-from getch import getch 
+# from getch import getch 
 class gameboard:
     def __init__(self, rows, columns):
         self.rows = rows
@@ -77,7 +77,7 @@ class gameboard:
             print(full_board.rows, self.columns)
             print(self.board.shape,full_board.board.shape)
             print (e)
-            getch()
+            # getch()
     
     def shift_right(self,full_board,line_to_add):
         '''

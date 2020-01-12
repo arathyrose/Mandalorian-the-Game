@@ -10,7 +10,7 @@ from person import person
 from hero import hero
 from coins import coins
 from full_board import full_board
-from getch  import getch
+# from getch  import getch
 def put_coins(board):
     for i in range(30):
         c=coins(i,50)
@@ -46,10 +46,10 @@ if __name__ == "__main__":
         for j in range(fb.columns):
             print(fb.board[i][j][0],fb.board[i][j][1])
      """
-
+    some_random_variable_that_determines_if_gravity_is_ok=0
     global_stuff.game_start_time = time.time()  # get the start time of the game
     print("Game starts at "+str(global_stuff.game_start_time))
-    getch()
+    # getch()
     last_shift_time=global_stuff.game_start_time
     # the game loop goes here
     while(1):
@@ -71,9 +71,13 @@ if __name__ == "__main__":
         # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
         if(time.time()-last_shift_time>=0.5):
             last_shift_time=time.time()
-            print('SHIFTING EVERYTHING')
+            #print('SHIFTING EVERYTHING')
             board.shift_right(fb,global_stuff.shown_until)
             global_stuff.shown_until+=1
+            some_random_variable_that_determines_if_gravity_is_ok+=1
+            if(some_random_variable_that_determines_if_gravity_is_ok==2): # change this to change gravy
+                h.move("down")# gravity :)
+                some_random_variable_that_determines_if_gravity_is_ok=0
         time.sleep(0.05)
     # ...
     term.clrscr()
