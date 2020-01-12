@@ -24,6 +24,7 @@ if __name__ == "__main__":
     board = gameboard.gameboard(
         global_stuff.screen_height, global_stuff.screen_length)
     h = hero()
+    global_stuff.game_start_time = time.time()  # get the start time of the game
 
     print("THE MANDALORIAN : THE GAME")
     print()
@@ -53,7 +54,6 @@ if __name__ == "__main__":
             print(fb.board[i][j][0],fb.board[i][j][1])
      """
     gravity_ok = 0
-    global_stuff.game_start_time = time.time()  # get the start time of the game
     print("Game starts at "+str(global_stuff.game_start_time))
     # getch()
     last_shift_time = global_stuff.game_start_time

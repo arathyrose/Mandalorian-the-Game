@@ -23,3 +23,4 @@ class coins(obstacle):
     def collect(self, board):
         super().destroy_self(board)
         global_stuff.coins_collected += 1
+        global_stuff.score += 10

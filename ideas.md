@@ -164,3 +164,16 @@ and the following functions
 ## FEATURES
 
 (to be built later)
+
+## THINGS LEFT TO DO
+
+[ ] Collision with beams
+[ ] power-ups
+[ ] globalize the speed of the game
+[ ] bullets
+[ ] destroy beams
+[ ] main boss guy
+[x] display the life remaining
+[x] display the time remaining
+[ ] display the powerups active
+[ ] Bossy

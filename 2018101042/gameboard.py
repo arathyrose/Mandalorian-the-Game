@@ -15,6 +15,7 @@ from colored_printing import color_text
 from termcolor import colored
 import global_stuff
 from full_board import full_board
+import time
 # from getch import getch
 
 
@@ -29,14 +30,6 @@ class gameboard:
             for j in range(self.columns):
                 self.board[i][j][0] = " "
                 self.board[i][j][1] = "Top Bar"
-        # put the game name
-        gamename = "THE MANDALORIAN: THE GAME"
-        leng = len(gamename)
-        startat = 2  # int(columns/2-leng/2)
-        for i in range(leng):
-            self.board[0][i+startat][0] = gamename[i]  # put the game name
-        # put the score
-        self.score_update()
         # The game body
         for i in range(2, self.rows-3):
             for j in range(self.columns):
@@ -47,7 +40,19 @@ class gameboard:
             for j in range(self.columns):
                 self.board[i][j][0] = " "
                 self.board[i][j][1] = "Bottom Bar"
-
+        # Adding beautiful stuff
+        global_stuff.game_start_time=time.time()
+        self.gamename_display()        # put the game name
+        self.score_update()        # put the score
+        self.life_display()
+        self.time_display()
+    def gamename_display(self):
+        # put the game name
+        gamename = "THE MANDALORIAN: THE GAME"
+        leng = len(gamename)
+        startat = 2  # int(columns/2-leng/2)
+        for i in range(leng):
+            self.board[0][i+startat][0] = gamename[i]  # put the game name
     def score_update(self):
         # put the score
         scorename = "SCORE: "+str(global_stuff.score).rjust(10, "0")
@@ -55,9 +60,44 @@ class gameboard:
         startat = self.columns-2-leng
         for i in range(leng):
             self.board[0][i+startat][0] = scorename[i]
-
+    def life_display(self):
+        #put the life
+        lf="LIFE:     "
+        #totally print columns/2 -10 of which all of them are " " except the first life_remaining/total_life
+        percentage_to_fill=global_stuff.lives_remaining/global_stuff.total_life
+        totwid=int(self.columns/2-10)
+        fill=int(percentage_to_fill*(self.columns/2-10))
+        k=""
+        for _ in range(fill):
+            k+="█"
+        for _ in range(fill+1,totwid ):
+            k+=" "
+        lf+=k
+        leng=len(lf)
+        for i in range(leng):
+            self.board[self.rows-2][i][0] = lf[i]  # put the game name
+    def time_display(self):
+        #put the time
+        lf="TIME LEFT:"
+        #totally print columns/2 -10 of which all of them are " " except the first few
+        global_stuff.time_left=int(global_stuff.total_time-(-global_stuff.game_start_time+time.time()))
+        percentage_to_fill=global_stuff.time_left/global_stuff.total_time
+        totwid=int(self.columns/2-10)
+        fill=int(percentage_to_fill*(self.columns/2-10))
+        #print(global_stuff.game_start_time,global_stuff.time_left,fill,totwid)
+        k=""
+        for _ in range(fill):
+            k+="█"
+        for _ in range(fill+1,totwid):
+            k+=" "
+        lf+=k
+        leng=len(lf)
+        for i in range(leng):
+            self.board[self.rows-1][i][0] = lf[i]  # put the game name
     def print(self):
         self.score_update()
+        self.life_display()
+        self.time_display()
         # The top menu
         print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):

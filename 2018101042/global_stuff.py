@@ -1,7 +1,8 @@
 username = "Player"
 score = 0
 coins_collected = 0
-time_left = 300
+total_time=300
+time_left = total_time
 speed = "normal"
 power_up_active = [0, 0]
 control_pressed = ""
@@ -12,3 +13,5 @@ gravity = 1
 shown_until = screen_length
 length_of_beam = 10
 safe_region = 1
+total_life=5
+lives_remaining=total_life
