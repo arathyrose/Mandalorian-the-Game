@@ -64,9 +64,25 @@ class full_board():
             xpos=int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
             ypos=int(random.randint(
                 3, int(self.columns/5-1)) + (self.columns/5)*i)-3
-            print(xpos,ypos,end="hoe")
+            print(xpos,ypos,end="hoe\n")
             getch.getch()
             hb=beam(xpos,ypos,"h")
+            try:
+                hb.write_self_on_board(self)
+            except Exception as e:
+                print('ERROR in',xpos,ypos)
+                print(e)
+                continue
+    
+    def randomly_add_vbeams(self):
+        print("Generating vertical beams....")
+        for i in range(5):
+            xpos=int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
+            ypos=int(random.randint(
+                3, int(self.columns/5-1)) + (self.columns/5)*i)-3
+            print(xpos,ypos,end="vert\n")
+            getch.getch()
+            hb=beam(xpos,ypos,"v")
             try:
                 hb.write_self_on_board(self)
             except Exception as e:

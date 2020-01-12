@@ -27,7 +27,9 @@ COLORS = {
 
     'Coin': '\x1b[1;33;40m',
 
+    
     'Hbeam': '\x1b[38;5;200m',
+    'Vbeam': '\x1b[38;5;200m',
     'Bridge Color': '\x1b[48;5;130m',
 
     'Bullets Color': '\x1b[38;5;208m',
