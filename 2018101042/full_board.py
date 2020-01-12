@@ -12,7 +12,7 @@ import numpy as np
 from coins import coins
 import getch
 import random
-
+from beam import beam
 
 class full_board():
     def __init__(self, rows, columns):
@@ -42,12 +42,12 @@ class full_board():
         coins.write_self_on_board(self)
 
     def randomly_add_coins_everywhere(self):  # recheck
-        for i in range(3):  # four blocks of coins of random width and height at a distance of at least screen_length/4 apart
+        for i in range(11):  # four blocks of coins of random width and height at a distance of at least screen_length/4 apart
             h = random.randint(1, 7)
             w = random.randint(1, 30)+1
             xpos = int(self.rows/2 - 3+random.randint(0, 4-1))
             ypos = int(random.randint(
-                0, int(self.columns/3-1)) + (self.columns/3)*i)
+                0, int(self.columns/11-1)) + (self.columns/11)*i)
             print(ypos)
             getch.getch()
             for i in range(h):
@@ -57,3 +57,20 @@ class full_board():
                         self.add_coins(c)
                     except:
                         continue
+
+    def randomly_add_hbeams(self):
+        print("Generating horizontal beams....")
+        for i in range(5):
+            xpos=int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
+            ypos=int(random.randint(
+                3, int(self.columns/5-1)) + (self.columns/5)*i)-3
+            print(xpos,ypos,end="hoe")
+            getch.getch()
+            hb=beam(xpos,ypos,"h")
+            try:
+                hb.write_self_on_board(self)
+            except Exception as e:
+                print('ERROR in',xpos,ypos)
+                print(e)
+                continue
+    

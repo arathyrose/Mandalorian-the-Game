@@ -37,7 +37,7 @@ if __name__ == "__main__":
     fb = full_board(global_stuff.screen_height, global_stuff.screen_length)
     fb.generate_background()
     fb.randomly_add_coins_everywhere()
-
+    fb.randomly_add_hbeams()
     board.write_full_on_board(fb, 0)
     """ print("BOARD")
     #print(board.board)

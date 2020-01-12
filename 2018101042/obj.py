@@ -16,8 +16,12 @@ class obj:
     def write_self_on_board(self, gameboard):
         for i in range(self.h):
             for j in range(self.w):
-                gameboard.board[i+self.x][j+self.y][0] = self.style[i][j]
-                gameboard.board[i+self.x][j+self.y][1] = self.type
+                if(self.style[i][j]!=' '):
+                    gameboard.board[i+self.x][j+self.y][0] = self.style[i][j]
+                    gameboard.board[i+self.x][j+self.y][1] = self.type
+                else:
+                    gameboard.board[i+self.x][j+self.y][0] = " "
+                    gameboard.board[i+self.x][j+self.y][1] = "Normal"
 
     def destroy_self(self, gameboard):
         for i in range(self.h):
