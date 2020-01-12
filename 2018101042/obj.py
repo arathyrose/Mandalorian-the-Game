@@ -16,7 +16,7 @@ class obj:
     def write_self_on_board(self, gameboard):
         for i in range(self.h):
             for j in range(self.w):
-                if(self.style[i][j]!=' '):
+                if(self.style[i][j] != ' '):
                     gameboard.board[i+self.x][j+self.y][0] = self.style[i][j]
                     gameboard.board[i+self.x][j+self.y][1] = self.type
                 else:

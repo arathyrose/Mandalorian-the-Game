@@ -55,7 +55,7 @@ class gameboard:
         startat = self.columns-2-leng
         for i in range(leng):
             self.board[0][i+startat][0] = scorename[i]
-            
+
     def print(self):
         self.score_update()
         # The top menu
@@ -96,4 +96,3 @@ class gameboard:
                 self.board[i+2][j] = self.board[i+2][j+1]
         for i in range(0, full_board.rows):
             self.board[i+2][self.columns-1] = full_board.board[i][line_to_add]
-    

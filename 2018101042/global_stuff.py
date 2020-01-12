@@ -10,5 +10,5 @@ screen_length = 120
 screen_height = 30
 gravity = 1
 shown_until = screen_length
-length_of_beam=10
-safe_region=1
+length_of_beam = 10
+safe_region = 1
