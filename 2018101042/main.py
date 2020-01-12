@@ -8,8 +8,13 @@ import gameboard
 import time
 from person import person
 from hero import hero
-
-
+from coins import coins
+from full_board import full_board
+from getch  import getch
+def put_coins(board):
+    for i in range(30):
+        c=coins(i,50)
+        c.write_self_on_board(board)
 if __name__ == "__main__":
     term.clrscr()
     board = gameboard.gameboard(
@@ -24,9 +29,28 @@ if __name__ == "__main__":
     keys = inputs.NBInput()
     keys.nbTerm()  # enable non-blocking input
     keys.flush()
+    
+    fb=full_board(global_stuff.screen_height, global_stuff.screen_length)
+    fb.generate_background()
+    fb.randomly_add_coins_everywhere()
 
+    board.write_full_on_board(fb,0)
+    print("BOARD")
+    #print(board.board)
+    for i in range(board.rows):
+        for j in range(board.columns):
+            print(board.board[i][j][0],board.board[i][j][1])
+    
+    print("FULL BOARD")
+    for i in range(fb.rows):
+        for j in range(fb.columns):
+            print(fb.board[i][j][0],fb.board[i][j][1])
+    
+
+
+    getch()
     global_stuff.game_start_time = time.time()  # get the start time of the game
-
+    
     # the game loop goes here
     while(1):
         term.next_play()
@@ -34,10 +58,11 @@ if __name__ == "__main__":
         # h.write_self_on_board(board)
         board.print()
         h.print_direct()
-
+        #put_coins(board)
         # get input
         if keys.kbHit():  # poll for input
             global_stuff.control_pressed = keys.getCh()
+            #print(board.board)
             # print(global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
             if(global_stuff.control_pressed == 'q'):

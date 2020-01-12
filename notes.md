@@ -48,9 +48,13 @@ print(Style.DIM + 'and in dim text') # to put some style
 print(Style.RESET_ALL) # reset all changes
 ```
 
-## WELL I REFERRED THE FOLLOWING SITE: <https://github.com/shiena/ansicolor>
+## WELL I REFERRED THE FOLLOWING SITE: <https://github.com/shiena/ansicolor> for colors
 
 ## FOR CLEARING THE SCREEN USE
 
 - <http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x361.htm>
 - <https://rosettacode.org/wiki/Terminal_control/Cursor_positioning#Python>
+
+## FOR TAKING INPUT USE <https://rosettacode.org/wiki/Keyboard_input/Keypress_check>
+
+## PADDING ZEROS: <https://stackoverflow.com/questions/339007/how-to-pad-zeroes-to-a-string>

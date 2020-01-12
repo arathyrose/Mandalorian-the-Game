@@ -17,10 +17,16 @@ COLORS = {
     'Light Purple': '\x1b[1;35m',
     'Yellow': '\x1b[1;33m',
     'Light Grey': '\x1b[1;37m',
-
+    'Normal': '\x1b[40;37m',
+    'Bg1': '\x1b[40;37m',
+    'Bg2': '\x1b[40;100m',
+    'Bg3':'\x1b[40;47m',
     'Top Bar': '\x1b[1;97;44m',
     'Bottom Bar': '\x1b[1;97;44m',
-    'Normal': '\x1b[0;40;49m',
+    'Hero':'\x1b[42;1;35m',
+
+    'Coin':'\x1b[1;33;40m',
+    
 
     'Bridge Color': '\x1b[48;5;130m',
 
@@ -34,6 +40,7 @@ END_COLOR = '\033[m'
 
 
 def color_text(text, color):
+    #print(color)
     if '\x1b' in color:
         return color + text + END_COLOR
     else:
@@ -50,3 +57,5 @@ def color_text(text, color):
 if __name__ == "__main__":
     print(color_text("Hello", 'Water Color'), end="")
     print('Hello')
+    print(color_text("Hello","bg1"))
+    print(color_text("hllo","hero"))
