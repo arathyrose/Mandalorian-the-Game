@@ -13,33 +13,39 @@ class bullet(obstacle):
     
     def move_right(self,board):
         if(self.exist==1):
-            board.board[self.x][self.y][0]= ' '
-            board.board[self.x][self.y][1]='Normal'
-            board.board[self.x][self.y+1][0]= ' '
-            board.board[self.x][self.y+1][1]='Normal'
-            board.board[self.x][self.y-1][0]= ' '
-            board.board[self.x][self.y-1][1]='Normal'
-            self.y+=2
-            if(self.y>=board.columns-4):
+            try:
+                board.board[self.x][self.y][0]= ' '
+                board.board[self.x][self.y][1]='Normal'
+                board.board[self.x][self.y+1][0]= ' '
+                board.board[self.x][self.y+1][1]='Normal'
+                board.board[self.x][self.y-1][0]= ' '
+                board.board[self.x][self.y-1][1]='Normal'
+                self.y+=2
+                if(self.y+1>=board.columns):
+                    self.exist=0
+                else:
+                    board.board[self.x][self.y][0]= '≡'
+                    board.board[self.x][self.y][1]='Bullet'
+                    board.board[self.x][self.y+1][0]= '>'
+                    board.board[self.x][self.y+1][1]='Bullet'
+                    print("BULL",self.x,self.y)
+            except:
                 self.exist=0
-            else:
-                board.board[self.x][self.y][0]= '≡'
-                board.board[self.x][self.y][1]='Bullet'
-                board.board[self.x][self.y+1][0]= '>'
-                board.board[self.x][self.y+1][1]='Bullet'
-                print("BULL",self.x,self.y)
-            
+                self.deployable=0
     
     def deploy(self,hero):
-        if(self.deployable==0 or self.exist==1):
+        if(self.deployable==0):
             return 0
-        else:
-            global_stuff.bullets_left-=1 
-            self.x=hero.x
-            self.y=hero.y+4
-            self.exist=1
-            self.deployable=0
-            return 1
+        elif(self.deployable==1):
+            try:
+                self.x=hero.x
+                self.y=hero.y+4
+                self.exist=1
+                self.deployable=0
+                global_stuff.bullets_left-=1 
+                return 1
+            except:
+                return 0
     
     def display(self,board):
         if(self.exist==1):

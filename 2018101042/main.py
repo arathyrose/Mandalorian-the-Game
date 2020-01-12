@@ -101,10 +101,10 @@ if __name__ == "__main__":
                 h.collision_manager(board)
             restore_bullet+=1
             if(restore_bullet==5):
-                global_stuff.bullets_left+=1
                 for i in range(global_stuff.total_bullets):
-                    if(bullet_list[i].deployable==0):
+                    if(bullet_list[i].deployable==0 and bullet_list[i].exist==0):
                         bullet_list[i].deployable=1
+                        global_stuff.bullets_left+=1
                         break
                 if(global_stuff.bullets_left>global_stuff.total_bullets):
                     global_stuff.bullets_left=global_stuff.total_bullets
