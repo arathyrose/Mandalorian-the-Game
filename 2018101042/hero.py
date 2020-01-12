@@ -28,7 +28,14 @@ class hero(person):
         self.movingDownSpeed = global_stuff.gravity
         self.movingLeftSpeed = 0
         self.movingRightSpeed = 0
-
+    def collision_manager(self,board):
+        for i in range(2):
+            for j in range(2):
+                if(board.board[self.x+i][self.y+j][1]=='Coin'):
+                    board.board[self.x+i][self.y+j][0]=' '
+                    board.board[self.x+i][self.y+j][1]='Normal'
+                    global_stuff.score+=10 #10 score per coin collected
+                    global_stuff.coins_collected+=1
     """ def move(self, direction):
         if(direction == 'w'):
             self.movingUpSpeed += 1

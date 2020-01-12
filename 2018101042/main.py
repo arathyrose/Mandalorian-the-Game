@@ -52,7 +52,7 @@ if __name__ == "__main__":
         for j in range(fb.columns):
             print(fb.board[i][j][0],fb.board[i][j][1])
      """
-    some_random_variable_that_determines_if_gravity_is_ok = 0
+    gravity_ok = 0
     global_stuff.game_start_time = time.time()  # get the start time of the game
     print("Game starts at "+str(global_stuff.game_start_time))
     # getch()
@@ -72,18 +72,21 @@ if __name__ == "__main__":
             # print(board.board)
             print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
+            h.collision_manager(board)
             if(global_stuff.control_pressed == 'q'):
                 break
         # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
         if(time.time()-last_shift_time >= 0.5):
             last_shift_time = time.time()
+            h.collision_manager(board)
             #print('SHIFTING EVERYTHING')
             board.shift_right(fb, global_stuff.shown_until)
             global_stuff.shown_until += 1
-            some_random_variable_that_determines_if_gravity_is_ok += 1
-            if(some_random_variable_that_determines_if_gravity_is_ok == 2):  # change this to change gravy
+            gravity_ok += 1
+            if(gravity_ok == 2):  # change this to change gravy
                 h.move("down")  # gravity :)
-                some_random_variable_that_determines_if_gravity_is_ok = 0
+                gravity_ok = 0
+                h.collision_manager(board)
         time.sleep(0.05)
     # ...
     term.clrscr()

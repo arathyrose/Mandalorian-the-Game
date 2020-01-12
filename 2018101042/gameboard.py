@@ -36,11 +36,7 @@ class gameboard:
         for i in range(leng):
             self.board[0][i+startat][0] = gamename[i]  # put the game name
         # put the score
-        scorename = "SCORE: "+str(global_stuff.score).rjust(10, "0")
-        leng = len(scorename)
-        startat = columns-2-leng
-        for i in range(leng):
-            self.board[0][i+startat][0] = scorename[i]
+        self.score_update()
         # The game body
         for i in range(2, self.rows-3):
             for j in range(self.columns):
@@ -52,7 +48,16 @@ class gameboard:
                 self.board[i][j][0] = " "
                 self.board[i][j][1] = "Bottom Bar"
 
+    def score_update(self):
+        # put the score
+        scorename = "SCORE: "+str(global_stuff.score).rjust(10, "0")
+        leng = len(scorename)
+        startat = self.columns-2-leng
+        for i in range(leng):
+            self.board[0][i+startat][0] = scorename[i]
+            
     def print(self):
+        self.score_update()
         # The top menu
         print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):
@@ -91,3 +96,4 @@ class gameboard:
                 self.board[i+2][j] = self.board[i+2][j+1]
         for i in range(0, full_board.rows):
             self.board[i+2][self.columns-1] = full_board.board[i][line_to_add]
+    
