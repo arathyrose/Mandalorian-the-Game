@@ -101,6 +101,8 @@ class gameboard:
         k=""
         for _ in range(global_stuff.bullets_left):
             k+="> "
+        for _ in range(global_stuff.bullets_left,global_stuff.total_bullets):
+            k+="  "
         lf+=k
         leng=len(lf)
         for i in range(leng):

@@ -34,7 +34,7 @@ COLORS = {
     'Dbeam2': '\x1b[38;5;200m',
     'Bridge Color': '\x1b[48;5;130m',
 
-    'Bullets Color': '\x1b[38;5;208m',
+    'Bullet': '\x1b[38;5;208m',
     'Extras Bridge': '\x1b[38;5;82m',
     'Water Color': '\x1b[48;5;39m',
     'Fish Color': '\x1b[38;5;130m',

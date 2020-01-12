@@ -78,13 +78,20 @@ if __name__ == "__main__":
             print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
             h.collision_manager(board)
-            if(global_stuff.control_pressed == 'q'):
+            if(global_stuff.control_pressed==' '):
+                for i in range(global_stuff.total_bullets):
+                    if(bullet_list[i].deploy(h)==1):
+                        break
+            elif(global_stuff.control_pressed == 'q'):
                 break
+            global_stuff.control_pressed=None
         # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
         if(time.time()-last_shift_time >= global_stuff.move_left_time):
             last_shift_time = time.time()
             h.collision_manager(board)
             #print('SHIFTING EVERYTHING')
+            for i in range(global_stuff.total_bullets):
+                bullet_list[i].move_right(board)
             board.shift_right(fb, global_stuff.shown_until)
             global_stuff.shown_until += 1
             gravity_ok += 1
