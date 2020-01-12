@@ -9,4 +9,4 @@ game_start_time = 0
 screen_length = 120
 screen_height = 30
 gravity = 1
-shown_until=0
+shown_until=screen_length

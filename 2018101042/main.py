@@ -35,7 +35,7 @@ if __name__ == "__main__":
     fb.randomly_add_coins_everywhere()
 
     board.write_full_on_board(fb,0)
-    print("BOARD")
+    """ print("BOARD")
     #print(board.board)
     for i in range(board.rows):
         for j in range(board.columns):
@@ -45,12 +45,12 @@ if __name__ == "__main__":
     for i in range(fb.rows):
         for j in range(fb.columns):
             print(fb.board[i][j][0],fb.board[i][j][1])
-    
+     """
 
-
-    getch()
     global_stuff.game_start_time = time.time()  # get the start time of the game
-    
+    print("Game starts at "+str(global_stuff.game_start_time))
+    getch()
+    last_shift_time=global_stuff.game_start_time
     # the game loop goes here
     while(1):
         term.next_play()
@@ -62,12 +62,19 @@ if __name__ == "__main__":
         # get input
         if keys.kbHit():  # poll for input
             global_stuff.control_pressed = keys.getCh()
+            #h.move("up")
             #print(board.board)
-            # print(global_stuff.control_pressed)
+            print(h.x,h.y,global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
             if(global_stuff.control_pressed == 'q'):
                 break
-        time.sleep(0.2)
+        # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
+        if(time.time()-last_shift_time>=0.5):
+            last_shift_time=time.time()
+            print('SHIFTING EVERYTHING')
+            board.shift_right(fb,global_stuff.shown_until)
+            global_stuff.shown_until+=1
+        time.sleep(0.05)
     # ...
     term.clrscr()
     print("GAME OVER")

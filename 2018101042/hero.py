@@ -29,7 +29,7 @@ class hero(person):
         self.movingLeftSpeed = 0
         self.movingRightSpeed = 0
 
-    def move(self, direction):
+    """ def move(self, direction):
         if(direction == 'w'):
             self.movingUpSpeed += 1
             print('up')
@@ -41,7 +41,7 @@ class hero(person):
             print('left')
         elif (direction == 'a'):
             self.movingLeftSpeed += 1
-            print('right')
+            print('right') """
 
 """   def print_direct(self):
         print("\033[s")  # save position

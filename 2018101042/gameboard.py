@@ -78,5 +78,17 @@ class gameboard:
             print(self.board.shape,full_board.board.shape)
             print (e)
             getch()
+    
+    def shift_right(self,full_board,line_to_add):
+        '''
+        Shift everything to right every .5 seconds
+        '''
+        #board.shift_right(fb,global_stuff.shown_until)
+        for i in range(0,full_board.rows):
+            for j in range(0,self.columns-1):
+                self.board[i+2][j]=self.board[i+2][j+1]
+        for i in range(0,full_board.rows):
+            self.board[i+2][self.columns-1]=full_board.board[i][line_to_add]
+            
 
 
