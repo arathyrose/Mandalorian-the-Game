@@ -14,6 +14,7 @@ import getch
 import random
 from beam import beam
 
+
 class full_board():
     def __init__(self, rows, columns):
 

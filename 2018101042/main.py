@@ -14,6 +14,7 @@ from full_board import full_board
 
 from bullet import bullet
 
+
 def put_coins(board):
     for i in range(30):
         c = coins(i, 50)
@@ -55,10 +56,10 @@ if __name__ == "__main__":
             print(fb.board[i][j][0],fb.board[i][j][1])
      """
     gravity_ok = 0
-    restore_bullet=0
+    restore_bullet = 0
     bullet_list = [bullet() for _ in range(10)]
     for i in range(global_stuff.bullets_left):
-        bullet_list[i].deployable=1
+        bullet_list[i].deployable = 1
     print("Game starts at "+str(global_stuff.game_start_time))
     # getch()
     last_shift_time = global_stuff.game_start_time
@@ -78,13 +79,13 @@ if __name__ == "__main__":
             print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
             h.collision_manager(board)
-            if(global_stuff.control_pressed==' '):
+            if(global_stuff.control_pressed == ' '):
                 for i in range(global_stuff.total_bullets):
-                    if(bullet_list[i].deploy(h)==1):
+                    if(bullet_list[i].deploy(h) == 1):
                         break
             elif(global_stuff.control_pressed == 'q'):
                 break
-            global_stuff.control_pressed=None
+            global_stuff.control_pressed = None
         # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
         if(time.time()-last_shift_time >= global_stuff.move_left_time):
             last_shift_time = time.time()
@@ -99,16 +100,16 @@ if __name__ == "__main__":
                 h.move("down")  # gravity :)
                 gravity_ok = 0
                 h.collision_manager(board)
-            restore_bullet+=1
-            if(restore_bullet==5):
+            restore_bullet += 1
+            if(restore_bullet == 5):
                 for i in range(global_stuff.total_bullets):
-                    if(bullet_list[i].deployable==0 and bullet_list[i].exist==0):
-                        bullet_list[i].deployable=1
-                        global_stuff.bullets_left+=1
+                    if(bullet_list[i].deployable == 0 and bullet_list[i].exist == 0):
+                        bullet_list[i].deployable = 1
+                        global_stuff.bullets_left += 1
                         break
-                if(global_stuff.bullets_left>global_stuff.total_bullets):
-                    global_stuff.bullets_left=global_stuff.total_bullets
-                restore_bullet=0
+                if(global_stuff.bullets_left > global_stuff.total_bullets):
+                    global_stuff.bullets_left = global_stuff.total_bullets
+                restore_bullet = 0
         time.sleep(global_stuff.frame_refresh_time)
     # ...
     term.clrscr()

@@ -23,7 +23,7 @@ import global_stuff
 class hero(person):
     def __init__(self):
         super().__init__(global_stuff.screen_height - 5,
-                         0, 2, 2, [['▄','[' ], ['|', '|']], "Hero")
+                         0, 2, 2, [['▄', '['], ['|', '|']], "Hero")
         self.movingUpSpeed = 0
         self.movingDownSpeed = global_stuff.gravity
         self.movingLeftSpeed = 0
