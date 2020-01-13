@@ -129,7 +129,7 @@ and the following functions
 
 ### 8. POWER-UPs
 
-Denotes power-ups: shield and speed-boost
+Denotes power-ups: shield ░ and speed-boost A and extra life +
 
 It inherits from OBSTACLES and has the following attributes
 
@@ -165,20 +165,27 @@ and the following functions
 
 (to be built later)
 
-## THINGS LEFT TO DO
+## THINGS DONE
 
 [x] Collision with beams
-[ ] power-ups
 [x] globalize the speed of the game
 [x] bullets
 [x] destroy beams
-[ ] main boss guy
 [x] display the life remaining
 [x] display the time remaining
-[ ] display the powerups active
-[ ] Bossy
 [x] make life red in color with white bg
 [x] make time left green in color with white bg
 [x] bullets (again)
 [x] make the hero white backgrounded with cyan trim color
 [x] limited and displayed the number of bullets
+
+## THINGS LEFT TO DO
+
+[ ] power-ups
+[ ] main boss guy
+[ ] display the powerups active
+[ ] Bossy
+[ ] rewrite the obstacle generation thingy
+[x] power-up colors
+[ ] power-up obstacle declaration
+[ ] power-up def
