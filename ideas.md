@@ -167,10 +167,10 @@ and the following functions
 
 ## THINGS LEFT TO DO
 
-[ ] Collision with beams
+[x] Collision with beams
 [ ] power-ups
 [x] globalize the speed of the game
-[ ] bullets
+[x] bullets
 [ ] destroy beams
 [ ] main boss guy
 [x] display the life remaining
@@ -179,6 +179,6 @@ and the following functions
 [ ] Bossy
 [ ] make life red in color with white bg
 [ ] make time left green in color with white bg
-[ ] bullets (again)
+[x] bullets (again)
 [ ] make the hero white backgrounded with cyan trim color
 [x] limited and displayed the number of bullets
