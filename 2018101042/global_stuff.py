@@ -16,6 +16,15 @@ safe_region = 1
 total_life = 10
 lives_remaining = total_life
 frame_refresh_time = 0.05
+
 move_left_time = 0.5
+
+shielded_power_up_counter=-1
+shielded=0
+
+speeded_power_up_counter=-1
+
 bullets_left = 3  # count of deployable bullets
 total_bullets = 10
+
+snek=0

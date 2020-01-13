@@ -18,7 +18,7 @@ and the following functions:
 
 from person import person
 import global_stuff
-
+from powerUp import powerup
 
 class hero(person):
     def __init__(self):
@@ -43,6 +43,9 @@ class hero(person):
                     global_stuff.score+=10
                 elif(what_is_destroyed=='Hbeam' or what_is_destroyed=='Vbeam' or what_is_destroyed=='Dbeam1' or what_is_destroyed=='Dbeam2'):
                     global_stuff.lives_remaining-=1
+                elif(what_is_destroyed=='ExtraLife'):
+                    p= powerup('ExtraLife',self.x+i,self.y+j)
+                    p.collect(board)
     """ def move(self, direction):
         if(direction == 'w'):
             self.movingUpSpeed += 1

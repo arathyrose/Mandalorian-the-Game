@@ -43,9 +43,10 @@ COLORS = {
     'Life':'\x1b[31;1;100m',
     'Time':'\x1b[32;1;100m',
     
-    'ExtraLife':'\x1b[42;5;37m',
-    'ShieldPU':'\x1b[46;5;37m',
-    'SpeedBoost':'\x1b[42;5;37m'
+    'ExtraLife':'\x1b[42;1;37m',
+    'ShieldPU':'\x1b[46;1;37m',
+    'SpeedBoost':'\x1b[42;5;37m',
+    'Snek':'\x1b[0;32m'
 }
 END_COLOR = '\033[m'
 

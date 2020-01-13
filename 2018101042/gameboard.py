@@ -245,3 +245,7 @@ class gameboard:
             except:
                 pass
             return 'Dbeam2'
+        elif(self.board[X][Y][1]=='ExtraLife'):
+            self.board[X][Y][0]=' '
+            self.board[X][Y][1]='Normal'
+            return 'ExtraLife'

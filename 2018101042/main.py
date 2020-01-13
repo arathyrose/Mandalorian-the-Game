@@ -38,11 +38,7 @@ if __name__ == "__main__":
     keys.flush()
 
     fb = full_board(global_stuff.screen_height, global_stuff.screen_length)
-    fb.generate_background()
-    fb.randomly_add_coins_everywhere()
-    fb.randomly_add_hbeams()
-    fb.randomly_add_vbeams()
-    fb.randomly_add_coins_dbeams()
+    fb.prepare_board()
     board.write_full_on_board(fb, 0)
     """ print("BOARD")
     #print(board.board)
@@ -70,6 +66,7 @@ if __name__ == "__main__":
         # h.write_self_on_board(board)
         board.print()
         h.print_direct()
+        print(global_stuff.shown_until)
         # put_coins(board)
         # get input
         if keys.kbHit():  # poll for input
