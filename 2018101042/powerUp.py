@@ -34,12 +34,12 @@ class powerup(obstacle):
             super().__init__(xpos, ypos, 1, 1, '$', 'Snek')
 
     def collect(self, board):
-        print(self.type)
+        # print(self.type)
         super().destroy_self(board)
         if(self.type == 'sh' or self.type == 'shield'or self.type == 'ShieldPU'):
             global_stuff.shielded_power_up_counter = 0
             global_stuff.shielded = 1
-        elif(self.type == 'sp'or self.type == 'speed'or self.type =='SpeedBoost'):
+        elif(self.type == 'sp'or self.type == 'speed'or self.type == 'SpeedBoost'):
             global_stuff.speeded_power_up_counter = 0
             global_stuff.move_left_time /= 2
         elif(self.type == 'xl' or self.type == 'extra life'or self.type == 'ExtraLife'):

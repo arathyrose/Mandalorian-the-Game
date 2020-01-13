@@ -41,12 +41,13 @@ class gameboard:
                 self.board[i][j][0] = " "
                 self.board[i][j][1] = "Bottom Bar"
         # Adding beautiful stuff
-        global_stuff.game_start_time=time.time()
+        global_stuff.game_start_time = time.time()
         self.gamename_display()        # put the game name
         self.score_update()        # put the score
         self.life_display()
         self.time_display()
         self.bullets_display()
+
     def gamename_display(self):
         # put the game name
         gamename = "THE MANDALORIAN: THE GAME"
@@ -54,6 +55,7 @@ class gameboard:
         startat = 2  # int(columns/2-leng/2)
         for i in range(leng):
             self.board[0][i+startat][0] = gamename[i]  # put the game name
+
     def score_update(self):
         # put the score
         scorename = "SCORE: "+str(global_stuff.score).rjust(10, "0")
@@ -61,58 +63,63 @@ class gameboard:
         startat = self.columns-2-leng
         for i in range(leng):
             self.board[0][i+startat][0] = scorename[i]
+
     def life_display(self):
-        #put the life
-        lf="LIFE:     "
-        #totally print columns/2 -10 of which all of them are " " except the first life_remaining/total_life
-        percentage_to_fill=global_stuff.lives_remaining/global_stuff.total_life
-        totwid=int(self.columns/2-10)
-        fill=int(percentage_to_fill*totwid)
-        k=""
+        # put the life
+        lf = "LIFE:     "
+        # totally print columns/2 -10 of which all of them are " " except the first life_remaining/total_life
+        percentage_to_fill = global_stuff.lives_remaining/global_stuff.total_life
+        totwid = int(self.columns/2-10)
+        fill = int(percentage_to_fill*totwid)
+        k = ""
         for _ in range(fill):
-            k+="█"
-        for _ in range(fill,totwid):
-            k+=" "
-        leng=len(lf)
+            k += "█"
+        for _ in range(fill, totwid):
+            k += " "
+        leng = len(lf)
         for i in range(leng):
             self.board[self.rows-3][i][0] = lf[i]  # put the life left
-        ln=len(k)
+        ln = len(k)
         for i in range(ln):
             self.board[self.rows-3][i+leng][0] = k[i]  # put the life left
             self.board[self.rows-3][i+leng][1] = "Life"
+
     def time_display(self):
-        #put the time
-        lf="TIME LEFT:"
-        #totally print columns/2 -10 of which all of them are " " except the first few
-        global_stuff.time_left=int(global_stuff.total_time-(-global_stuff.game_start_time+time.time()))
-        percentage_to_fill=global_stuff.time_left/global_stuff.total_time
-        totwid=int(self.columns/2-10)
-        fill=int(percentage_to_fill*totwid)
-        #print(global_stuff.game_start_time,global_stuff.time_left,fill,totwid)
-        k=""
+        # put the time
+        lf = "TIME LEFT:"
+        # totally print columns/2 -10 of which all of them are " " except the first few
+        global_stuff.time_left = int(
+            global_stuff.total_time-(-global_stuff.game_start_time+time.time()))
+        percentage_to_fill = global_stuff.time_left/global_stuff.total_time
+        totwid = int(self.columns/2-10)
+        fill = int(percentage_to_fill*totwid)
+        # print(global_stuff.game_start_time,global_stuff.time_left,fill,totwid)
+        k = ""
         for _ in range(fill):
-            k+="█"
-        for _ in range(fill,totwid):
-            k+=" "
-        leng=len(lf)
+            k += "█"
+        for _ in range(fill, totwid):
+            k += " "
+        leng = len(lf)
         for i in range(leng):
             self.board[self.rows-2][i][0] = lf[i]  # put the life left
-        ln=len(k)
+        ln = len(k)
         for i in range(ln):
             self.board[self.rows-2][i+leng][0] = k[i]  # put the time left
-            self.board[self.rows-2][i+leng][1] = 'Time' 
+            self.board[self.rows-2][i+leng][1] = 'Time'
+
     def bullets_display(self):
-        #put the bullets left
-        lf="BULLETS LEFT:      "
-        k=""
+        # put the bullets left
+        lf = "BULLETS LEFT:      "
+        k = ""
         for _ in range(global_stuff.bullets_left):
-            k+="> "
-        for _ in range(global_stuff.bullets_left,global_stuff.total_bullets):
-            k+="  "
-        lf+=k
-        leng=len(lf)
+            k += "> "
+        for _ in range(global_stuff.bullets_left, global_stuff.total_bullets):
+            k += "  "
+        lf += k
+        leng = len(lf)
         for i in range(leng):
             self.board[self.rows-1][i][0] = lf[i]  # put the game name
+
     def print(self):
         self.score_update()
         self.life_display()
@@ -157,95 +164,96 @@ class gameboard:
         for i in range(0, full_board.rows):
             self.board[i+2][self.columns-1] = full_board.board[i][line_to_add]
 
-    def destroy_object(self,X,Y): #deals with coins and beams only
-        if(self.board[X][Y][1]=='Normal' or self.board[X][Y][1]=='Bg1' or self.board[X][Y][1]=='Bg2' ):
+    def destroy_object(self, X, Y):  # deals with coins and beams only
+        if(self.board[X][Y][1] == 'Normal' or self.board[X][Y][1] == 'Bg1' or self.board[X][Y][1] == 'Bg2'):
             return "No collision"
-        elif(self.board[X][Y][1]=='Coin'): # coin collision is actually not dealt with here, it was included here for name sake
+        # coin collision is actually not dealt with here, it was included here for name sake
+        elif(self.board[X][Y][1] == 'Coin'):
             # nope, collision of coin by bullets does give points but only 5
             # why? Your bullet did the dirty work
-            self.board[X][Y][0]=' '
-            self.board[X][Y][1]='Normal'
+            self.board[X][Y][0] = ' '
+            self.board[X][Y][1] = 'Normal'
             # global_stuff.score+=5
             return "Coin"
-        elif(self.board[X][Y][1]=='Hbeam'): #aah Horizontal beam
+        elif(self.board[X][Y][1] == 'Hbeam'):  # aah Horizontal beam
             # no matter who touches the beam, the beam disappears... so
             # but what exactly is the beam?
             # all those continuous points on the same line that have the label 'Hbeam' while they say labels are important..
             # the score system will be discussed later
             # I mean, no score for dying
             # 50 for shooting a beam
-            try: # for left side
-                i=0
-                while (self.board[X][Y+i][1]=='Hbeam'):
-                    self.board[X][Y+i][0]=' '
-                    self.board[X][Y+i][1]='Normal'
-                    i+=1
+            try:  # for left side
+                i = 0
+                while (self.board[X][Y+i][1] == 'Hbeam'):
+                    self.board[X][Y+i][0] = ' '
+                    self.board[X][Y+i][1] = 'Normal'
+                    i += 1
             except:
                 pass
-            try: # for right side
-                i=1
-                while (self.board[X][Y-i][1]=='Hbeam'):
-                    self.board[X][Y-i][0]=' '
-                    self.board[X][Y-i][1]='Normal'
-                    i+=1
+            try:  # for right side
+                i = 1
+                while (self.board[X][Y-i][1] == 'Hbeam'):
+                    self.board[X][Y-i][0] = ' '
+                    self.board[X][Y-i][1] = 'Normal'
+                    i += 1
             except:
                 pass
             return 'Hbeam'
-        elif (self.board[X][Y][1]=='Vbeam'): # aah verical beam
-            try: # for up or down
-                i=0
-                while (self.board[X+i][Y][1]=='Vbeam'):
-                    self.board[X+i][Y][0]=' '
-                    self.board[X+i][Y][1]='Normal'
-                    i+=1
+        elif (self.board[X][Y][1] == 'Vbeam'):  # aah verical beam
+            try:  # for up or down
+                i = 0
+                while (self.board[X+i][Y][1] == 'Vbeam'):
+                    self.board[X+i][Y][0] = ' '
+                    self.board[X+i][Y][1] = 'Normal'
+                    i += 1
             except:
                 pass
-            try: # for the other thing
-                i=1
-                while (self.board[X-i][Y][1]=='Vbeam'):
-                    self.board[X-i][Y][0]=' '
-                    self.board[X-i][Y][1]='Normal'
-                    i+=1
+            try:  # for the other thing
+                i = 1
+                while (self.board[X-i][Y][1] == 'Vbeam'):
+                    self.board[X-i][Y][0] = ' '
+                    self.board[X-i][Y][1] = 'Normal'
+                    i += 1
             except:
                 pass
             return 'Vbeam'
-        elif (self.board[X][Y][1]=='Dbeam1'): # aah verical beam
-            try: # for up or down
-                i=0
-                while (self.board[X+i][Y+i][1]=='Dbeam1'):
-                    self.board[X+i][Y+i][0]=' '
-                    self.board[X+i][Y+i][1]='Normal'
-                    i+=1
+        elif (self.board[X][Y][1] == 'Dbeam1'):  # aah verical beam
+            try:  # for up or down
+                i = 0
+                while (self.board[X+i][Y+i][1] == 'Dbeam1'):
+                    self.board[X+i][Y+i][0] = ' '
+                    self.board[X+i][Y+i][1] = 'Normal'
+                    i += 1
             except:
                 pass
-            try: # for the other thing
-                i=1
-                while (self.board[X-i][Y-i][1]=='Dbeam1'):
-                    self.board[X-i][Y-i][0]=' '
-                    self.board[X-i][Y-i][1]='Normal'
-                    i+=1
+            try:  # for the other thing
+                i = 1
+                while (self.board[X-i][Y-i][1] == 'Dbeam1'):
+                    self.board[X-i][Y-i][0] = ' '
+                    self.board[X-i][Y-i][1] = 'Normal'
+                    i += 1
             except:
                 pass
             return 'Dbeam1'
-        elif(self.board[X][Y][1]=='Dbeam2'): # aah verical beam
-            try: # for up or down
-                i=0
-                while (self.board[X-i][Y+i][1]=='Dbeam2'):
-                    self.board[X-i][Y+i][0]=' '
-                    self.board[X-i][Y+i][1]='Normal'
-                    i+=1
+        elif(self.board[X][Y][1] == 'Dbeam2'):  # aah verical beam
+            try:  # for up or down
+                i = 0
+                while (self.board[X-i][Y+i][1] == 'Dbeam2'):
+                    self.board[X-i][Y+i][0] = ' '
+                    self.board[X-i][Y+i][1] = 'Normal'
+                    i += 1
             except:
                 pass
-            try: # for the other thing
-                i=1
-                while (self.board[X+i][Y-i][1]=='Dbeam2'):
-                    self.board[X+i][Y-i][0]=' '
-                    self.board[X+i][Y-i][1]='Normal'
-                    i+=1
+            try:  # for the other thing
+                i = 1
+                while (self.board[X+i][Y-i][1] == 'Dbeam2'):
+                    self.board[X+i][Y-i][0] = ' '
+                    self.board[X+i][Y-i][1] = 'Normal'
+                    i += 1
             except:
                 pass
             return 'Dbeam2'
-        elif(self.board[X][Y][1]=='ExtraLife'):
-            self.board[X][Y][0]=' '
-            self.board[X][Y][1]='Normal'
+        elif(self.board[X][Y][1] == 'ExtraLife'):
+            self.board[X][Y][0] = ' '
+            self.board[X][Y][1] = 'Normal'
             return 'ExtraLife'

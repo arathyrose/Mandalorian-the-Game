@@ -16,13 +16,13 @@ class bullet(obstacle):
     def move_right(self, board):
         if(self.exist == 1):
             try:
-                for i in range(-1,4):
-                    what_is_destroyed=board.destroy_object(self.x,self.y+i)
-                    if(what_is_destroyed=='Coin'):
-                        global_stuff.score+=5 # 5 for coin collectino by slave
-                    elif (what_is_destroyed=='Hbeam' or what_is_destroyed=='Vbeam' or what_is_destroyed=='Dbeam1' or what_is_destroyed=='Dbeam2'):
-                        global_stuff.score+=20 # 20 per beam destroyed
-                        self.exist=0
+                for i in range(-1, 4):
+                    what_is_destroyed = board.destroy_object(self.x, self.y+i)
+                    if(what_is_destroyed == 'Coin'):
+                        global_stuff.score += 5  # 5 for coin collectino by slave
+                    elif (what_is_destroyed == 'Hbeam' or what_is_destroyed == 'Vbeam' or what_is_destroyed == 'Dbeam1' or what_is_destroyed == 'Dbeam2'):
+                        global_stuff.score += 20  # 20 per beam destroyed
+                        self.exist = 0
             except:
                 pass
             try:
@@ -35,7 +35,7 @@ class bullet(obstacle):
                 self.y += 2
                 if(self.y+1 >= board.columns):
                     self.exist = 0
-                elif(self.exist==1):
+                elif(self.exist == 1):
                     board.board[self.x][self.y][0] = '≡'
                     board.board[self.x][self.y][1] = 'Bullet'
                     board.board[self.x][self.y+1][0] = '>'

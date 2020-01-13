@@ -20,6 +20,7 @@ from person import person
 import global_stuff
 from powerUp import powerup
 
+
 class hero(person):
     def __init__(self):
         super().__init__(global_stuff.screen_height - 5,
@@ -36,15 +37,15 @@ class hero(person):
                     global_stuff.score += 10  # 10 score per coin collected by hero
                     # 5 score per coin collected by the bullet
                     global_stuff.coins_collected += 1 """
-                what_is_destroyed=board.destroy_object(self.x+i,self.y+j)
-                #print(what_is_destroyed)
-                if(what_is_destroyed=='Coin'):
-                    global_stuff.coins_collected+=1
-                    global_stuff.score+=10
-                elif(what_is_destroyed=='Hbeam' or what_is_destroyed=='Vbeam' or what_is_destroyed=='Dbeam1' or what_is_destroyed=='Dbeam2'):
-                    global_stuff.lives_remaining-=1
-                elif(what_is_destroyed=='ExtraLife'):
-                    p= powerup('ExtraLife',self.x+i,self.y+j)
+                what_is_destroyed = board.destroy_object(self.x+i, self.y+j)
+                # print(what_is_destroyed)
+                if(what_is_destroyed == 'Coin'):
+                    global_stuff.coins_collected += 1
+                    global_stuff.score += 10
+                elif(what_is_destroyed == 'Hbeam' or what_is_destroyed == 'Vbeam' or what_is_destroyed == 'Dbeam1' or what_is_destroyed == 'Dbeam2'):
+                    global_stuff.lives_remaining -= 1
+                elif(what_is_destroyed == 'ExtraLife'):
+                    p = powerup(self.x+i, self.y+j, 'ExtraLife')
                     p.collect(board)
     """ def move(self, direction):
         if(direction == 'w'):

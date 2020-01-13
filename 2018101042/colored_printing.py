@@ -40,13 +40,13 @@ COLORS = {
     'Fish Color': '\x1b[38;5;130m',
     'Moving Bridges': '\x1b[48;5;94m',
 
-    'Life':'\x1b[31;1;100m',
-    'Time':'\x1b[32;1;100m',
-    
-    'ExtraLife':'\x1b[42;1;37m',
-    'ShieldPU':'\x1b[46;1;37m',
-    'SpeedBoost':'\x1b[42;5;37m',
-    'Snek':'\x1b[0;32m'
+    'Life': '\x1b[31;1;100m',
+    'Time': '\x1b[32;1;100m',
+
+    'ExtraLife': '\x1b[42;1;37m',
+    'ShieldPU': '\x1b[46;1;37m',
+    'SpeedBoost': '\x1b[42;5;37m',
+    'Snek': '\x1b[0;32m'
 }
 END_COLOR = '\033[m'
 
