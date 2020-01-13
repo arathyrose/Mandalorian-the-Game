@@ -189,3 +189,8 @@ and the following functions
 [x] power-up colors
 [ ] power-up obstacle declaration
 [ ] power-up def
+[ ] magenet
+
+## NOTE
+
+All powerups are single tiled with a symbol denoting it (similar to a coin)
