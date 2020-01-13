@@ -187,7 +187,7 @@ class full_board():
         # testing remove
         xpos = random.randint(5, self.rows-5)  # height wala cheeze
         ypos = random.randint(60, 80)
-        sp = powerup(xpos, ypos, 'xl')
+        sp = powerup(xpos, ypos, 'snek')
         sp.write_self_on_board(self)
 
         while True:
