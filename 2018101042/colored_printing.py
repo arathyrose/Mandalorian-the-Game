@@ -23,7 +23,7 @@ COLORS = {
     'Bg3': '\x1b[40;47m',
     'Top Bar': '\x1b[1;97;44m',
     'Bottom Bar': '\x1b[1;97;44m',
-    'Hero': '\x1b[42;1;35m',
+    'Hero': '\x1b[1;36;47m',
 
     'Coin': '\x1b[1;33;40m',
 
@@ -38,7 +38,10 @@ COLORS = {
     'Extras Bridge': '\x1b[38;5;82m',
     'Water Color': '\x1b[48;5;39m',
     'Fish Color': '\x1b[38;5;130m',
-    'Moving Bridges': '\x1b[48;5;94m'
+    'Moving Bridges': '\x1b[48;5;94m',
+
+    'Life':'\x1b[31;1;100m',
+    'Time':'\x1b[32;1;100m'
 }
 END_COLOR = '\033[m'
 

@@ -171,14 +171,14 @@ and the following functions
 [ ] power-ups
 [x] globalize the speed of the game
 [x] bullets
-[ ] destroy beams
+[x] destroy beams
 [ ] main boss guy
 [x] display the life remaining
 [x] display the time remaining
 [ ] display the powerups active
 [ ] Bossy
-[ ] make life red in color with white bg
-[ ] make time left green in color with white bg
+[x] make life red in color with white bg
+[x] make time left green in color with white bg
 [x] bullets (again)
-[ ] make the hero white backgrounded with cyan trim color
+[x] make the hero white backgrounded with cyan trim color
 [x] limited and displayed the number of bullets

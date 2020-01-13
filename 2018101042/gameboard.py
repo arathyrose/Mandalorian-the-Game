@@ -73,10 +73,13 @@ class gameboard:
             k+="█"
         for _ in range(fill,totwid):
             k+=" "
-        lf+=k
         leng=len(lf)
         for i in range(leng):
-            self.board[self.rows-3][i][0] = lf[i]  # put the game name
+            self.board[self.rows-3][i][0] = lf[i]  # put the life left
+        ln=len(k)
+        for i in range(ln):
+            self.board[self.rows-3][i+leng][0] = k[i]  # put the life left
+            self.board[self.rows-3][i+leng][1] = "Life"
     def time_display(self):
         #put the time
         lf="TIME LEFT:"
@@ -91,10 +94,13 @@ class gameboard:
             k+="█"
         for _ in range(fill,totwid):
             k+=" "
-        lf+=k
         leng=len(lf)
         for i in range(leng):
-            self.board[self.rows-2][i][0] = lf[i]  # put the game name
+            self.board[self.rows-2][i][0] = lf[i]  # put the life left
+        ln=len(k)
+        for i in range(ln):
+            self.board[self.rows-2][i+leng][0] = k[i]  # put the time left
+            self.board[self.rows-2][i+leng][1] = 'Time' 
     def bullets_display(self):
         #put the bullets left
         lf="BULLETS LEFT:      "
