@@ -11,8 +11,10 @@ screen_length = 120
 screen_height = 30
 gravity = 1
 shown_until = screen_length
+
 length_of_beam = 10
 safe_region = 1
+
 total_life = 10
 lives_remaining = total_life
 frame_refresh_time = 0.05
@@ -33,3 +35,4 @@ debug = 0
 powerUpTesting = 1
 
 total_no_screens = 10
+enemy_comes_after = 5

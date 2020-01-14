@@ -15,6 +15,7 @@ class bullet(obstacle):
 
     def move_right(self, board):
         if(self.exist == 1):
+            no_destroy_anything = 0
             try:
                 for i in range(-1, 4):
                     what_is_destroyed = board.destroy_object(self.x, self.y+i)
@@ -23,13 +24,17 @@ class bullet(obstacle):
                     elif (what_is_destroyed == 'Hbeam' or what_is_destroyed == 'Vbeam' or what_is_destroyed == 'Dbeam1' or what_is_destroyed == 'Dbeam2'):
                         global_stuff.score += 20  # 20 per beam destroyed
                         self.exist = 0
+                    elif(what_is_destroyed == 'Magnet'):
+                        self.exist = 0
+                        no_destroy_anything = 1
             except:
                 pass
             try:
                 board.board[self.x][self.y][0] = ' '
                 board.board[self.x][self.y][1] = 'Normal'
-                board.board[self.x][self.y+1][0] = ' '
-                board.board[self.x][self.y+1][1] = 'Normal'
+                if(no_destroy_anything == 0):
+                    board.board[self.x][self.y+1][0] = ' '
+                    board.board[self.x][self.y+1][1] = 'Normal'
                 board.board[self.x][self.y-1][0] = ' '
                 board.board[self.x][self.y-1][1] = 'Normal'
                 self.y += 2

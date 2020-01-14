@@ -224,3 +224,48 @@ All powerups are single tiled with a symbol denoting it (similar to a coin)
 20. Define powerups
 21. Make the character collect powerups
 22. Globalize the speed of the game, the length of the game
+
+## Discussion regarding the length of the game
+
+The length of the game is now 10 minutes. (It isn't a short game, so TA be warned)
+The following calculations were done to reach the above claim:
+
+```less
+For each move left screen transition, time taken = 0.5 s
+So, time taken for an entire screen transition = 0.5 * screen_length = 0.5 * 200 = 100 s = 1 min 40 sec
+Number of screens permissable for a 10 min game = 10 * 60 / 100 = 6 screens
+The game gets over within 5 screens (time taken is 100 s * 5 = 500 s = 8 min 20 seconds)
+The remaining time is used to kill the boss enemy.
+Even as the enemy comes, the screen would continue to move front
+The enemy should be killed within a minute or less; that's where your skill lies
+```
+
+## PLAN OF PLACING THE OBSTACLES AND POWER-UPS
+
+In each case, `placing if permissible` means that, if we place the item, if it collides, we would retry placing it, till 100 attempts have been made and then give up
+
+| Type of obstacle | Shape                                                                                    | Location | Frequency                             |
+| ---------------- | ---------------------------------------------------------------------------------------- | -------- | ------------------------------------- |
+| Coins            | Rectangle with dimensions random(2,7)xrandom(10,30)                                      | (0,9)    | 2 on the first screen, 4 per screen   |
+| Horizontal Beam  | Rectangle with dimensions (2 x safe_region+1) x (length_of_beam + 2 x safe_region)       | (0.5,5)  | 2 per screen (placing if permissible) |
+| Vertical Beam    | Rectangle with dimensions ( (length_of_beam / 2) + 2 x safe_region ) x 2 * safe_region ) | (0.5,5)  | 2 per screen (placing if permissible) |
+| Diagonal Beam 1  | Square with dimensions ( ( length_of_beam / 1.5) + 2 x safe_region)                      | (0.5,5)  | 2 per screen (placing if permissible) |
+| Diagonal Beam 2  | Square with dimensions ( ( length_of_beam / 1.5) + 2 x safe_region)                      | (0.5,5)  | 2 per screen (placing if permissible) |
+| Extra Life PU      | Square with dimension 1                                                                  | (1,9)    | 1 per screen                          |
+| Speed up PU        | Square with dimension 1                                                                  | (0,5)    | 1 per screen                          |
+| Snake PU           | Square with dimension 1                                                                  | (.5,1.5)   | 1 per screen                          |
+| Shield PU          | Square with dimension 1                                                                  | (0,5)    | 2 per screen                          |
+|Magnet|Square with dimension 7|3|1|
+
+## DURATION OF EACH POWER-UP IN TERMS OF NUMBER OF SCREEN PASSES
+
+- Only one Speed Up can be active at a time; if collected more than once, there is no effect
+- Only one Shield Up can be active at a time; if collected more than once, there is no effect; i.e. no stacking of shields
+- Care should be taken that the snake does not reach the main boss at any time (won't it be complicated that way?)
+
+| Power-up type | Duration          |
+| ------------- | ----------------- |
+| Extra life    | NA                |
+| Speed up      | 50 screen passes  |
+| Snake         | 50 screen passes  |
+| Shield        | 100 screen passes |

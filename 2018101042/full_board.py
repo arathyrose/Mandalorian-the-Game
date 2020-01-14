@@ -14,6 +14,7 @@ import getch
 import random
 from beam import beam
 from powerUp import powerup
+from magnet import magnet
 
 
 class full_board():
@@ -23,7 +24,8 @@ class full_board():
         self.columns = columns*global_stuff.total_no_screens
 
         # the first element stores the ASCII char to be printed
-        self.board = np.full((self.rows, self.columns, 2), " "*global_stuff.total_no_screens)
+        self.board = np.full((self.rows, self.columns, 2),
+                             " "*global_stuff.total_no_screens)
         # the second element stores the type of the element
 
     def generate_background(self):
@@ -48,7 +50,7 @@ class full_board():
             print("Generating coins...")
         for i in range(11):  # four blocks of coins of random width and height at a distance of at least screen_length/4 apart
             h = random.randint(1, 7)
-            w = random.randint(1, 30)+1
+            w = random.randint(1, 30)
             xpos = int(self.rows/2 - 3+random.randint(0, 4-1))
             ypos = int(random.randint(
                 0, int(self.columns/11-1)) + (self.columns/11)*i)
@@ -216,7 +218,7 @@ class full_board():
             ypos = random.randint(5*global_stuff.screen_length,
                                   6*global_stuff.screen_length)  # 2,3 , 4,5 and 6,7
             if(global_stuff.debug == 1):
-                print(xpos, ypos, end="snek\n")
+                print(xpos, ypos)
                 getch.getch()
             sp = powerup(xpos, ypos, 'snek')
             try:
@@ -233,11 +235,50 @@ class full_board():
         for i in range(-1, 2):
             for j in range(-1, 2):
                 try:
-                    if(self.board[X+i][Y+j][1] != 'Normal'):
+                    if(self.board[X+i][Y+j][1] != 'Normal' and self.board[X+i][Y+j][1] != 'Bg1' and self.board[X+i][Y+j][1] != 'Bg2'):
+                        if(global_stuff.debug == 1):
+                            print(self.board[X+i][Y+j][1])
                         return 0
                 except:
                     continue
         return 1
+
+    def add_magnet(self):
+        if(global_stuff.debug == 1):
+            print("Generating magnet...")
+        if(global_stuff.powerUpTesting == 1):
+            kdd = 0
+        else:
+            kdd = 2
+        while(True):
+            xpos = random.randint(3, 4)
+            ypos = random.randint(
+                kdd*global_stuff.screen_length, (kdd+1)*global_stuff.screen_length)
+            m = magnet(xpos, ypos)
+            try:
+                ok = 1
+                for i in range(m.h):
+                    for j in range(m.w):
+                        if(self.is_location_alright(xpos+i, ypos+j) == 0):
+                            ok = 0
+                            if(global_stuff.debug == 1):
+                                print("Not ok at ", xpos+i, ypos+j)
+                            break
+                    if(ok == 0):
+                        break
+                if(ok == 1):
+                    m.write_self_on_board(self)
+                    if(global_stuff.debug == 1):
+                        print(xpos, ypos)
+                        getch.getch()
+                    return
+                else:
+                    if(global_stuff.debug == 1):
+                        print('occupied', xpos, ypos)
+            except Exception as e:
+                print('ERROR in', xpos, ypos)
+                print(e)
+                continue
 
     def prepare_board(self):
         self.generate_background()
@@ -246,3 +287,4 @@ class full_board():
         self.randomly_add_vbeams()
         self.randomly_add_dbeams()
         self.randomly_add_powerups()
+        self.add_magnet()

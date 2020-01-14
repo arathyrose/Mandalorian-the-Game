@@ -127,9 +127,9 @@ class gameboard:
         # put the time
         lf = "PROGRESS: "
         # totally print columns/2 -10 of which all of them are " " except the first few
-        progress = global_stuff.shown_until
+        progress = global_stuff.shown_until-global_stuff.screen_length
         percentage_to_fill = progress / \
-            (global_stuff.total_no_screens*global_stuff.screen_length)
+            (global_stuff.enemy_comes_after*global_stuff.screen_length)
         totwid = int(self.columns/2-10)
         fill = int(percentage_to_fill*totwid)
         k = ""
@@ -283,3 +283,5 @@ class gameboard:
             self.board[X][Y][0] = ' '
             self.board[X][Y][1] = 'Normal'
             return 'ExtraLife'
+        elif(self.board[X][Y][1] == 'Magnet'):
+            return 'Magnet'
