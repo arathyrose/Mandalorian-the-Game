@@ -36,10 +36,13 @@ class enemy(person):
         super().print_direct()
     
     def follow(self,h):
+        if(global_stuff.debug==1):
+            print("Following ",h.x,self.x,global_stuff.screen_height-5-3)
         if(h.x>self.x):
-            super().move("Up")
+            if(self.x<=global_stuff.screen_height-9):
+                super().move("down")
         elif(h.x<self.x):
-            super().move("Down")
+            super().move("up")
 
     def is_colliding(self,h):
         '''
