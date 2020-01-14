@@ -37,9 +37,9 @@ class enemy(person):
     
     def follow(self,h):
         if(h.x>self.x):
-            super().move("Down")
-        elif(h.x<self.x):
             super().move("Up")
+        elif(h.x<self.x):
+            super().move("Down")
 
     def is_colliding(self,h):
         '''

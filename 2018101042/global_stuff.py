@@ -69,4 +69,15 @@ enemy_style_dead = [
     [' ', '¨', '-', '¨', '-', '¨', '-', '¨', '-', '¨', ' ', ' ', ' ']
 ]
 
+def homework():
+    for i in enemy_style_1:
+        i=i.reverse()
+    for i in enemy_style_2:
+        i=i.reverse()
+    for i in enemy_style_dead:
+        i=i.reverse()
+
 touch_boss = 0
+boss_total_life = 20
+boss_life_remaining = boss_total_life
+

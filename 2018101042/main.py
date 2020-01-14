@@ -62,6 +62,7 @@ if __name__ == "__main__":
     # getch()
     last_shift_time = global_stuff.game_start_time
     isdead = "Alive"
+    global_stuff.homework()
     # the game loop goes here
     while(1):
         term.next_play()

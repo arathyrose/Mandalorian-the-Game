@@ -194,11 +194,11 @@ and the following functions
 
 - [ ] main boss guy
 - [ ] rewrite the obstacle generation thingy
-- [ ] magnet
+- [ ] magnet make attract hero
 - [ ] Adjust the game duration
 - [ ] decrease the length of the game to 5
 - [ ] Make the duration of the game according to the speed of left movement of the game screen
-
+- [ ]
 - [ ] SNAKE POWERUP
 
 ## NOTE
@@ -279,3 +279,4 @@ In each case, `placing if permissible` means that, if we place the item, if it c
 
 1. Get hit by a magnet
 2. Get hit by beams more than 10 times without getting any extra lives; (also known as kys; come on the game isn't that difficult)
+3. Get hit by the boss directly (seriously why do you want to `touch` him?)
