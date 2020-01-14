@@ -43,6 +43,7 @@ class powerup(obstacle):
         elif(self.type == 'sp'or self.type == 'speed'or self.type == 'SpeedBoost'):
             global_stuff.speeded_power_up_counter = 0
             global_stuff.move_left_time /= 2
+            global_stuff.speeded=1
         elif(self.type == 'xl' or self.type == 'extra life'or self.type == 'ExtraLife'):
             global_stuff.lives_remaining += 1
             if(global_stuff.lives_remaining >= global_stuff.total_life):

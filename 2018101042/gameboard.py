@@ -184,11 +184,22 @@ class gameboard:
         Shift everything to right every .5 seconds
         '''
         # board.shift_right(fb,global_stuff.shown_until)
-        for i in range(0, full_board.rows):
-            for j in range(0, self.columns-1):
+        for i in range(full_board.rows):
+            for j in range(self.columns-1):
                 self.board[i+2][j] = self.board[i+2][j+1]
-        for i in range(0, full_board.rows):
+        for i in range(full_board.rows):
             self.board[i+2][self.columns-1] = full_board.board[i][line_to_add]
+
+    def is_magnet_on_screen(self):
+        '''
+        Returns the y coordinate if the magnet is on the screen 
+        Otherwise -1
+        '''
+        for i in range(self.rows):
+            for j in range(self.columns):
+                if(self.board[i][j][1] == 'Magnet'):
+                    return j
+        return -1
 
     def destroy_object(self, X, Y):  # deals with coins and beams only
         if(self.board[X][Y][1] == 'Normal' or self.board[X][Y][1] == 'Bg1' or self.board[X][Y][1] == 'Bg2'):
@@ -279,9 +290,12 @@ class gameboard:
             except:
                 pass
             return 'Dbeam2'
-        elif(self.board[X][Y][1] == 'ExtraLife'):
+
+        elif(self.board[X][Y][1] == 'ExtraLife' or self.board[X][Y][1] == 'ShieldPU' or self.board[X][Y][1] == 'SpeedBoost' or self.board[X][Y][1] == 'Snek'):
+            t=self.board[X][Y][1]
             self.board[X][Y][0] = ' '
             self.board[X][Y][1] = 'Normal'
-            return 'ExtraLife'
+            return t
+
         elif(self.board[X][Y][1] == 'Magnet'):
             return 'Magnet'

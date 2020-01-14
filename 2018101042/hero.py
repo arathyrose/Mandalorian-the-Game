@@ -30,33 +30,38 @@ class hero(person):
         self.movingLeftSpeed = 0
         self.movingRightSpeed = 0
 
+    def print_direct(self):
+        if(global_stuff.shielded == 1):
+            self.type = "ShieldedHero"
+            super().print_direct()
+        elif(global_stuff.speeded == 1):
+            self.type = "SpeededHero"
+            super().print_direct()
+        else:
+            self.type = "Hero"
+            super().print_direct()
+
     def collision_manager(self, board):
         for i in range(2):
             for j in range(2):
-                """ if(board.board[self.x+i][self.y+j][1] == 'Coin'):
-                    global_stuff.score += 10  # 10 score per coin collected by hero
-                    # 5 score per coin collected by the bullet
-                    global_stuff.coins_collected += 1 """
                 what_is_destroyed = board.destroy_object(self.x+i, self.y+j)
                 if(global_stuff.debug == 1):
-                    print(what_is_destroyed)
+                #if(1):
+                    if(what_is_destroyed!="No collision"):
+                        print(what_is_destroyed)
                 if(what_is_destroyed == 'Coin'):
                     global_stuff.coins_collected += 1
                     global_stuff.score += 10
                 elif(what_is_destroyed == 'Hbeam' or what_is_destroyed == 'Vbeam' or what_is_destroyed == 'Dbeam1' or what_is_destroyed == 'Dbeam2'):
-                    global_stuff.lives_remaining -= 1
-                elif(what_is_destroyed == 'ExtraLife'):
-                    p = powerup(self.x+i, self.y+j, 'ExtraLife')
+                    if(global_stuff.shielded==1):
+                        global_stuff.shielded=0
+                    else:
+                        global_stuff.lives_remaining -= 1
+                elif(what_is_destroyed == 'ExtraLife' or what_is_destroyed == 'ShieldPU' or what_is_destroyed == 'SpeedBoost' or what_is_destroyed == 'Snek'):
+                    #print(what_is_destroyed)
+                    p = powerup(self.x+i, self.y+j, what_is_destroyed)
                     p.collect(board)
-                elif(what_is_destroyed == 'ShieldPU'):
-                    p = powerup(self.x+i, self.y+j, 'ShieldPU')
-                    p.collect(board)
-                elif(what_is_destroyed == 'SpeedBoost'):
-                    p = powerup(self.x+i, self.y+j, 'SpeedBoost')
-                    p.collect(board)
-                elif(what_is_destroyed == 'Snek'):
-                    p = powerup(self.x+i, self.y+j, 'Snek')
-                    p.collect(board)
+                
                 elif(what_is_destroyed == 'Magnet'):
                     global_stuff.hit_by_a_magnet = 1
                     # DIE!
