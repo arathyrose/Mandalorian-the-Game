@@ -44,7 +44,6 @@ class gameboard:
         # Adding beautiful stuff
         global_stuff.game_start_time = time.time()
         self.gamename_display()        # put the game name
-        
 
     def gamename_display(self):
         # put the game name
@@ -61,6 +60,15 @@ class gameboard:
         startat = self.columns-2-leng
         for i in range(leng):
             self.board[0][i+startat][0] = scorename[i]
+
+    def coins_collected_update(self):
+        # put the score
+        scorename = "COINS COLLECTED:   " + \
+            str(global_stuff.coins_collected).rjust(5, " ")
+        leng = len(scorename)
+        startat = int(self.columns/2)+5
+        for i in range(leng):
+            self.board[self.rows-1][i+startat][0] = scorename[i]
 
     def life_display(self):
         # put the life
@@ -166,7 +174,7 @@ class gameboard:
             self.board[self.rows-2][i][0] = " "
             self.board[self.rows-2][i][1] = "Bottom Bar"
         i += 1
-        
+
         self.board[self.rows-2][i][0] = " "
         self.board[self.rows-2][i][1] = "Bottom Bar"
         i += 1
@@ -188,6 +196,7 @@ class gameboard:
         self.bullets_display()
         self.game_progress_display()
         self.display_powerups_active()
+        self.coins_collected_update()
         # The top menu
         #print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):

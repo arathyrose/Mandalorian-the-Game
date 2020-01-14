@@ -182,14 +182,14 @@ and the following functions
 
 ## THINGS LEFT TO DO
 
-- [ ] power-ups
+- [x] power-ups
 - [ ] main boss guy
-- [ ] display the powerups active
+- [x] display the powerups active
 - [ ] Bossy
 - [ ] rewrite the obstacle generation thingy
-- [ ] power-up obstacle declaration
-- [ ] power-up def
-- [x] magnet
+- [x] power-up obstacle declaration
+- [x] power-up def
+- [ ] magnet
 - [ ] Display the coins collected
 - [x] Display the level progress
 - [ ] Adjust the game duration
@@ -199,6 +199,8 @@ and the following functions
 - [x] Death by no lives
 - [x] Death by time out
 - [ ] Make the duration of the game according to the speed of left movement of the game screen
+
+- [ ] SNAKE POWERUP
 
 ## NOTE
 
@@ -255,11 +257,11 @@ In each case, `placing if permissible` means that, if we place the item, if it c
 | Vertical Beam    | Rectangle with dimensions ( (length_of_beam / 2) + 2 x safe_region ) x 2 * safe_region ) | (0.5,5)  | 2 per screen (placing if permissible) |
 | Diagonal Beam 1  | Square with dimensions ( ( length_of_beam / 1.5) + 2 x safe_region)                      | (0.5,5)  | 2 per screen (placing if permissible) |
 | Diagonal Beam 2  | Square with dimensions ( ( length_of_beam / 1.5) + 2 x safe_region)                      | (0.5,5)  | 2 per screen (placing if permissible) |
-| Extra Life PU      | Square with dimension 1                                                                  | (1,9)    | 1 per screen                          |
-| Speed up PU        | Square with dimension 1                                                                  | (0,5)    | 1 per screen                          |
-| Snake PU           | Square with dimension 1                                                                  | (.5,1.5)   | 1 per screen                          |
-| Shield PU          | Square with dimension 1                                                                  | (0,5)    | 2 per screen                          |
-|Magnet|Square with dimension 7|3|1|
+| Extra Life PU    | Square with dimension 1                                                                  | (1,9)    | 1 per screen                          |
+| Speed up PU      | Square with dimension 1                                                                  | (0,5)    | 1 per screen                          |
+| Snake PU         | Square with dimension 1                                                                  | (.5,1.5) | 1 per screen                          |
+| Shield PU        | Square with dimension 1                                                                  | (0,5)    | 2 per screen                          |
+| Magnet           | Square with dimension 7                                                                  | 3        | 1                                     |
 
 ## DURATION OF EACH POWER-UP IN TERMS OF NUMBER OF SCREEN PASSES
 
