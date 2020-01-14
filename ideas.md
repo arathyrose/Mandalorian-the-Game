@@ -178,6 +178,7 @@ and the following functions
 [x] bullets (again)
 [x] make the hero white backgrounded with cyan trim color
 [x] limited and displayed the number of bullets
+[x] power-up colors
 
 ## THINGS LEFT TO DO
 
@@ -186,11 +187,40 @@ and the following functions
 [ ] display the powerups active
 [ ] Bossy
 [ ] rewrite the obstacle generation thingy
-[x] power-up colors
 [ ] power-up obstacle declaration
 [ ] power-up def
 [ ] magenet
+[ ] Display the coins collected
+[x] Display the level progress
+[ ] Adjust the game duration
+[x] globalize the total number of screens in game
+[ ] decrease the length of the game to 5
 
 ## NOTE
 
 All powerups are single tiled with a symbol denoting it (similar to a coin)
+
+## WALKTHROUGH STEPS
+
+1. Make the gameboard
+2. Make the character
+3. Make the character moving
+4. Make the fullboard
+5. Make the board move in the background
+6. Define gravity
+7. Define coins
+8. Make the character collect coins
+9. Display the coins collected
+10. Define beams
+11. Make the character lose life on touching the beam
+12. Define a life bar below
+13. Define a time left below
+14. Define bullets
+15. Make the character fire bullets
+16. Make the bullets destroy everything on path
+17. Make the bullets collect coins
+18. Put an upper limit to the number of bullets fired
+19. Put a restore after some time effect to bullets
+20. Define powerups
+21. Make the character collect powerups
+22. Globalize the speed of the game, the length of the game

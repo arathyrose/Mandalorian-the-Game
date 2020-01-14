@@ -31,3 +31,5 @@ snek = 0
 
 debug = 0
 powerUpTesting = 1
+
+total_no_screens = 10

@@ -47,6 +47,7 @@ class gameboard:
         self.life_display()
         self.time_display()
         self.bullets_display()
+        self.game_progress_display()
 
     def gamename_display(self):
         # put the game name
@@ -118,13 +119,38 @@ class gameboard:
         lf += k
         leng = len(lf)
         for i in range(leng):
-            self.board[self.rows-1][i][0] = lf[i]  # put the game name
+            # put the bullets
+            self.board[self.rows-3][i +
+                                    int(global_stuff.screen_length/2)+5][0] = lf[i]
+
+    def game_progress_display(self):
+        # put the time
+        lf = "PROGRESS: "
+        # totally print columns/2 -10 of which all of them are " " except the first few
+        progress = global_stuff.shown_until
+        percentage_to_fill = progress / \
+            (global_stuff.total_no_screens*global_stuff.screen_length)
+        totwid = int(self.columns/2-10)
+        fill = int(percentage_to_fill*totwid)
+        k = ""
+        for _ in range(fill):
+            k += "█"
+        for _ in range(fill, totwid):
+            k += " "
+        leng = len(lf)
+        for i in range(leng):
+            self.board[self.rows-1][i][0] = lf[i]  # put the life left
+        ln = len(k)
+        for i in range(ln):
+            self.board[self.rows-1][i+leng][0] = k[i]  # put the time left
+            self.board[self.rows-1][i+leng][1] = 'Progress'
 
     def print(self):
         self.score_update()
         self.life_display()
         self.time_display()
         self.bullets_display()
+        self.game_progress_display()
         # The top menu
         #print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):

@@ -5,7 +5,7 @@ Playable area:
 height: 2, screen_height-3
 width: screen_length
 
-So I am planning to keep the game of length 10 * length and once that segment is shown then I would just redo this process
+So I am planning to keep the game of length total_no_screens * length and once that segment is shown then I would just redo this process
 """
 import global_stuff
 import numpy as np
@@ -20,10 +20,10 @@ class full_board():
     def __init__(self, rows, columns):
 
         self.rows = rows-5
-        self.columns = columns*10
+        self.columns = columns*global_stuff.total_no_screens
 
         # the first element stores the ASCII char to be printed
-        self.board = np.full((self.rows, self.columns, 2), " "*10)
+        self.board = np.full((self.rows, self.columns, 2), " "*global_stuff.total_no_screens)
         # the second element stores the type of the element
 
     def generate_background(self):
@@ -131,8 +131,8 @@ class full_board():
 
         for i in range(3):
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint((2+2*i)*int(self.columns/10),
-                                  (3+2*i)*int(self.columns/10))  # 2,3 , 4,5 and 6,7
+            ypos = random.randint((2+2*i)*global_stuff.screen_length,
+                                  (3+2*i)*global_stuff.screen_length)  # 2,3 , 4,5 and 6,7
             if(global_stuff.debug == 1):
                 print(xpos, ypos)
                 getch.getch()
@@ -159,7 +159,7 @@ class full_board():
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
             # 4,5 and 6,7 and 8,9
             ypos = random.randint(
-                (3+2*i)*int(self.columns/10), (4+2*i)*int(self.columns/10))
+                (3+2*i)*global_stuff.screen_length, (4+2*i)*global_stuff.screen_length)
             if(global_stuff.debug == 1):
                 print(xpos, ypos)
                 getch.getch()
@@ -186,8 +186,8 @@ class full_board():
         for i in range(10):
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
             # 2,3 , 4,5 and 6,7
-            ypos = random.randint(i*int(self.columns/10),
-                                  (1+i)*int(self.columns/10))
+            ypos = random.randint(i*global_stuff.screen_length,
+                                  (1+i)*global_stuff.screen_length)
             if(global_stuff.debug == 1):
                 print(xpos, ypos)
                 getch.getch()
@@ -213,8 +213,8 @@ class full_board():
 
         while True:
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint(5*int(self.columns/10),
-                                  6*int(self.columns/10))  # 2,3 , 4,5 and 6,7
+            ypos = random.randint(5*global_stuff.screen_length,
+                                  6*global_stuff.screen_length)  # 2,3 , 4,5 and 6,7
             if(global_stuff.debug == 1):
                 print(xpos, ypos, end="snek\n")
                 getch.getch()
