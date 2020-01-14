@@ -116,25 +116,24 @@ if __name__ == "__main__":
                 restore_bullet = 0
             # powerups ran out ?
             # Shield Hero
-            if(global_stuff.shielded==1):
-                global_stuff.shielded_power_up_counter+=1
-                if(global_stuff.shielded_power_up_counter>=global_stuff.shield_timer):
-                    global_stuff.shielded_power_up_counter=-1
-                    global_stuff.shielded=0
+            if(global_stuff.shielded == 1):
+                global_stuff.shielded_power_up_counter += 1
+                if(global_stuff.shielded_power_up_counter >= global_stuff.shield_timer):
+                    global_stuff.shielded_power_up_counter = -1
+                    global_stuff.shielded = 0
             # speed hero
-            if(global_stuff.speeded==1):
-                global_stuff.speeded_power_up_counter+=1
-                if(global_stuff.speeded_power_up_counter>=global_stuff.speed_timer):
-                    global_stuff.speeded_power_up_counter=-1
-                    global_stuff.speeded=0
-                    global_stuff.frame_refresh_time*=2
+            if(global_stuff.speeded == 1):
+                global_stuff.speeded_power_up_counter += 1
+                if(global_stuff.speeded_power_up_counter >= global_stuff.speed_timer):
+                    global_stuff.speeded_power_up_counter = -1
+                    global_stuff.speeded = 0
+                    global_stuff.move_left_time *= 2
             # Snake hero
-            if(global_stuff.snek==1):
-                global_stuff.snek_power_up_counter+=1
-                if(global_stuff.snek_power_up_counter>=global_stuff.snake_timer):
-                    global_stuff.snek_power_up_counter=-1
-                    global_stuff.snek=0
-                
+            if(global_stuff.snek == 1):
+                global_stuff.snek_power_up_counter += 1
+                if(global_stuff.snek_power_up_counter >= global_stuff.snake_timer):
+                    global_stuff.snek_power_up_counter = -1
+                    global_stuff.snek = 0
 
         time.sleep(global_stuff.frame_refresh_time)
         isdead = h.check_if_dead()

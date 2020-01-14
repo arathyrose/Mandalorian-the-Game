@@ -29,7 +29,6 @@ class powerup(obstacle):
             super().__init__(xpos, ypos, 1, 1, 'A', 'SpeedBoost')
         elif(ty == 'xl' or ty == 'extra life' or ty == 'ExtraLife'):
             super().__init__(xpos, ypos, 1, 1, '+', 'ExtraLife')
-            print(self.type)
         elif(ty == 's'or ty == 'snek' or ty == 'Snek'):
             super().__init__(xpos, ypos, 1, 1, '$', 'Snek')
 

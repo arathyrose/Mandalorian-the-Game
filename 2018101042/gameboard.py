@@ -16,6 +16,7 @@ from termcolor import colored
 import global_stuff
 from full_board import full_board
 import time
+from powerUp import powerup
 # from getch import getch
 
 
@@ -43,11 +44,7 @@ class gameboard:
         # Adding beautiful stuff
         global_stuff.game_start_time = time.time()
         self.gamename_display()        # put the game name
-        self.score_update()        # put the score
-        self.life_display()
-        self.time_display()
-        self.bullets_display()
-        self.game_progress_display()
+        
 
     def gamename_display(self):
         # put the game name
@@ -145,12 +142,52 @@ class gameboard:
             self.board[self.rows-1][i+leng][0] = k[i]  # put the time left
             self.board[self.rows-1][i+leng][1] = 'Progress'
 
+    def display_powerups_active(self):
+        l = "POWERUPS ACTIVE:   "
+        leng = len(l)
+        i = int(global_stuff.screen_length/2)+5
+        for j in range(leng):
+            self.board[self.rows-2][i][0] = l[j]
+            i += 1
+        if(global_stuff.snek == 1):
+            p = powerup(self.rows-2, i, 'Snek')
+            p.write_self_on_board(self)
+        else:
+            self.board[self.rows-2][i][0] = " "
+            self.board[self.rows-2][i][1] = "Bottom Bar"
+        i += 1
+        self.board[self.rows-2][i][0] = " "
+        self.board[self.rows-2][i][1] = "Bottom Bar"
+        i += 1
+        if(global_stuff.shielded == 1):
+            p = powerup(self.rows-2, i, 'ShieldPU')
+            p.write_self_on_board(self)
+        else:
+            self.board[self.rows-2][i][0] = " "
+            self.board[self.rows-2][i][1] = "Bottom Bar"
+        i += 1
+        
+        self.board[self.rows-2][i][0] = " "
+        self.board[self.rows-2][i][1] = "Bottom Bar"
+        i += 1
+        if(global_stuff.speeded == 1):
+            p = powerup(self.rows-2, i, 'SpeedBoost')
+            p.write_self_on_board(self)
+        else:
+            self.board[self.rows-2][i][0] = " "
+            self.board[self.rows-2][i][1] = "Bottom Bar"
+        i += 1
+        self.board[self.rows-2][i][0] = " "
+        self.board[self.rows-2][i][1] = "Bottom Bar"
+        i += 1
+
     def print(self):
         self.score_update()
         self.life_display()
         self.time_display()
         self.bullets_display()
         self.game_progress_display()
+        self.display_powerups_active()
         # The top menu
         #print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):
@@ -292,7 +329,7 @@ class gameboard:
             return 'Dbeam2'
 
         elif(self.board[X][Y][1] == 'ExtraLife' or self.board[X][Y][1] == 'ShieldPU' or self.board[X][Y][1] == 'SpeedBoost' or self.board[X][Y][1] == 'Snek'):
-            t=self.board[X][Y][1]
+            t = self.board[X][Y][1]
             self.board[X][Y][0] = ' '
             self.board[X][Y][1] = 'Normal'
             return t

@@ -50,7 +50,7 @@ COLORS = {
     'ExtraLife': '\x1b[41;1;37m',
     'ShieldPU': '\x1b[46;1;37m',
     'SpeedBoost': '\x1b[42;5;37m',
-    'Snek': '\x1b[0;37;46m',
+    'Snek': '\x1b[0;37;42m',
     'Magnet': ''
 }
 END_COLOR = '\033[m'
