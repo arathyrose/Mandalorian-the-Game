@@ -25,10 +25,6 @@ class hero(person):
     def __init__(self):
         super().__init__(global_stuff.screen_height - 5,
                          0, 2, 2, [['▄', '['], ['|', '|']], "Hero")
-        self.movingUpSpeed = 0
-        self.movingDownSpeed = global_stuff.gravity
-        self.movingLeftSpeed = 0
-        self.movingRightSpeed = 0
 
     def print_direct(self):
         if(global_stuff.shielded == 1):
@@ -46,7 +42,6 @@ class hero(person):
             for j in range(2):
                 what_is_destroyed = board.destroy_object(self.x+i, self.y+j)
                 if(global_stuff.debug == 1):
-                #if(1):
                     if(what_is_destroyed!="No collision"):
                         print(what_is_destroyed)
                 if(what_is_destroyed == 'Coin'):
@@ -78,30 +73,8 @@ class hero(person):
         elif (global_stuff.lives_remaining <= 0):
             return "No Lives Remaining"
         elif(global_stuff.time_left <= 0):
-            return "Baby Yoda is already dead, you slow poke!"
+            return "Time out"
+        elif(global_stuff.touch_boss==1):
+            return "Touched boss"
         else:
             return "Alive"
-
-    """ def move(self, direction):
-        if(direction == 'w'):
-            self.movingUpSpeed += 1
-            print('up')
-        elif(direction == 's'):
-            self.movingDownSpeed += 1
-            print('down')
-        elif(direction == 'd'):
-            self.movingRightSpeed += 1
-            print('left')
-        elif (direction == 'a'):
-            self.movingLeftSpeed += 1
-            print('right') """
-
-
-"""   def print_direct(self):
-        print("\033[s")  # save position
-        for i in range(self.h):
-            for j in range(self.w):
-                print("\033["+str(self.x+i+1)+";" +
-                      str(self.y-j+2)+"H"+self.style[i][j])
-        print("\033[u")  # restore position
- """

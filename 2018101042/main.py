@@ -11,7 +11,7 @@ from hero import hero
 from coins import coins
 from full_board import full_board
 # from getch  import getch
-
+from enemy import enemy
 from bullet import bullet
 
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     fb = full_board(global_stuff.screen_height, global_stuff.screen_length)
     fb.prepare_board()
     board.write_full_on_board(fb, 0)
-
+    e=enemy()
     """ print("BOARD")
     #print(board.board)
     for i in range(board.rows):
@@ -69,6 +69,8 @@ if __name__ == "__main__":
         # h.write_self_on_board(board)
         board.print()
         h.print_direct()
+        e.print_direct()
+        e.follow(h)
         if(global_stuff.debug == 1):
             print(global_stuff.shown_until)
         # put_coins(board)
@@ -80,6 +82,7 @@ if __name__ == "__main__":
             if(global_stuff.debug == 1):
                 print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
+            e.is_colliding(h)
             h.collision_manager(board)
             if(global_stuff.control_pressed == ' '):
                 for i in range(global_stuff.total_bullets):

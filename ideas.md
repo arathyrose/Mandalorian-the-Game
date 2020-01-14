@@ -167,37 +167,36 @@ and the following functions
 
 ## THINGS DONE
 
-[x] Collision with beams
-[x] globalize the speed of the game
-[x] bullets
-[x] destroy beams
-[x] display the life remaining
-[x] display the time remaining
-[x] make life red in color with white bg
-[x] make time left green in color with white bg
-[x] bullets (again)
-[x] make the hero white backgrounded with cyan trim color
-[x] limited and displayed the number of bullets
-[x] power-up colors
-
-## THINGS LEFT TO DO
-
-- [x] power-ups
-- [ ] main boss guy
-- [x] display the powerups active
-- [ ] Bossy
-- [ ] rewrite the obstacle generation thingy
+- [x] Collision with beams
+- [x] globalize the speed of the game
+- [x] bullets
+- [x] destroy beams
+- [x] display the life remaining
+- [x] display the time remaining
+- [x] make life red in color with white bg
+- [x] make time left green in color with white bg
+- [x] bullets (again)
+- [x] make the hero white backgrounded with cyan trim color
+- [x] limited and displayed the number of bullets
 - [x] power-up obstacle declaration
 - [x] power-up def
-- [ ] magnet
-- [ ] Display the coins collected
-- [x] Display the level progress
-- [ ] Adjust the game duration
-- [x] globalize the total number of screens in game
-- [ ] decrease the length of the game to 5
+- [x] power-up colors
+- [x] display the powerups active
+- [x] power-ups
 - [x] Death by magnet
 - [x] Death by no lives
 - [x] Death by time out
+- [x] Display the coins collected
+- [x] Display the level progress
+- [x] globalize the total number of screens in game
+
+## THINGS LEFT TO DO
+
+- [ ] main boss guy
+- [ ] rewrite the obstacle generation thingy
+- [ ] magnet
+- [ ] Adjust the game duration
+- [ ] decrease the length of the game to 5
 - [ ] Make the duration of the game according to the speed of left movement of the game screen
 
 - [ ] SNAKE POWERUP
