@@ -21,15 +21,10 @@ frame_refresh_time = 0.05
 
 move_left_time = 0.5
 
-shielded_power_up_counter = -1
-shielded = 0
-
-speeded_power_up_counter = -1
 
 bullets_left = 3  # count of deployable bullets
 total_bullets = 10
 
-snek = 0
 
 debug = 0
 powerUpTesting = 1
@@ -39,3 +34,13 @@ enemy_comes_after = 5
 hit_by_a_magnet = 0
 
 speeded = 0
+snek = 0
+shielded = 0
+
+shielded_power_up_counter = -1
+speeded_power_up_counter = -1
+snek_power_up_counter = -1
+
+shield_timer = 100
+snake_timer = 50
+speed_timer = 100

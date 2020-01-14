@@ -97,11 +97,13 @@ if __name__ == "__main__":
                 bullet_list[i].move_right(board)
             board.shift_right(fb, global_stuff.shown_until)
             global_stuff.shown_until += 1
+            # Gravity
             gravity_ok += 1
             if(gravity_ok == 2):  # change this to change gravy
                 h.move("down")  # gravity :)
                 gravity_ok = 0
                 h.collision_manager(board)
+            # restoring bullets
             restore_bullet += 1
             if(restore_bullet == 5):
                 for i in range(global_stuff.total_bullets):
@@ -112,6 +114,28 @@ if __name__ == "__main__":
                 if(global_stuff.bullets_left > global_stuff.total_bullets):
                     global_stuff.bullets_left = global_stuff.total_bullets
                 restore_bullet = 0
+            # powerups ran out ?
+            # Shield Hero
+            if(global_stuff.shielded==1):
+                global_stuff.shielded_power_up_counter+=1
+                if(global_stuff.shielded_power_up_counter>=global_stuff.shield_timer):
+                    global_stuff.shielded_power_up_counter=-1
+                    global_stuff.shielded=0
+            # speed hero
+            if(global_stuff.speeded==1):
+                global_stuff.speeded_power_up_counter+=1
+                if(global_stuff.speeded_power_up_counter>=global_stuff.speed_timer):
+                    global_stuff.speeded_power_up_counter=-1
+                    global_stuff.speeded=0
+                    global_stuff.frame_refresh_time*=2
+            # Snake hero
+            if(global_stuff.snek==1):
+                global_stuff.snek_power_up_counter+=1
+                if(global_stuff.snek_power_up_counter>=global_stuff.snake_timer):
+                    global_stuff.snek_power_up_counter=-1
+                    global_stuff.snek=0
+                
+
         time.sleep(global_stuff.frame_refresh_time)
         isdead = h.check_if_dead()
         if(isdead != "" and isdead != "Alive"):

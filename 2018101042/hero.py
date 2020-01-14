@@ -55,6 +55,7 @@ class hero(person):
                 elif(what_is_destroyed == 'Hbeam' or what_is_destroyed == 'Vbeam' or what_is_destroyed == 'Dbeam1' or what_is_destroyed == 'Dbeam2'):
                     if(global_stuff.shielded==1):
                         global_stuff.shielded=0
+                        global_stuff.shielded_power_up_counter=-1
                     else:
                         global_stuff.lives_remaining -= 1
                 elif(what_is_destroyed == 'ExtraLife' or what_is_destroyed == 'ShieldPU' or what_is_destroyed == 'SpeedBoost' or what_is_destroyed == 'Snek'):
