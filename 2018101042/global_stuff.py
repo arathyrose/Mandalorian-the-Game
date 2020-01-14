@@ -28,3 +28,6 @@ bullets_left = 3  # count of deployable bullets
 total_bullets = 10
 
 snek = 0
+
+debug = 0
+powerUpTesting = 1

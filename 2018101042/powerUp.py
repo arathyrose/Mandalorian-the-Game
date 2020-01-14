@@ -34,7 +34,8 @@ class powerup(obstacle):
             super().__init__(xpos, ypos, 1, 1, '$', 'Snek')
 
     def collect(self, board):
-        # print(self.type)
+        if(global_stuff.debug == 1):
+            print(self.type)
         super().destroy_self(board)
         if(self.type == 'sh' or self.type == 'shield'or self.type == 'ShieldPU'):
             global_stuff.shielded_power_up_counter = 0

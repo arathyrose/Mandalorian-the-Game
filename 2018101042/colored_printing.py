@@ -52,7 +52,6 @@ END_COLOR = '\033[m'
 
 
 def color_text(text, color):
-    # print(color)
     if '\x1b' in color:
         return color + text + END_COLOR
     else:

@@ -126,7 +126,7 @@ class gameboard:
         self.time_display()
         self.bullets_display()
         # The top menu
-        print(Back.BLUE+Fore.WHITE+"", end="")
+        #print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):
             for j in range(self.columns):
                 # k=self.board[i][j][0]

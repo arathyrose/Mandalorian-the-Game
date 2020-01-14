@@ -56,7 +56,8 @@ if __name__ == "__main__":
     bullet_list = [bullet() for _ in range(10)]
     for i in range(global_stuff.bullets_left):
         bullet_list[i].deployable = 1
-    print("Game starts at "+str(global_stuff.game_start_time))
+    if(global_stuff.debug == 1):
+        print("Game starts at "+str(global_stuff.game_start_time))
     # getch()
     last_shift_time = global_stuff.game_start_time
     # the game loop goes here
@@ -66,14 +67,16 @@ if __name__ == "__main__":
         # h.write_self_on_board(board)
         board.print()
         h.print_direct()
-        print(global_stuff.shown_until)
+        if(global_stuff.debug == 1):
+            print(global_stuff.shown_until)
         # put_coins(board)
         # get input
         if keys.kbHit():  # poll for input
             global_stuff.control_pressed = keys.getCh()
             # h.move("up")
             # print(board.board)
-            print(h.x, h.y, global_stuff.control_pressed)
+            if(global_stuff.debug == 1):
+                print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
             h.collision_manager(board)
             if(global_stuff.control_pressed == ' '):

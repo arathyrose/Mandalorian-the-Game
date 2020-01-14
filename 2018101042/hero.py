@@ -38,7 +38,8 @@ class hero(person):
                     # 5 score per coin collected by the bullet
                     global_stuff.coins_collected += 1 """
                 what_is_destroyed = board.destroy_object(self.x+i, self.y+j)
-                # print(what_is_destroyed)
+                if(global_stuff.debug == 1):
+                    print(what_is_destroyed)
                 if(what_is_destroyed == 'Coin'):
                     global_stuff.coins_collected += 1
                     global_stuff.score += 10
@@ -46,6 +47,15 @@ class hero(person):
                     global_stuff.lives_remaining -= 1
                 elif(what_is_destroyed == 'ExtraLife'):
                     p = powerup(self.x+i, self.y+j, 'ExtraLife')
+                    p.collect(board)
+                elif(what_is_destroyed == 'ShieldPU'):
+                    p = powerup(self.x+i, self.y+j, 'ShieldPU')
+                    p.collect(board)
+                elif(what_is_destroyed == 'SpeedBoost'):
+                    p = powerup(self.x+i, self.y+j, 'SpeedBoost')
+                    p.collect(board)
+                elif(what_is_destroyed == 'Snek'):
+                    p = powerup(self.x+i, self.y+j, 'Snek')
                     p.collect(board)
     """ def move(self, direction):
         if(direction == 'w'):

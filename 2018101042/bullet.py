@@ -40,7 +40,8 @@ class bullet(obstacle):
                     board.board[self.x][self.y][1] = 'Bullet'
                     board.board[self.x][self.y+1][0] = '>'
                     board.board[self.x][self.y+1][1] = 'Bullet'
-                    print("BULLET", self.x, self.y)
+                    if(global_stuff.debug == 1):
+                        print("BULLET", self.x, self.y)
             except:
                 self.exist = 0
                 self.deployable = 0

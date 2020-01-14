@@ -7,7 +7,7 @@ width: screen_length
 
 So I am planning to keep the game of length 10 * length and once that segment is shown then I would just redo this process
 """
-from global_stuff import screen_length
+import global_stuff
 import numpy as np
 from coins import coins
 import getch
@@ -44,14 +44,17 @@ class full_board():
         coins.write_self_on_board(self)
 
     def randomly_add_coins_everywhere(self):  # recheck
+        if(global_stuff.debug == 1):
+            print("Generating coins...")
         for i in range(11):  # four blocks of coins of random width and height at a distance of at least screen_length/4 apart
             h = random.randint(1, 7)
             w = random.randint(1, 30)+1
             xpos = int(self.rows/2 - 3+random.randint(0, 4-1))
             ypos = int(random.randint(
                 0, int(self.columns/11-1)) + (self.columns/11)*i)
-            print(ypos)
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos)
+                getch.getch()
             for i in range(h):
                 for j in range(w):
                     c = coins(xpos+i, ypos+j)
@@ -61,13 +64,15 @@ class full_board():
                         continue
 
     def randomly_add_hbeams(self):  # randomly adds beams everywhere on the board
-        print("Generating horizontal beams....")
+        if(global_stuff.debug == 1):
+            print("Generating horizontal beams....")
         for i in range(5):
             xpos = int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
             ypos = int(random.randint(
                 3, int(self.columns/5-1)) + (self.columns/5)*i)-3
-            print(xpos, ypos, end="hoe\n")
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos)
+                getch.getch()
             hb = beam(xpos, ypos, "h")
             try:
                 hb.write_self_on_board(self)
@@ -77,13 +82,15 @@ class full_board():
                 continue
 
     def randomly_add_vbeams(self):
-        print("Generating vertical beams....")
+        if(global_stuff.debug == 1):
+            print("Generating vertical beams....")
         for i in range(5):
             xpos = int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
             ypos = int(random.randint(
                 3, int(self.columns/5-1)) + (self.columns/5)*i)-3
-            print(xpos, ypos, end="vert\n")
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos)
+                getch.getch()
             hb = beam(xpos, ypos, "v")
             try:
                 hb.write_self_on_board(self)
@@ -93,13 +100,15 @@ class full_board():
                 continue
 
     def randomly_add_dbeams(self):
-        print("Generating diagonal beams....")
+        if(global_stuff.debug == 1):
+            print("Generating diagonal beams....")
         for i in range(5):
             xpos = int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
             ypos = int(random.randint(
                 3, int(self.columns/5-1)) + (self.columns/5)*i)-3
-            print(xpos, ypos, end="diag\n")
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos)
+                getch.getch()
             hb = beam(xpos, ypos, "d"+str(random.randint(1, 2)))
             try:
                 hb.write_self_on_board(self)
@@ -109,20 +118,24 @@ class full_board():
                 continue
 
     def randomly_add_powerups(self):
-        print("Generating powerups....")
-        print("Generating speed up powerups...")
+        if(global_stuff.debug == 1):
+            print("Generating powerups....")
+        if(global_stuff.debug == 1):
+            print("Generating speed up powerups...")
         # testing remove
-        xpos = random.randint(5, self.rows-5)  # height wala cheeze
-        ypos = random.randint(10, 14)  # 2,3 , 4,5 and 6,7
-        sp = powerup(xpos, ypos, 'sp')
-        sp.write_self_on_board(self)
+        if(global_stuff.powerUpTesting == 1):
+            xpos = random.randint(5, self.rows-5)  # height wala cheeze
+            ypos = random.randint(10, 14)  # 2,3 , 4,5 and 6,7
+            sp = powerup(xpos, ypos, 'sp')
+            sp.write_self_on_board(self)
 
         for i in range(3):
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
             ypos = random.randint((2+2*i)*int(self.columns/10),
                                   (3+2*i)*int(self.columns/10))  # 2,3 , 4,5 and 6,7
-            print(xpos, ypos, end="Speeeee\n")
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos)
+                getch.getch()
             sp = powerup(xpos, ypos, 'sp')
             try:
                 if(self.is_location_alright(xpos, ypos) == 1):
@@ -133,20 +146,23 @@ class full_board():
                 print('ERROR in', xpos, ypos)
                 print(e)
                 i -= 1
-        print("Generating Shield Powerups....")
+        if(global_stuff.debug == 1):
+            print("Generating Shield Powerups....")
         # testing remove
-        xpos = random.randint(5, self.rows-5)  # height wala cheeze
-        ypos = random.randint(14, 18)  # 2,3 , 4,5 and 6,7
-        sp = powerup(xpos, ypos, 'sh')
-        sp.write_self_on_board(self)
+        if(global_stuff.powerUpTesting == 1):
+            xpos = random.randint(5, self.rows-5)  # height wala cheeze
+            ypos = random.randint(14, 18)  # 2,3 , 4,5 and 6,7
+            sp = powerup(xpos, ypos, 'sh')
+            sp.write_self_on_board(self)
 
         for i in range(3):
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
             # 4,5 and 6,7 and 8,9
             ypos = random.randint(
                 (3+2*i)*int(self.columns/10), (4+2*i)*int(self.columns/10))
-            print(xpos, ypos, end="Protecccc\n")
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos)
+                getch.getch()
             sp = powerup(xpos, ypos, 'sh')
             try:
                 if(self.is_location_alright(xpos, ypos) == 1):
@@ -157,21 +173,24 @@ class full_board():
                 print('ERROR in', xpos, ypos)
                 print(e)
                 i -= 1
-        print("Generating extra lives....")
+        if(global_stuff.debug == 1):
+            print("Generating extra lives....")
         # testing remove
         # testing remove
-        xpos = random.randint(5, self.rows-5)  # height wala cheeze
-        ypos = random.randint(24, 40)  # 2,3 , 4,5 and 6,7
-        sp = powerup(xpos, ypos, 'xl')
-        sp.write_self_on_board(self)
+        if(global_stuff.powerUpTesting == 1):
+            xpos = random.randint(5, self.rows-5)  # height wala cheeze
+            ypos = random.randint(24, 40)  # 2,3 , 4,5 and 6,7
+            sp = powerup(xpos, ypos, 'xl')
+            sp.write_self_on_board(self)
 
         for i in range(10):
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
             # 2,3 , 4,5 and 6,7
             ypos = random.randint(i*int(self.columns/10),
                                   (1+i)*int(self.columns/10))
-            print(xpos, ypos, end="live\n")
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos)
+                getch.getch()
             sp = powerup(xpos, ypos, 'xl')
             try:
                 if(self.is_location_alright(xpos, ypos) == 1):
@@ -182,20 +201,23 @@ class full_board():
                 print('ERROR in', xpos, ypos)
                 print(e)
                 i -= 1
-        print("Generating snake powerup...")
+        if(global_stuff.debug == 1):
+            print("Generating snake powerup...")
 
         # testing remove
-        xpos = random.randint(5, self.rows-5)  # height wala cheeze
-        ypos = random.randint(60, 80)
-        sp = powerup(xpos, ypos, 'snek')
-        sp.write_self_on_board(self)
+        if(global_stuff.powerUpTesting == 1):
+            xpos = random.randint(5, self.rows-5)  # height wala cheeze
+            ypos = random.randint(60, 80)
+            sp = powerup(xpos, ypos, 'snek')
+            sp.write_self_on_board(self)
 
         while True:
             xpos = random.randint(5, self.rows-5)  # height wala cheeze
             ypos = random.randint(5*int(self.columns/10),
                                   6*int(self.columns/10))  # 2,3 , 4,5 and 6,7
-            print(xpos, ypos, end="snek\n")
-            getch.getch()
+            if(global_stuff.debug == 1):
+                print(xpos, ypos, end="snek\n")
+                getch.getch()
             sp = powerup(xpos, ypos, 'snek')
             try:
                 if 1:
