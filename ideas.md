@@ -182,19 +182,23 @@ and the following functions
 
 ## THINGS LEFT TO DO
 
-[ ] power-ups
-[ ] main boss guy
-[ ] display the powerups active
-[ ] Bossy
-[ ] rewrite the obstacle generation thingy
-[ ] power-up obstacle declaration
-[ ] power-up def
-[ ] magenet
-[ ] Display the coins collected
-[x] Display the level progress
-[ ] Adjust the game duration
-[x] globalize the total number of screens in game
-[ ] decrease the length of the game to 5
+- [ ] power-ups
+- [ ] main boss guy
+- [ ] display the powerups active
+- [ ] Bossy
+- [ ] rewrite the obstacle generation thingy
+- [ ] power-up obstacle declaration
+- [ ] power-up def
+- [x] magnet
+- [ ] Display the coins collected
+- [x] Display the level progress
+- [ ] Adjust the game duration
+- [x] globalize the total number of screens in game
+- [ ] decrease the length of the game to 5
+- [x] Death by magnet
+- [x] Death by no lives
+- [x] Death by time out
+- [ ] Make the duration of the game according to the speed of left movement of the game screen
 
 ## NOTE
 
@@ -269,3 +273,8 @@ In each case, `placing if permissible` means that, if we place the item, if it c
 | Speed up      | 50 screen passes  |
 | Snake         | 50 screen passes  |
 | Shield        | 100 screen passes |
+
+## WAYS FOR THE GAME TO GET OVER
+
+1. Get hit by a magnet
+2. Get hit by beams more than 10 times without getting any extra lives; (also known as kys; come on the game isn't that difficult)

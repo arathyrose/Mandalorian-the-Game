@@ -57,6 +57,25 @@ class hero(person):
                 elif(what_is_destroyed == 'Snek'):
                     p = powerup(self.x+i, self.y+j, 'Snek')
                     p.collect(board)
+                elif(what_is_destroyed == 'Magnet'):
+                    global_stuff.hit_by_a_magnet = 1
+                    # DIE!
+                    # DIE
+
+    def check_if_dead(self):
+        """ How did you die?
+        How did the game end?
+        Answers all these questions
+        """
+        if(global_stuff.hit_by_a_magnet == 1):
+            return "Death by Magnet"
+        elif (global_stuff.lives_remaining <= 0):
+            return "No Lives Remaining"
+        elif(global_stuff.time_left <= 0):
+            return "Baby Yoda is already dead, you slow poke!"
+        else:
+            return "Alive"
+
     """ def move(self, direction):
         if(direction == 'w'):
             self.movingUpSpeed += 1

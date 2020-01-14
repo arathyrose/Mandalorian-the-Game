@@ -40,6 +40,7 @@ if __name__ == "__main__":
     fb = full_board(global_stuff.screen_height, global_stuff.screen_length)
     fb.prepare_board()
     board.write_full_on_board(fb, 0)
+
     """ print("BOARD")
     #print(board.board)
     for i in range(board.rows):
@@ -60,6 +61,7 @@ if __name__ == "__main__":
         print("Game starts at "+str(global_stuff.game_start_time))
     # getch()
     last_shift_time = global_stuff.game_start_time
+    isdead = "Alive"
     # the game loop goes here
     while(1):
         term.next_play()
@@ -111,6 +113,9 @@ if __name__ == "__main__":
                     global_stuff.bullets_left = global_stuff.total_bullets
                 restore_bullet = 0
         time.sleep(global_stuff.frame_refresh_time)
+        isdead = h.check_if_dead()
+        if(isdead != "" and isdead != "Alive"):
+            break
     # ...
     term.clrscr()
     print("GAME OVER")
@@ -118,4 +123,8 @@ if __name__ == "__main__":
     print("Congratulations "+global_stuff.username)
     print("Score: "+str(global_stuff.score))
     print("Time left: "+str(global_stuff.time_left))
+    if(isdead == "" or isdead == "Alive"):
+        print("Baby Yoda still needs your help.. why you quit my friend?")
+    else:
+        print("Reason of death: "+isdead)
     global_stuff.username = input()

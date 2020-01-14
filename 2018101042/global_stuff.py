@@ -36,3 +36,4 @@ powerUpTesting = 1
 
 total_no_screens = 10
 enemy_comes_after = 5
+hit_by_a_magnet = 0
