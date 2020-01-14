@@ -24,8 +24,8 @@ COLORS = {
     'Top Bar': '\x1b[1;97;44m',
     'Bottom Bar': '\x1b[1;97;44m',
     'Hero': '\x1b[1;36;47m',
-    'ShieldedHero':'\x1b[1;32;47m',
-    'SpeededHero':'\x1b[1;35;47m',
+    'ShieldedHero': '\x1b[1;32;47m',
+    'SpeededHero': '\x1b[1;35;47m',
 
 
     'Coin': '\x1b[1;33;40m',
@@ -47,8 +47,8 @@ COLORS = {
     'Time': '\x1b[32;1;100m',
     'Progress': '\x1b[1;100m',
 
-    'Enemy':'\x1b[1;31;40m',
-    'Ice Ball':'\x1b[1;33;46m',
+    'Enemy': '\x1b[1;31;40m',
+    'Ice Ball': '\x1b[1;33;46m',
     'ExtraLife': '\x1b[41;1;37m',
     'ShieldPU': '\x1b[46;1;37m',
     'SpeedBoost': '\x1b[42;5;37m',

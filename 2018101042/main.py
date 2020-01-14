@@ -40,7 +40,7 @@ if __name__ == "__main__":
     fb = full_board(global_stuff.screen_height, global_stuff.screen_length)
     fb.prepare_board()
     board.write_full_on_board(fb, 0)
-    e=enemy()
+    e = enemy()
     """ print("BOARD")
     #print(board.board)
     for i in range(board.rows):
@@ -63,9 +63,9 @@ if __name__ == "__main__":
     last_shift_time = global_stuff.game_start_time
     isdead = "Alive"
     global_stuff.homework()
-    global_stuff.enemy_come=0
-    if(global_stuff.test_enemy==1):
-        global_stuff.enemy_come=1
+    global_stuff.enemy_come = 0
+    if(global_stuff.test_enemy == 1):
+        global_stuff.enemy_come = 1
     # the game loop goes here
     while(1):
         term.next_play()
@@ -73,13 +73,13 @@ if __name__ == "__main__":
         # h.write_self_on_board(board)
         board.print()
         h.print_direct()
-        if(global_stuff.enemy_come==1):
+        if(global_stuff.enemy_come == 1):
             e.print_direct()
             e.follow(h)
         if(global_stuff.debug == 1):
             print(global_stuff.shown_until)
-        if(global_stuff.enemy_come==1):
-            e.check_collision(board,h)
+        if(global_stuff.enemy_come == 1):
+            e.check_collision(board, h)
         # put_coins(board)
         # get input
         if keys.kbHit():  # poll for input
@@ -89,7 +89,7 @@ if __name__ == "__main__":
             if(global_stuff.debug == 1):
                 print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
-            
+
             h.collision_manager(board)
             if(global_stuff.control_pressed == ' '):
                 for i in range(global_stuff.total_bullets):
@@ -145,9 +145,9 @@ if __name__ == "__main__":
                     global_stuff.snek_power_up_counter = -1
                     global_stuff.snek = 0
             # Enemy hero
-            if(global_stuff.enemy_come==1): # add condition later for checking if there is an enemy hero
+            if(global_stuff.enemy_come == 1):  # add condition later for checking if there is an enemy hero
                 e.release_balls()
-                e.move_balls(board,h)
+                e.move_balls(board, h)
 
         time.sleep(global_stuff.frame_refresh_time)
         isdead = h.check_if_dead()

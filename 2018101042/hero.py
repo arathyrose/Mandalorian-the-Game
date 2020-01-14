@@ -42,22 +42,22 @@ class hero(person):
             for j in range(2):
                 what_is_destroyed = board.destroy_object(self.x+i, self.y+j)
                 if(global_stuff.debug == 1):
-                    if(what_is_destroyed!="No collision"):
+                    if(what_is_destroyed != "No collision"):
                         print(what_is_destroyed)
                 if(what_is_destroyed == 'Coin'):
                     global_stuff.coins_collected += 1
                     global_stuff.score += 10
                 elif(what_is_destroyed == 'Hbeam' or what_is_destroyed == 'Vbeam' or what_is_destroyed == 'Dbeam1' or what_is_destroyed == 'Dbeam2'):
-                    if(global_stuff.shielded==1):
-                        global_stuff.shielded=0
-                        global_stuff.shielded_power_up_counter=-1
+                    if(global_stuff.shielded == 1):
+                        global_stuff.shielded = 0
+                        global_stuff.shielded_power_up_counter = -1
                     else:
                         global_stuff.lives_remaining -= 1
                 elif(what_is_destroyed == 'ExtraLife' or what_is_destroyed == 'ShieldPU' or what_is_destroyed == 'SpeedBoost' or what_is_destroyed == 'Snek'):
-                    #print(what_is_destroyed)
+                    # print(what_is_destroyed)
                     p = powerup(self.x+i, self.y+j, what_is_destroyed)
                     p.collect(board)
-                
+
                 elif(what_is_destroyed == 'Magnet'):
                     global_stuff.hit_by_a_magnet = 1
                     # DIE!
@@ -74,7 +74,7 @@ class hero(person):
             return "No Lives Remaining"
         elif(global_stuff.time_left <= 0):
             return "Time out"
-        elif(global_stuff.touch_boss==1):
+        elif(global_stuff.touch_boss == 1):
             return "Touched boss"
         else:
             return "Alive"
