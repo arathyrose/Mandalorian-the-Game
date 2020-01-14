@@ -78,6 +78,8 @@ if __name__ == "__main__":
             e.follow(h)
         if(global_stuff.debug == 1):
             print(global_stuff.shown_until)
+        if(global_stuff.enemy_come==1):
+            e.check_collision(board,h)
         # put_coins(board)
         # get input
         if keys.kbHit():  # poll for input
@@ -87,9 +89,7 @@ if __name__ == "__main__":
             if(global_stuff.debug == 1):
                 print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
-            if(global_stuff.enemy_come==1):
-                
-                e.check_collision(board,h)
+            
             h.collision_manager(board)
             if(global_stuff.control_pressed == ' '):
                 for i in range(global_stuff.total_bullets):

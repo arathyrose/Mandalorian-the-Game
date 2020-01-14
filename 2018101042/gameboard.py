@@ -129,7 +129,7 @@ class gameboard:
                                     int(global_stuff.screen_length/2)+5][0] = lf[i]
 
     def game_progress_display(self):
-        # put the time
+        # put the progress
         lf = "PROGRESS: "
         # totally print columns/2 -10 of which all of them are " " except the first few
         progress = global_stuff.shown_until-global_stuff.screen_length
@@ -144,7 +144,7 @@ class gameboard:
             k += " "
         leng = len(lf)
         for i in range(leng):
-            self.board[self.rows-1][i][0] = lf[i]  # put the life left
+            self.board[self.rows-1][i][0] = lf[i]  # put the word progress 
         ln = len(k)
         for i in range(ln):
             self.board[self.rows-1][i+leng][0] = k[i]  # put the time left
@@ -174,7 +174,6 @@ class gameboard:
             self.board[self.rows-2][i][0] = " "
             self.board[self.rows-2][i][1] = "Bottom Bar"
         i += 1
-
         self.board[self.rows-2][i][0] = " "
         self.board[self.rows-2][i][1] = "Bottom Bar"
         i += 1
@@ -189,6 +188,25 @@ class gameboard:
         self.board[self.rows-2][i][1] = "Bottom Bar"
         i += 1
 
+    def print_enemy_life(self):
+        # put the enemy life
+        lf = "ENEMY: "
+        # totally print columns -10 of which all of them are " " except the first few
+        percentage_to_fill =global_stuff.boss_life_remaining / global_stuff.boss_total_life
+        totwid = int(self.columns-10)
+        fill = int(percentage_to_fill*totwid)
+        k = ""
+        for _ in range(fill):
+            k += "█"
+        for _ in range(fill, totwid):
+            k += " "
+        leng = len(lf)
+        for i in range(leng):
+            self.board[1][i][0] = lf[i]  # put the life left
+        ln = len(k)
+        for i in range(ln):
+            self.board[1][i+leng][0] = k[i]  # put the time left
+            self.board[1][i+leng][1] = 'Life'
     def print(self):
         self.score_update()
         self.life_display()
@@ -197,6 +215,8 @@ class gameboard:
         self.game_progress_display()
         self.display_powerups_active()
         self.coins_collected_update()
+        if(global_stuff.enemy_come==1):
+            self.print_enemy_life()
         # The top menu
         #print(Back.BLUE+Fore.WHITE+"", end="")
         for i in range(self.rows):
