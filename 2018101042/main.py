@@ -63,6 +63,9 @@ if __name__ == "__main__":
     last_shift_time = global_stuff.game_start_time
     isdead = "Alive"
     global_stuff.homework()
+    global_stuff.enemy_come=0
+    if(global_stuff.test_enemy==1):
+        global_stuff.enemy_come=1
     # the game loop goes here
     while(1):
         term.next_play()
@@ -70,8 +73,9 @@ if __name__ == "__main__":
         # h.write_self_on_board(board)
         board.print()
         h.print_direct()
-        e.print_direct()
-        e.follow(h)
+        if(global_stuff.enemy_come==1):
+            e.print_direct()
+            e.follow(h)
         if(global_stuff.debug == 1):
             print(global_stuff.shown_until)
         # put_coins(board)
@@ -83,7 +87,9 @@ if __name__ == "__main__":
             if(global_stuff.debug == 1):
                 print(h.x, h.y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
-            e.is_colliding(h)
+            if(global_stuff.enemy_come==1):
+                
+                e.check_collision(board,h)
             h.collision_manager(board)
             if(global_stuff.control_pressed == ' '):
                 for i in range(global_stuff.total_bullets):
@@ -138,6 +144,10 @@ if __name__ == "__main__":
                 if(global_stuff.snek_power_up_counter >= global_stuff.snake_timer):
                     global_stuff.snek_power_up_counter = -1
                     global_stuff.snek = 0
+            # Enemy hero
+            if(global_stuff.enemy_come==1): # add condition later for checking if there is an enemy hero
+                e.release_balls()
+                e.move_balls(board,h)
 
         time.sleep(global_stuff.frame_refresh_time)
         isdead = h.check_if_dead()

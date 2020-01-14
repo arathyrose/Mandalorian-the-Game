@@ -192,14 +192,16 @@ and the following functions
 
 ## THINGS LEFT TO DO
 
-- [ ] main boss guy
+- [x] main boss guy
 - [ ] rewrite the obstacle generation thingy
 - [ ] magnet make attract hero
 - [ ] Adjust the game duration
 - [ ] decrease the length of the game to 5
 - [ ] Make the duration of the game according to the speed of left movement of the game screen
-- [ ]
+- [ ] change color of the beams to something acceptable
 - [ ] SNAKE POWERUP
+- [ ] Print the number of lives of the boss
+- [ ] Make the boss come later in game
 
 ## NOTE
 

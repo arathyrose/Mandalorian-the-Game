@@ -48,6 +48,7 @@ COLORS = {
     'Progress': '\x1b[1;100m',
 
     'Enemy':'\x1b[1;31;40m',
+    'Ice Ball':'\x1b[1;33;46m',
     'ExtraLife': '\x1b[41;1;37m',
     'ShieldPU': '\x1b[46;1;37m',
     'SpeedBoost': '\x1b[42;5;37m',

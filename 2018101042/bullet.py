@@ -15,6 +15,7 @@ class bullet(obstacle):
 
     def move_right(self, board):
         if(self.exist == 1):
+            # normal board stuff
             no_destroy_anything = 0
             try:
                 for i in range(-1, 4):

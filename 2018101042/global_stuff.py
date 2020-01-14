@@ -80,4 +80,5 @@ def homework():
 touch_boss = 0
 boss_total_life = 20
 boss_life_remaining = boss_total_life
-
+test_enemy=1
+enemy_come=0
