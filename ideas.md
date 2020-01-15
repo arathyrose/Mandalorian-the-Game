@@ -287,3 +287,24 @@ In each case, `placing if permissible` means that, if we place the item, if it c
 ## SPECIAL ABILITY OF THE BULLETS
 
 The bullets fired by your Mandalorian has a special ability to continue existing even if it hits the dragon. That is it would continue torturing the dragon after hitting him, thus killing him eventually.
+
+## PRIVATISING THINGS
+
+- [x] beam.py
+- [x] bullet.py
+- [x] coins.py
+- [x] colored_printing.py
+- [ ] enemy.py
+- [ ] full_board.py
+- [ ] gameboard.py
+- [ ] global_stuff.py
+- [x] hero.py
+- [ ] ice_balls.py
+- [x] inputs.py
+- [x] magnet.py
+- [ ] main.py
+- [x] obj.py
+- [x] obstacle.py
+- [x] person.py
+- [ ] powerUp.py
+- [x] term.py
