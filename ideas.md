@@ -189,18 +189,18 @@ and the following functions
 - [x] Display the coins collected
 - [x] Display the level progress
 - [x] globalize the total number of screens in game
+- [x] change color of the beams to something acceptable
+- [x] Print the number of lives of the boss
+- [x] magnet make attract hero
+- [x] main boss guy
 
 ## THINGS LEFT TO DO
 
-- [x] main boss guy
+- [ ] SNAKE POWERUP
 - [ ] rewrite the obstacle generation thingy
-- [ ] magnet make attract hero
 - [ ] Adjust the game duration
 - [ ] decrease the length of the game to 5
 - [ ] Make the duration of the game according to the speed of left movement of the game screen
-- [x] change color of the beams to something acceptable
-- [ ] SNAKE POWERUP
-- [x] Print the number of lives of the boss
 - [ ] Make the boss come later in game
 
 ## NOTE

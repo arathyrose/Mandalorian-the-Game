@@ -259,14 +259,14 @@ class gameboard:
 
     def is_magnet_on_screen(self):
         '''
-        Returns the y coordinate if the magnet is on the screen 
-        Otherwise -1
+        Returns the y coordinate of the magnet if it is on the screen, otherwise return -1
         '''
-        for i in range(self.rows):
-            for j in range(self.columns):
-                if(self.board[i][j][1] == 'Magnet'):
-                    return j
-        return -1
+        position = global_stuff.magnet_y_pos_fullboard - \
+            global_stuff.shown_until+global_stuff.screen_length
+        if( position < global_stuff.screen_length and position >= -7):
+            # obviously the magnet would start at magnet_y_pos_fullboard - global_stuff.shown_until+global_stuff.screen_length
+            return position
+        return "NOT ON SCREEN"
 
     def destroy_object(self, X, Y):  # deals with coins and beams only
         if(self.board[X][Y][1] == 'Normal' or self.board[X][Y][1] == 'Bg1' or self.board[X][Y][1] == 'Bg2'):

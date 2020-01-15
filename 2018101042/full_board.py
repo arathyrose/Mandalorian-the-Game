@@ -247,6 +247,7 @@ class full_board():
         if(global_stuff.debug == 1):
             print("Generating magnet...")
         if(global_stuff.powerUpTesting == 1):
+        #if(0):
             kdd = 0
         else:
             kdd = 2
@@ -268,6 +269,7 @@ class full_board():
                         break
                 if(ok == 1):
                     m.write_self_on_board(self)
+                    global_stuff.magnet_y_pos_fullboard=ypos
                     if(global_stuff.debug == 1):
                         print(xpos, ypos)
                         getch.getch()

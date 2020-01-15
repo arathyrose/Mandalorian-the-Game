@@ -81,6 +81,9 @@ if __name__ == "__main__":
         if(global_stuff.enemy_come == 1):
             e.check_collision(board, h)
         # put_coins(board)
+        if(global_stuff.debug1==1):
+            if(board.is_magnet_on_screen()!="NOT ON SCREEN"):
+                print("YES MAGNET ON SCREEN")
         # get input
         if keys.kbHit():  # poll for input
             global_stuff.control_pressed = keys.getCh()
@@ -101,8 +104,20 @@ if __name__ == "__main__":
         # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
         if(time.time()-last_shift_time >= global_stuff.move_left_time):
             last_shift_time = time.time()
+            # manage collisions
             h.collision_manager(board)
-            #print('SHIFTING EVERYTHING')
+            # magnet
+            is_magnet_on_screen=board.is_magnet_on_screen()
+            if(is_magnet_on_screen!="NOT ON SCREEN"):
+                if(global_stuff.debug1==1):
+                    print("Moving the guy close to ",is_magnet_on_screen)
+                if(is_magnet_on_screen+4-1>h.y):
+                    h.move("right")
+                elif(is_magnet_on_screen+4-1<h.y):
+                    h.move("left")
+            # left shify everything
+            if(global_stuff.debug==1):
+                print('SHIFTING EVERYTHING')
             for i in range(global_stuff.total_bullets):
                 bullet_list[i].move_right(board)
             board.shift_right(fb, global_stuff.shown_until)
@@ -148,11 +163,11 @@ if __name__ == "__main__":
             if(global_stuff.enemy_come == 1):  # add condition later for checking if there is an enemy hero
                 e.release_balls()
                 e.move_balls(board, h)
-
-        time.sleep(global_stuff.frame_refresh_time)
+        # is hero dead?
         isdead = h.check_if_dead()
         if(isdead != "" and isdead != "Alive"):
             break
+        time.sleep(global_stuff.frame_refresh_time)
     # ...
     term.clrscr()
     print("GAME OVER")

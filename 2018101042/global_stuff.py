@@ -19,7 +19,6 @@ total_life = 10
 lives_remaining = total_life
 frame_refresh_time = 0.05
 
-move_left_time = 0.5
 
 
 bullets_left = 3  # count of deployable bullets
@@ -84,3 +83,11 @@ boss_total_life = 500
 boss_life_remaining = boss_total_life
 test_enemy = 1
 enemy_come = 0
+
+magnet_y_pos_fullboard = 0
+
+debug1=0
+move_left_time = 0.5
+
+if(debug1==1):
+    move_left_time = 0.1
