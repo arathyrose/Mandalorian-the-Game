@@ -198,9 +198,9 @@ and the following functions
 - [ ] Adjust the game duration
 - [ ] decrease the length of the game to 5
 - [ ] Make the duration of the game according to the speed of left movement of the game screen
-- [ ] change color of the beams to something acceptable
+- [x] change color of the beams to something acceptable
 - [ ] SNAKE POWERUP
-- [ ] Print the number of lives of the boss
+- [x] Print the number of lives of the boss
 - [ ] Make the boss come later in game
 
 ## NOTE
@@ -282,3 +282,7 @@ In each case, `placing if permissible` means that, if we place the item, if it c
 1. Get hit by a magnet
 2. Get hit by beams more than 10 times without getting any extra lives; (also known as kys; come on the game isn't that difficult)
 3. Get hit by the boss directly (seriously why do you want to `touch` him?)
+
+## SPECIAL ABILITY OF THE BULLETS
+
+The bullets fired by your Mandalorian has a special ability to continue existing even if it hits the dragon. That is it would continue torturing the dragon after hitting him, thus killing him eventually.

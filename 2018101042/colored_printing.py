@@ -31,10 +31,10 @@ COLORS = {
     'Coin': '\x1b[1;33;40m',
 
 
-    'Hbeam': '\x1b[38;5;200m',
-    'Vbeam': '\x1b[38;5;200m',
-    'Dbeam1': '\x1b[38;5;200m',
-    'Dbeam2': '\x1b[38;5;200m',
+    'Hbeam': '\x1b[1;31;40m',
+    'Vbeam': '\x1b[1;31;40m',
+    'Dbeam1': '\x1b[1;31;40m',
+    'Dbeam2': '\x1b[1;31;40m',
     'Bridge Color': '\x1b[48;5;130m',
 
     'Bullet': '\x1b[38;5;208m',
@@ -48,7 +48,7 @@ COLORS = {
     'Progress': '\x1b[1;100m',
 
     'Enemy': '\x1b[1;31;40m',
-    'Ice Ball': '\x1b[1;33;46m',
+    'Ice Ball': '\x1b[1;36;40m',
     'ExtraLife': '\x1b[41;1;37m',
     'ShieldPU': '\x1b[46;1;37m',
     'SpeedBoost': '\x1b[42;5;37m',
