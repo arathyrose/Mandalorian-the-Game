@@ -75,6 +75,8 @@ class hero(person):
         elif(global_stuff.time_left <= 0):
             return "Time out"
         elif(global_stuff.touch_boss == 1):
-            return "Touched boss"
+            return "Touched Boss"
+        elif(global_stuff.boss_dead==1):
+            return "Boss Dead"
         else:
             return "Alive"

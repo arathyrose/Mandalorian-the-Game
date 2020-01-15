@@ -63,7 +63,6 @@ if __name__ == "__main__":
     last_shift_time = global_stuff.game_start_time
     isdead = "Alive"
     global_stuff.homework()
-    global_stuff.enemy_come = 0
     if(global_stuff.test_enemy == 1):
         global_stuff.enemy_come = 1
     # the game loop goes here
@@ -104,6 +103,9 @@ if __name__ == "__main__":
         # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
         if(time.time()-last_shift_time >= global_stuff.move_left_time):
             last_shift_time = time.time()
+            #check if it is time for the enemy to come
+            if(global_stuff.shown_until>=global_stuff.enemy_comes_after*global_stuff.screen_length):
+                global_stuff.enemy_come=1
             # manage collisions
             h.collision_manager(board)
             # magnet

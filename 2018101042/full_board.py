@@ -34,14 +34,18 @@ class full_board():
         Lol
         '''
         for i in range(self.rows):
-            for j in range(self.columns):
+            for j in range(global_stuff.screen_length*global_stuff.enemy_comes_after):
                 self.board[i][j][0] = " "
                 prob = random.random()
                 if(prob > 0.9):
                     self.board[i][j][1] = "Bg2"
                 else:
                     self.board[i][j][1] = "Bg1"
-
+        for i in range(self.rows):
+            for j in range(global_stuff.screen_length*global_stuff.enemy_comes_after,self.columns):
+                self.board[i][j][0] = " "
+                self.board[i][j][1] = "Bg1"
+                
     def put_coins_block(self, screen_no):
         h = random.randint(2, 7)
         w = random.randint(10, 30)
@@ -120,7 +124,7 @@ class full_board():
         for typ in ["h", "v", "d1", "d2"]:
             if(global_stuff.debug2 == 1):
                 print("Generating "+typ+" beams....")
-            for i in range(1, 6):
+            for i in range(1, 5):
                 for _ in range(2):
                     self.put_beam_block(typ, i+0.5)
 
@@ -153,11 +157,11 @@ class full_board():
             self.put_powerup("ExtraLife", screen)
         if(global_stuff.debug2 == 1):
             print("Generating Speed Up powerups...")
-        for screen in range(1, 6):
+        for screen in range(1, 5):
             self.put_powerup("SpeedBoost", screen)
         if(global_stuff.debug2 == 1):
             print("Generating Shield powerups...")
-        for screen in range(1, 6):
+        for screen in range(1, 5):
             for _ in range(2):
                 self.put_powerup("ShieldPU", screen)
         if(global_stuff.debug2 == 1):

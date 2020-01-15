@@ -194,14 +194,15 @@ and the following functions
 - [x] magnet make attract hero
 - [x] main boss guy
 - [x] rewrite the obstacle generation thingy
+- [x] Adjust the game duration
+- [x] decrease the length of the game to 5
+- [x] Make the duration of the game according to the speed of left movement of the game screen
+- [x] Make the boss come later in game
 
 ## THINGS LEFT TO DO
 
 - [ ] SNAKE POWERUP
-- [ ] Adjust the game duration
-- [ ] decrease the length of the game to 5
-- [ ] Make the duration of the game according to the speed of left movement of the game screen
-- [ ] Make the boss come later in game
+- [ ] Privatize everything
 
 ## NOTE
 

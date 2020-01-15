@@ -134,7 +134,9 @@ class gameboard:
         # totally print columns/2 -10 of which all of them are " " except the first few
         progress = global_stuff.shown_until-global_stuff.screen_length
         percentage_to_fill = progress / \
-            (global_stuff.enemy_comes_after*global_stuff.screen_length)
+            ((global_stuff.enemy_comes_after-1)*global_stuff.screen_length)
+        if(percentage_to_fill>=1):
+            percentage_to_fill=1
         totwid = int(self.columns/2-10)
         fill = int(percentage_to_fill*totwid)
         k = ""
@@ -193,6 +195,8 @@ class gameboard:
         lf = "ENEMY: "
         # totally print columns -10 of which all of them are " " except the first few
         percentage_to_fill = global_stuff.boss_life_remaining / global_stuff.boss_total_life
+        if(percentage_to_fill<=0):
+            global_stuff.boss_dead=1
         totwid = int(self.columns-10)
         fill = int(percentage_to_fill*totwid)
         k = ""

@@ -1,8 +1,7 @@
 username = "Player"
 score = 0
 coins_collected = 0
-total_time = 300
-time_left = total_time
+
 speed = "normal"
 power_up_active = [0, 0]
 control_pressed = ""
@@ -26,7 +25,7 @@ total_bullets = 10
 
 
 debug = 0
-powerUpTesting = 1
+powerUpTesting = 0
 
 total_no_screens = 10
 enemy_comes_after = 5
@@ -79,17 +78,22 @@ def homework():
 
 
 touch_boss = 0
-boss_total_life = 500
+boss_total_life = 200
 boss_life_remaining = boss_total_life
-test_enemy = 1
+test_enemy = 0
 enemy_come = 0
 
 magnet_y_pos_fullboard = 0
 
 debug1=0
-move_left_time = 0.5
+move_left_time = 0.4
 
 if(debug1==1):
     move_left_time = 0.1
 
-debug2=1
+
+total_time = int( enemy_comes_after*2*screen_length * move_left_time)
+time_left = total_time
+
+debug2=0
+boss_dead=0
