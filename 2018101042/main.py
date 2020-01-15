@@ -56,7 +56,7 @@ if __name__ == "__main__":
     restore_bullet = 0
     bullet_list = [bullet() for _ in range(10)]
     for i in range(global_stuff.bullets_left):
-        bullet_list[i].deployable = 1
+        bullet_list[i].make_deployable()
     if(global_stuff.debug == 1):
         print("Game starts at "+str(global_stuff.game_start_time))
     # getch()
@@ -89,12 +89,13 @@ if __name__ == "__main__":
             # h.move("up")
             # print(board.board)
             if(global_stuff.debug == 1):
-                print(h.x, h.y, global_stuff.control_pressed)
+                print(h._x, h._y, global_stuff.control_pressed)
             h.move(global_stuff.control_pressed)
 
             h.collision_manager(board)
             if(global_stuff.control_pressed == ' '):
                 for i in range(global_stuff.total_bullets):
+                    #print("CH")
                     if(bullet_list[i].deploy(h) == 1):
                         break
             elif(global_stuff.control_pressed == 'q'):
@@ -113,9 +114,9 @@ if __name__ == "__main__":
             if(is_magnet_on_screen!="NOT ON SCREEN"):
                 if(global_stuff.debug1==1):
                     print("Moving the guy close to ",is_magnet_on_screen)
-                if(is_magnet_on_screen+4-1>h.y):
+                if(is_magnet_on_screen+4-1>h._y):
                     h.move("right")
-                elif(is_magnet_on_screen+4-1<h.y):
+                elif(is_magnet_on_screen+4-1<h._y):
                     h.move("left")
                 h.collision_manager(board)
             # left shify everything
@@ -135,8 +136,8 @@ if __name__ == "__main__":
             restore_bullet += 1
             if(restore_bullet == 5):
                 for i in range(global_stuff.total_bullets):
-                    if(bullet_list[i].deployable == 0 and bullet_list[i].exist == 0):
-                        bullet_list[i].deployable = 1
+                    if(bullet_list[i].check_if_deployable() == 0 and bullet_list[i].check_if_exist() == 0):
+                        bullet_list[i].make_deployable()
                         global_stuff.bullets_left += 1
                         break
                 if(global_stuff.bullets_left > global_stuff.total_bullets):
@@ -167,7 +168,7 @@ if __name__ == "__main__":
                 e.release_balls()
                 e.move_balls(board, h)
         # is hero dead?
-        isdead = h.check_if_dead()
+        isdead = global_stuff.check_if_dead()
         if(isdead != "" and isdead != "Alive"):
             break
         time.sleep(global_stuff.frame_refresh_time)

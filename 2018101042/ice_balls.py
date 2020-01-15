@@ -22,14 +22,14 @@ class ball(obstacle):
         if(self.exist == 1):
             try:
                 for i in range(0, 5):
-                    board.destroy_object(self.x, self.y+i)
+                    board.destroy_object(self._x, self._y+i)
                     # whatever it touches (there would be only coins :/) no need to give coins or shiz
                     # what if it touches the hero
-                    for k in range(h.h):
+                    for k in range(h._h):
                         if(self.exist == 0):
                             break
-                        for l in range(h.w):
-                            if((h.x+k, h.y-l) == (self.x, self.y+i)):
+                        for l in range(h._w):
+                            if((h._x+k, h._y-l) == (self._x, self._y+i)):
                                 global_stuff.lives_remaining -= 2
                                 self.exist = 0
                                 break
@@ -42,27 +42,27 @@ class ball(obstacle):
             try:
                 self.check_collision(board, h)
                 """ for i in range(-5,5):
-                    board.destroy_object(self.x, self.y+i)
+                    board.destroy_object(self.x, self._y+i)
                     # whatever it touches (there would be only coins :/) no need to give coins or shiz
                     # what if it touches the hero
                     for k in range(h.h):
                         if(self.exist==0):
                             break
                         for l in range(h.w):
-                            if((h.x+k,h.y-l)==(self.x, self.y+i)):
+                            if((h.x+k,h.y-l)==(self.x, self._y+i)):
                                 global_stuff.lives_remaining-=2
                                 self.exist=0
                                 break """
                 # you lose two lives if that ball touches you; so be warned!!
             except:
                 pass
-            self.y -= 5
-            if(self.y <= 0):
+            self._y -= 5
+            if(self._y <= 0):
                 self.exist = 0
             self.check_collision(board, h)
 
     def deploy(self, x, y):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
         self.exist = 1
         self.print_direct()

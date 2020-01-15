@@ -95,8 +95,8 @@ class full_board():
                     screen_no*global_stuff.screen_length))  # 1st screen
                 beami = beam(xpos, ypos, ty)
                 ifp = 1
-                for I in range(beami.h):
-                    for J in range(beami.w):
+                for I in range(beami._h):
+                    for J in range(beami._w):
                         if(self.check_if_permissible(xpos+I, ypos+J) == 0):
                             ifp = 0
                             break
@@ -198,8 +198,8 @@ class full_board():
             m = magnet(xpos, ypos)
             try:
                 ok = 1
-                for i in range(m.h):
-                    for j in range(m.w):
+                for i in range(m._h):
+                    for j in range(m._w):
                         if(self.check_if_permissible(xpos+i, ypos+j) == 0):
                             ok = 0
                             if(global_stuff.debug == 1):

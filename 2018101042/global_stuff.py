@@ -19,7 +19,6 @@ lives_remaining = total_life
 frame_refresh_time = 0.05
 
 
-
 bullets_left = 3  # count of deployable bullets
 total_bullets = 10
 
@@ -85,15 +84,36 @@ enemy_come = 0
 
 magnet_y_pos_fullboard = 0
 
-debug1=0
+debug1 = 0
 move_left_time = 0.4
 
-if(debug1==1):
+if(debug1 == 1):
     move_left_time = 0.1
 
 
-total_time = int( enemy_comes_after*2*screen_length * move_left_time)
+total_time = int(enemy_comes_after*2*screen_length * move_left_time)
 time_left = total_time
 
-debug2=0
-boss_dead=0
+debug2 = 0
+boss_dead = 0
+
+
+def check_if_dead():
+    '''
+    Checks if the hero is dead or not:
+        How did you die?
+        How did the game end?
+        Answers all these questions
+    '''
+    if(hit_by_a_magnet == 1):
+        return "Death by Magnet"
+    elif (lives_remaining <= 0):
+        return "No Lives Remaining"
+    elif(time_left <= 0):
+        return "Time out"
+    elif(touch_boss == 1):
+        return "Touched Boss"
+    elif(boss_dead == 1):
+        return "Boss Dead"
+    else:
+        return "Alive"

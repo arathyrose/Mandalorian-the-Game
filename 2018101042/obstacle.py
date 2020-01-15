@@ -1,21 +1,32 @@
-'''
-A base class that denotes all the possible obstacles in the game
+"""
+obstacle
+========
 
-It has the following attributes
+This class denotes every object on the screen that has been rasterized on the board
+It has no extra features.
 
-- length
-- width
-- x position
-- y position
-- shape
+It inherits from object.
 
-and the following functions:
+Additional Data Members
+-----------------------
 
-- Display it
-'''
+NONE
+
+Additional/Re-written Member Functions
+--------------------------------------
+
+- Constructor
+
+It just calls the constructor of the parent class object. 
+
+"""
 from obj import obj
 
 
 class obstacle(obj):
+
     def __init__(self, xpos, ypos, length, width, shape, style):
+        """
+        Initialize an object as an obstacle (no extra features)
+        """
         super().__init__(xpos, ypos, length, width, shape, style)
