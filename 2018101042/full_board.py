@@ -120,121 +120,50 @@ class full_board():
         for typ in ["h", "v", "d1", "d2"]:
             if(global_stuff.debug2 == 1):
                 print("Generating "+typ+" beams....")
-            for i in range(1, 5):
+            for i in range(1, 6):
                 for _ in range(2):
                     self.put_beam_block(typ, i+0.5)
 
+    def put_powerup(self, ty, screen_no):
+        attempt = 0
+        while (attempt <= 100):
+            try:
+                xpos = random.randint(5, self.rows-5)
+                ypos = random.randint(int((screen_no-1)*global_stuff.screen_length), int(
+                    screen_no*global_stuff.screen_length))
+                pu = powerup(xpos, ypos, ty)
+                if(self.check_if_permissible(xpos, ypos) != 0):
+                    if(global_stuff.debug2 == 1):
+                        print(xpos, ypos)
+                        getch.getch()
+                    pu.write_self_on_board(self)
+                    return
+                else:
+                    attempt += 1
+            except:
+                if(global_stuff.debug2 == 1):
+                    print("Error")
+                    getch.getch()
+                attempt += 1
+
     def randomly_add_powerups(self):
-        if(global_stuff.debug == 1):
-            print("Generating powerups....")
-        if(global_stuff.debug == 1):
-            print("Generating speed up powerups...")
-        # testing remove
-        if(global_stuff.powerUpTesting == 1):
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint(10, 14)  # 2,3 , 4,5 and 6,7
-            sp = powerup(xpos, ypos, 'sp')
-            sp.write_self_on_board(self)
-
-        for i in range(3):
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint((2+2*i)*global_stuff.screen_length,
-                                  (3+2*i)*global_stuff.screen_length)  # 2,3 , 4,5 and 6,7
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            sp = powerup(xpos, ypos, 'sp')
-            try:
-                if(self.check_if_permissible(xpos, ypos) == 1):
-                    sp.write_self_on_board(self)
-                else:
-                    i -= 1
-            except Exception as e:
-                print('ERROR in', xpos, ypos)
-                print(e)
-                i -= 1
-        if(global_stuff.debug == 1):
-            print("Generating Shield Powerups....")
-        # testing remove
-        if(global_stuff.powerUpTesting == 1):
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint(14, 18)  # 2,3 , 4,5 and 6,7
-            sp = powerup(xpos, ypos, 'sh')
-            sp.write_self_on_board(self)
-
-        for i in range(3):
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            # 4,5 and 6,7 and 8,9
-            ypos = random.randint(
-                (3+2*i)*global_stuff.screen_length, (4+2*i)*global_stuff.screen_length)
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            sp = powerup(xpos, ypos, 'sh')
-            try:
-                if(self.check_if_permissible(xpos, ypos) == 1):
-                    sp.write_self_on_board(self)
-                else:
-                    i -= 1
-            except Exception as e:
-                print('ERROR in', xpos, ypos)
-                print(e)
-                i -= 1
-        if(global_stuff.debug == 1):
-            print("Generating extra lives....")
-        # testing remove
-        # testing remove
-        if(global_stuff.powerUpTesting == 1):
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint(24, 40)  # 2,3 , 4,5 and 6,7
-            sp = powerup(xpos, ypos, 'xl')
-            sp.write_self_on_board(self)
-
-        for i in range(10):
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            # 2,3 , 4,5 and 6,7
-            ypos = random.randint(i*global_stuff.screen_length,
-                                  (1+i)*global_stuff.screen_length)
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            sp = powerup(xpos, ypos, 'xl')
-            try:
-                if(self.check_if_permissible(xpos, ypos) == 1):
-                    sp.write_self_on_board(self)
-                else:
-                    i -= 1
-            except Exception as e:
-                print('ERROR in', xpos, ypos)
-                print(e)
-                i -= 1
-        if(global_stuff.debug == 1):
-            print("Generating snake powerup...")
-
-        # testing remove
-        if(global_stuff.powerUpTesting == 1):
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint(60, 80)
-            sp = powerup(xpos, ypos, 'snek')
-            sp.write_self_on_board(self)
-
-        while True:
-            xpos = random.randint(5, self.rows-5)  # height wala cheeze
-            ypos = random.randint(5*global_stuff.screen_length,
-                                  6*global_stuff.screen_length)  # 2,3 , 4,5 and 6,7
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            sp = powerup(xpos, ypos, 'snek')
-            try:
-                if 1:
-                    # if(self.is_location_alright(xpos,ypos)==1):
-                    sp.write_self_on_board(self)
-                    break
-            except Exception as e:
-                print('ERROR in', xpos, ypos)
-                print(e)
-                continue
+        if(global_stuff.debug2 == 1):
+            print("Generating extra life powerups...")
+        for screen in range(1, 10):
+            self.put_powerup("ExtraLife", screen)
+        if(global_stuff.debug2 == 1):
+            print("Generating Speed Up powerups...")
+        for screen in range(1, 6):
+            self.put_powerup("SpeedBoost", screen)
+        if(global_stuff.debug2 == 1):
+            print("Generating Shield powerups...")
+        for screen in range(1, 6):
+            for _ in range(2):
+                self.put_powerup("ShieldPU", screen)
+        if(global_stuff.debug2 == 1):
+            print("Generating Snake powerups...")
+        for screen in range(1, 2):
+            self.put_powerup("Snek", screen+0.5)
 
     def check_if_permissible(self, X, Y):
         ''' 
@@ -255,14 +184,13 @@ class full_board():
         if(global_stuff.debug == 1):
             print("Generating magnet...")
         if(global_stuff.powerUpTesting == 1):
-            # if(0):
             kdd = 0
         else:
-            kdd = 2
+            kdd = 3
         while(True):
             xpos = random.randint(3, 4)
             ypos = random.randint(
-                kdd*global_stuff.screen_length, (kdd+1)*global_stuff.screen_length)
+                (kdd-1)*global_stuff.screen_length, kdd*global_stuff.screen_length)
             m = magnet(xpos, ypos)
             try:
                 ok = 1
