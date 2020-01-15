@@ -42,82 +42,87 @@ class full_board():
                 else:
                     self.board[i][j][1] = "Bg1"
 
-    def add_coins(self, coins):
-        coins.write_self_on_board(self)
+    def put_coins_block(self, screen_no):
+        h = random.randint(2, 7)
+        w = random.randint(10, 30)
+        xpos = random.randint(3, self.rows-2)  # man anything is enough
+        ypos = random.randint(int((screen_no-1)*global_stuff.screen_length),
+                              int(screen_no*global_stuff.screen_length))  # 1st screen
+        if(global_stuff.debug2 == 1):
+            print(ypos)
+            getch.getch()
+        for i in range(h):
+            for j in range(w):
+                c = coins(xpos+i, ypos+j)
+                try:
+                    c.write_self_on_board(self)
+                except:
+                    continue
 
-    def randomly_add_coins_everywhere(self):  # recheck
-        if(global_stuff.debug == 1):
+    def randomly_add_coins_everywhere(self):
+        '''
+        Generate coins randomly on the board based on the following metric
+        Screen 1    : 2 blocks (need not be distinct)
+        Screen 2 - 9: 4 blocks (need not be distinct)
+        '''
+        if(global_stuff.debug2 == 1):
             print("Generating coins...")
-        for i in range(11):  # four blocks of coins of random width and height at a distance of at least screen_length/4 apart
-            h = random.randint(1, 7)
-            w = random.randint(1, 30)
-            xpos = int(self.rows/2 - 3+random.randint(0, 4-1))
-            ypos = int(random.randint(
-                0, int(self.columns/11-1)) + (self.columns/11)*i)
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            for i in range(h):
-                for j in range(w):
-                    c = coins(xpos+i, ypos+j)
-                    try:
-                        self.add_coins(c)
-                    except:
-                        continue
+        # SCREEN 1
+        for _ in range(2):
+            # only the y position i.e. the horizontal position of the coin set keeps changing so...
+            self.put_coins_block(1)
+        # SCREEN 2 - 9
+        for screen in range(2, 10):  # screen loop
+            for _ in range(4):  # count loop
+                # only the y position i.e. the horizontal position of the coin set keeps changing so...
+                self.put_coins_block(screen)
 
-    def randomly_add_hbeams(self):  # randomly adds beams everywhere on the board
-        if(global_stuff.debug == 1):
-            print("Generating horizontal beams....")
-        for i in range(5):
-            xpos = int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
-            ypos = int(random.randint(
-                3, int(self.columns/5-1)) + (self.columns/5)*i)-3
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            hb = beam(xpos, ypos, "h")
+    def put_beam_block(self, ty, screen_no):
+        attempt = 0
+        while (attempt <= 100):
             try:
-                hb.write_self_on_board(self)
-            except Exception as e:
-                print('ERROR in', xpos, ypos)
-                print(e)
-                continue
+                if(ty == "h"):
+                    # place it anywhere, as though no one cares
+                    xpos = random.randint(2, self.rows-4)
+                elif(ty in ["d1", "d2", "v"]):
+                    xpos = random.randint(
+                        2, self.rows-int(global_stuff.length_of_beam/2)+2*global_stuff.safe_region-3)
+                ypos = random.randint(int((screen_no-1)*global_stuff.screen_length), int(
+                    screen_no*global_stuff.screen_length))  # 1st screen
+                beami = beam(xpos, ypos, ty)
+                ifp = 1
+                for I in range(beami.h):
+                    for J in range(beami.w):
+                        if(self.check_if_permissible(xpos+I, ypos+J) == 0):
+                            ifp = 0
+                            break
+                    if(ifp == 0):
+                        break
+                if(ifp == 1):
+                    if(global_stuff.debug2 == 1):
+                        print(xpos, ypos)
+                        getch.getch()
+                    beami.write_self_on_board(self)
+                    return
+                else:
+                    attempt += 1
+            except:
+                if(global_stuff.debug2 == 1):
+                    print("Error")
+                    getch.getch()
+                attempt += 1
 
-    def randomly_add_vbeams(self):
-        if(global_stuff.debug == 1):
-            print("Generating vertical beams....")
-        for i in range(5):
-            xpos = int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
-            ypos = int(random.randint(
-                3, int(self.columns/5-1)) + (self.columns/5)*i)-3
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            hb = beam(xpos, ypos, "v")
-            try:
-                hb.write_self_on_board(self)
-            except Exception as e:
-                print('ERROR in', xpos, ypos)
-                print(e)
-                continue
-
-    def randomly_add_dbeams(self):
-        if(global_stuff.debug == 1):
-            print("Generating diagonal beams....")
-        for i in range(5):
-            xpos = int(self.rows/2 - 3+random.randint(0, 4-1)+3)-3
-            ypos = int(random.randint(
-                3, int(self.columns/5-1)) + (self.columns/5)*i)-3
-            if(global_stuff.debug == 1):
-                print(xpos, ypos)
-                getch.getch()
-            hb = beam(xpos, ypos, "d"+str(random.randint(1, 2)))
-            try:
-                hb.write_self_on_board(self)
-            except Exception as e:
-                print('ERROR in', xpos, ypos)
-                print(e)
-                continue
+    def randomly_add_beams(self):
+        '''
+        Generate all kinds of beams randomly on the board based on the following metric
+        Screen 0.5 - 5    : 2 blocks (placing if permissible) per beam type
+        '''
+        for typ in ["h", "v", "d1", "d2"]:
+            if(global_stuff.debug2 == 1):
+                print("Generating "+typ+" beams....")
+            for i in range(1, 5):
+                for _ in range(2):
+                    self.put_beam_block(typ, i+0.5)
 
     def randomly_add_powerups(self):
         if(global_stuff.debug == 1):
@@ -140,7 +145,7 @@ class full_board():
                 getch.getch()
             sp = powerup(xpos, ypos, 'sp')
             try:
-                if(self.is_location_alright(xpos, ypos) == 1):
+                if(self.check_if_permissible(xpos, ypos) == 1):
                     sp.write_self_on_board(self)
                 else:
                     i -= 1
@@ -167,7 +172,7 @@ class full_board():
                 getch.getch()
             sp = powerup(xpos, ypos, 'sh')
             try:
-                if(self.is_location_alright(xpos, ypos) == 1):
+                if(self.check_if_permissible(xpos, ypos) == 1):
                     sp.write_self_on_board(self)
                 else:
                     i -= 1
@@ -195,7 +200,7 @@ class full_board():
                 getch.getch()
             sp = powerup(xpos, ypos, 'xl')
             try:
-                if(self.is_location_alright(xpos, ypos) == 1):
+                if(self.check_if_permissible(xpos, ypos) == 1):
                     sp.write_self_on_board(self)
                 else:
                     i -= 1
@@ -231,7 +236,10 @@ class full_board():
                 print(e)
                 continue
 
-    def is_location_alright(self, X, Y):
+    def check_if_permissible(self, X, Y):
+        ''' 
+        returns 0 if it is not permissible
+        '''
         for i in range(-1, 2):
             for j in range(-1, 2):
                 try:
@@ -247,7 +255,7 @@ class full_board():
         if(global_stuff.debug == 1):
             print("Generating magnet...")
         if(global_stuff.powerUpTesting == 1):
-        #if(0):
+            # if(0):
             kdd = 0
         else:
             kdd = 2
@@ -260,7 +268,7 @@ class full_board():
                 ok = 1
                 for i in range(m.h):
                     for j in range(m.w):
-                        if(self.is_location_alright(xpos+i, ypos+j) == 0):
+                        if(self.check_if_permissible(xpos+i, ypos+j) == 0):
                             ok = 0
                             if(global_stuff.debug == 1):
                                 print("Not ok at ", xpos+i, ypos+j)
@@ -269,7 +277,7 @@ class full_board():
                         break
                 if(ok == 1):
                     m.write_self_on_board(self)
-                    global_stuff.magnet_y_pos_fullboard=ypos
+                    global_stuff.magnet_y_pos_fullboard = ypos
                     if(global_stuff.debug == 1):
                         print(xpos, ypos)
                         getch.getch()
@@ -285,8 +293,6 @@ class full_board():
     def prepare_board(self):
         self.generate_background()
         self.randomly_add_coins_everywhere()
-        self.randomly_add_hbeams()
-        self.randomly_add_vbeams()
-        self.randomly_add_dbeams()
+        self.randomly_add_beams()
         self.randomly_add_powerups()
         self.add_magnet()

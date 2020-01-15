@@ -91,3 +91,5 @@ move_left_time = 0.5
 
 if(debug1==1):
     move_left_time = 0.1
+
+debug2=1

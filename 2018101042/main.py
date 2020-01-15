@@ -115,6 +115,7 @@ if __name__ == "__main__":
                     h.move("right")
                 elif(is_magnet_on_screen+4-1<h.y):
                     h.move("left")
+                h.collision_manager(board)
             # left shify everything
             if(global_stuff.debug==1):
                 print('SHIFTING EVERYTHING')
