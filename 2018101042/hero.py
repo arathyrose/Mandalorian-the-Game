@@ -32,6 +32,10 @@ Then prints the hero directly onto the screen
 
 Manages the collision of the hero with the beams, coins, magnet and powerups on the board
 
+- magnet_attraction
+
+Manages the attraction of the hero towards the magnet if the magnet is on the screen
+
 """
 
 
@@ -92,3 +96,17 @@ class hero(person):
                 # magnets
                 elif(what_is_destroyed == 'Magnet'):
                     global_stuff.hit_by_a_magnet = 1
+
+    def magnet_attraction(self, board):
+        '''
+        Manages the attraction of the hero towards the magnet if the magnet is on the screen
+        '''
+        is_magnet_on_screen = board.is_magnet_on_screen()
+        if(is_magnet_on_screen != "NOT ON SCREEN"):
+            if(global_stuff.debug == 1):
+                print("Moving the guy close to ", is_magnet_on_screen)
+            if(is_magnet_on_screen+4-1 > self._y):
+                self.move("right")
+            elif(is_magnet_on_screen+4-1 < self._y):
+                self.move("left")
+            self.collision_manager(board)

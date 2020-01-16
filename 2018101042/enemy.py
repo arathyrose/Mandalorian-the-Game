@@ -1,34 +1,98 @@
-'''
-Denotes the boss enemy Viserion, the flying dragon
+r"""
+enemy
+=====
 
-He inherits from `PERSON` and has the following attributes:
+This class denotes the boss enemy Viserion, the flying dragon
+He is small; he is a tiny squishy squirrel-like dragon; but why did he want to take Baby Yoda?
 
-- ice balls
-- lives
+It inherits from person class. The enemy is also a person, remember that while shooting bullets at him
 
-and the following functions:
+Additional Data Members
+-----------------------
 
-- throw ice balls
-- follow along y axis
-- die
-'''
+- state
+
+Tells which state he is in
+He has three states:
+
+State 0: Normal state 1 where he looks like this
+ |\_//|   /_(
+ _/(o)/  /_( 
+/o_.-. \/__( 
+  __/__/___( 
+ ¨-¨-¨-¨-¨  
+
+State 1: Normal state 2 where he looks like this
+ |\_//|   /_(
+ _/(o)/  /_( 
+/__.-. \/__( 
+  __/__/___( 
+ ¨-¨-¨-¨-¨  
+
+State DEAD: The dragon looks dead in this state
+ |\_//|   /_(
+ _/xxx/  /_( 
+/__.-. \/__( 
+  __/__/___( 
+ ¨-¨-¨-¨-¨  
+
+- ball
+
+Denotes the beautiful ice balls he likes to deploy at the hero
+But since he is dumb, he does not deploy it properly at the hero
+
+Additional/Re-written Member Functions
+--------------------------------------
+
+- Constructor
+
+Initialises the person with the characteristics of an enemy and gives it two additional attributes: state and ball
+
+- print_direct
+
+Checks the state of the dragon and prints him accordingly directly onto the screen; also prints his ball (if it exists)
+
+- follow
+
+Make the dragon follow the hero along the x axis
+
+- release_balls
+
+release those balls, filled with ice if it is not already deployed
+
+- move_balls
+
+Moves the balls left
+
+- check_collision(self, board, h):
+
+Checks if the hero is colliding with the boss 
+Decrease the boss health if bullet hits the boss and increase the score by 10 per pain inflicted to the enemy
+Also checks if his ball is colliding with anything
+"""
 
 
 from person import person
 import global_stuff
-from powerUp import powerup
 from ice_balls import ball
 import random
 
 
 class enemy(person):
+
     def __init__(self):
+        '''
+        Initialises the person with the characteristics of an enemy and gives it two additional attributes: state and ball
+        '''
         super().__init__(2, global_stuff.screen_length-2,
                          5, 13, global_stuff.enemy_style_1, "Enemy")
         self._state = 0
         self.ball = ball()
 
     def print_direct(self):
+        '''
+        Checks the state of the dragon and prints him accordingly directly onto the screen; also prints his ball (if it exists)
+        '''
         if(self._state == 0):
             self._style = global_stuff.enemy_style_1
         elif(self._state == 1):
@@ -36,35 +100,52 @@ class enemy(person):
         elif(self._state == 'DEAD'):
             self._style = global_stuff.enemy_style_dead
         super().print_direct()
-        if(self.ball.exist == 1):
+        if(self.ball.check_if_exists() == 1):
             self.ball.print_direct()
 
     def follow(self, h):
+        '''
+        Make the dragon follow the hero along the x axis
+        '''
+        (hx, _) = h.get_coord()
         if(global_stuff.debug == 1):
-            print("Following ", h._x, self._x, global_stuff.screen_height-5-3)
-        if(h._x > self._x):
+            print("Following ", hx, self._x, global_stuff.screen_height-5-3)
+        if(hx > self._x):
             if(self._x <= global_stuff.screen_height-9):
                 super().move("down")
-        elif(h._x < self._x):
+        elif(hx < self._x):
             super().move("up")
 
     def release_balls(self):
         '''
-        release those balls so filled with ice
+        release those balls, filled with ice if it is not already deployed
         '''
-        if(self.ball.exist == 0):
+        if(self.ball.check_if_exists() == 0):
             p = random.randint(0, 4)
-            # print(p)
             self.ball.deploy(self._x+p, self._y)
 
     def move_balls(self, board, hero):
+        '''
+        Moves the balls left
+        '''
         self.ball.move_left(board, hero)
 
     def check_collision(self, board, h):
         '''
-        Makes global variable 1 if it is colliding with the hero
-        Decrease the boss health if bullet hits the boss
+        Checks if the hero is colliding with the boss 
+        Decrease the boss health if bullet hits the boss and increase the score by 10 per pain inflicted to the enemy
         '''
+        # Hero
+        (hx, hy) = h.get_coord()
+        (hh, hw) = h.get_dim()
+        for i in range(self._h):
+            for j in range(self._w):
+                for k in range(hh):
+                    for l in range(hw):
+                        if((self._x+i, self._y-j) == (hx+k, hy-l)):
+                            global_stuff.touch_boss = 1  # game is over so don't care about anything else
+                            return
+        # Bullet
         bullet_accounted = 0
         for i in range(self._h):
             if(bullet_accounted == 1):
@@ -74,12 +155,5 @@ class enemy(person):
                     global_stuff.boss_life_remaining -= 1
                     bullet_accounted = 1
                     break
-        for i in range(self._h):
-            for j in range(self._w):
-                for k in range(h._h):
-                    for l in range(h._w):
-                        if((self._x+i, self._y-j) == (h._x+k, h._y-l)):
-                            global_stuff.touch_boss = 1
-                            return
         # otherwise check if the ball is colliding with anything
         self.ball.check_collision(board, h)

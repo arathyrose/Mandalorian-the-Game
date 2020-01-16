@@ -294,17 +294,17 @@ The bullets fired by your Mandalorian has a special ability to continue existing
 - [x] bullet.py
 - [x] coins.py
 - [x] colored_printing.py
-- [ ] enemy.py
-- [ ] full_board.py
-- [ ] gameboard.py
-- [ ] global_stuff.py
+- [x] enemy.py
+- [x] full_board.py
+- [x] gameboard.py
+- [x] global_stuff.py
 - [x] hero.py
-- [ ] ice_balls.py
+- [x] ice_balls.py
 - [x] inputs.py
 - [x] magnet.py
-- [ ] main.py
+- [x] main.py
 - [x] obj.py
 - [x] obstacle.py
 - [x] person.py
-- [ ] powerUp.py
+- [x] powerUp.py
 - [x] term.py

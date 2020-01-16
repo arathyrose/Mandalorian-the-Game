@@ -1,6 +1,3 @@
-import os
-from colorama import init, Fore, Back, Style
-from termcolor import colored
 import global_stuff
 import inputs
 import term
@@ -10,129 +7,150 @@ from person import person
 from hero import hero
 from coins import coins
 from full_board import full_board
-# from getch  import getch
 from enemy import enemy
 from bullet import bullet
 
 
-def put_coins(board):
-    for i in range(30):
-        c = coins(i, 50)
-        c.write_self_on_board(board)
-
-
 if __name__ == "__main__":
-    term.clrscr()
-    board = gameboard.gameboard(
-        global_stuff.screen_height, global_stuff.screen_length)
-    h = hero()
-    global_stuff.game_start_time = time.time()  # get the start time of the game
+    term.clrscr()  # clear the screen
 
+    # SCREEN 1
     print("THE MANDALORIAN : THE GAME")
     print()
     print("Enter your name: ")
     global_stuff.username = input()
-    # set up input
+
+    # SET UP THE INPUE
     keys = inputs.NBInput()
-    keys.nbTerm()  # enable non-blocking input
+    keys.nbTerm()
     keys.flush()
 
-    fb = full_board(global_stuff.screen_height, global_stuff.screen_length)
+    # MAKE THE BOARDS, HERO AND THE ENEMY
+    fb = full_board(global_stuff.screen_height,
+                    global_stuff.screen_length)  # full board
     fb.prepare_board()
+    board = gameboard.gameboard(
+        global_stuff.screen_height, global_stuff.screen_length)  # Partial board displayed on the screen
+    # Write to the partial board on the screen
     board.write_full_on_board(fb, 0)
-    e = enemy()
-    """ print("BOARD")
-    #print(board.board)
-    for i in range(board.rows):
-        for j in range(board.columns):
-            print(board.board[i][j][0],board.board[i][j][1])
-    
-    print("FULL BOARD")
-    for i in range(fb.rows):
-        for j in range(fb.columns):
-            print(fb.board[i][j][0],fb.board[i][j][1])
-     """
-    gravity_ok = 0
-    restore_bullet = 0
+    h = hero()  # Hero
+    e = enemy()  # Enemy
+
+    # MAKE THE ENEMY COME IN THE 1st SCREEN IF IN TESTING MODE
+    global_stuff.homework()
+    if(global_stuff.test_enemy == 1):
+        global_stuff.enemy_come = 1
+
+    # BULLETS
     bullet_list = [bullet() for _ in range(10)]
     for i in range(global_stuff.bullets_left):
         bullet_list[i].make_deployable()
     if(global_stuff.debug == 1):
         print("Game starts at "+str(global_stuff.game_start_time))
-    # getch()
+
+    # TIME MANAGEMENT
+    global_stuff.game_start_time = time.time()  # get the start time of the game
     last_shift_time = global_stuff.game_start_time
+
+    # INITIALISE THE LOCAL COUNTERS USED
+    gravity_ok = 0
+    restore_bullet = 0
+
+    # OTHER LOCAL GAME VARIABLES
     isdead = "Alive"
-    global_stuff.homework()
-    if(global_stuff.test_enemy == 1):
-        global_stuff.enemy_come = 1
-    # the game loop goes here
+
+    # GAME LOOP
     while(1):
+
+        # DISPLAY THE BOARD, HERO, BULLETS AND ENEMY(if applicable)
         term.next_play()
-        # TODO: print the board
-        # h.write_self_on_board(board)
         board.print()
         h.print_direct()
         if(global_stuff.enemy_come == 1):
             e.print_direct()
-            e.follow(h)
-        if(global_stuff.debug == 1):
-            print(global_stuff.shown_until)
-        if(global_stuff.enemy_come == 1):
+            e.follow(h)  # make the enemy follow our hero
             e.check_collision(board, h)
-        # put_coins(board)
-        if(global_stuff.debug1==1):
-            if(board.is_magnet_on_screen()!="NOT ON SCREEN"):
-                print("YES MAGNET ON SCREEN")
-        # get input
-        if keys.kbHit():  # poll for input
-            global_stuff.control_pressed = keys.getCh()
-            # h.move("up")
-            # print(board.board)
-            if(global_stuff.debug == 1):
-                print(h._x, h._y, global_stuff.control_pressed)
-            h.move(global_stuff.control_pressed)
 
+        # IF IN DEBUG MODE, DISPLAY THE FOLLOWING
+        if(global_stuff.debug == 1):
+            #  THE SCREEN COLUMN THAT WILL BE DISPLAYED NEXT
+            print(global_stuff.shown_until)
+            #  WHETHER THE MAGNET IS ON THE SCREEN
+            if(board.is_magnet_on_screen() != "NOT ON SCREEN"):
+                print("YES MAGNET ON SCREEN")
+
+        # POLL FOR THE INPUT EVERY FRAME CYCLE
+        if keys.kbHit():
+
+            # GET THE INPUT AND STORE IT IN A VARIABLE
+            control_pressed = keys.getCh()
+            if(global_stuff.debug == 1):
+                print(h.get_coord(), control_pressed)
+
+            # MOVE THE HERO AND CHECK FOR HIS COLLISIONS WITH BOTH THE ENEMY AND THE BOARD OBSTACLES
+            h.move(control_pressed)
             h.collision_manager(board)
-            if(global_stuff.control_pressed == ' '):
+            if(global_stuff.enemy_come == 1):
+                e.follow(h)  # make the enemy follow our hero
+                e.check_collision(board, h)
+
+            # SHOOT BULLETS BY THE HERO
+            if(control_pressed == ' '):
                 for i in range(global_stuff.total_bullets):
-                    #print("CH")
                     if(bullet_list[i].deploy(h) == 1):
                         break
-            elif(global_stuff.control_pressed == 'q'):
+
+            # QUIT THE GAME
+            elif(control_pressed == 'q'):
                 break
-            global_stuff.control_pressed = None
-        # TODO: MOVE THE BOARD TO LEFT DEPENDING ON THE TIME
+
+            # RESET IT ALL
+            control_pressed = None
+
+        # MOVE THE BOARD BACKWARDS EVERY FEW 100s OF MILLISECONDS
         if(time.time()-last_shift_time >= global_stuff.move_left_time):
+
             last_shift_time = time.time()
-            #check if it is time for the enemy to come
-            if(global_stuff.shown_until>=global_stuff.enemy_comes_after*global_stuff.screen_length):
-                global_stuff.enemy_come=1
-            # manage collisions
-            h.collision_manager(board)
-            # magnet
-            is_magnet_on_screen=board.is_magnet_on_screen()
-            if(is_magnet_on_screen!="NOT ON SCREEN"):
-                if(global_stuff.debug1==1):
-                    print("Moving the guy close to ",is_magnet_on_screen)
-                if(is_magnet_on_screen+4-1>h._y):
-                    h.move("right")
-                elif(is_magnet_on_screen+4-1<h._y):
-                    h.move("left")
-                h.collision_manager(board)
-            # left shify everything
-            if(global_stuff.debug==1):
+
+            # SHIFT THE BOARD
+            if(global_stuff.debug == 1):
                 print('SHIFTING EVERYTHING')
             for i in range(global_stuff.total_bullets):
                 bullet_list[i].move_right(board)
             board.shift_right(fb, global_stuff.shown_until)
             global_stuff.shown_until += 1
-            # Gravity
+
+            # CHECK WHETHER ENEMY SHOULD COME
+            if(global_stuff.shown_until >= global_stuff.enemy_comes_after*global_stuff.screen_length):
+                global_stuff.enemy_come = 1
+
+            # MANAGE ALL COLLISIONS
+            h.collision_manager(board)
+            if(global_stuff.enemy_come == 1):
+                e.follow(h)  # make the enemy follow our hero
+                e.check_collision(board, h)
+
+            # ENEMY DOING STUFF ;p
+            if(global_stuff.enemy_come == 1):  # add condition later for checking if there is an enemy hero
+                e.release_balls()
+                e.move_balls(board, h)
+                e.check_collision(board, h)
+
+            # MOVE THE HERO DEPENDING ON THE POSITION OF THE MAGNET
+            h.magnet_attraction(board)
+
+            # GRAVITY
             gravity_ok += 1
-            if(gravity_ok == 2):  # change this to change gravy
-                h.move("down")  # gravity :)
+            if(gravity_ok == 2):  # change this to change gravity strength
+                h.move("down")
                 gravity_ok = 0
+                # check for collisions
                 h.collision_manager(board)
-            # restoring bullets
+                if(global_stuff.enemy_come == 1):
+                    e.follow(h)  # make the enemy follow our hero
+                    e.check_collision(board, h)
+
+            # RESTORE BULLETS ONCE EVERY 5 SHIFTS
             restore_bullet += 1
             if(restore_bullet == 5):
                 for i in range(global_stuff.total_bullets):
@@ -143,36 +161,40 @@ if __name__ == "__main__":
                 if(global_stuff.bullets_left > global_stuff.total_bullets):
                     global_stuff.bullets_left = global_stuff.total_bullets
                 restore_bullet = 0
-            # powerups ran out ?
-            # Shield Hero
+
+            # POWER-UP RUN OUT CHECK
+
+            # SHIELD POWER-UP
             if(global_stuff.shielded == 1):
                 global_stuff.shielded_power_up_counter += 1
                 if(global_stuff.shielded_power_up_counter >= global_stuff.shield_timer):
                     global_stuff.shielded_power_up_counter = -1
                     global_stuff.shielded = 0
-            # speed hero
+
+            # SPEED POWER UP
             if(global_stuff.speeded == 1):
                 global_stuff.speeded_power_up_counter += 1
                 if(global_stuff.speeded_power_up_counter >= global_stuff.speed_timer):
                     global_stuff.speeded_power_up_counter = -1
                     global_stuff.speeded = 0
                     global_stuff.move_left_time *= 2
-            # Snake hero
+
+            # SNAKE POWERUP
             if(global_stuff.snek == 1):
                 global_stuff.snek_power_up_counter += 1
                 if(global_stuff.snek_power_up_counter >= global_stuff.snake_timer):
                     global_stuff.snek_power_up_counter = -1
                     global_stuff.snek = 0
-            # Enemy hero
-            if(global_stuff.enemy_come == 1):  # add condition later for checking if there is an enemy hero
-                e.release_balls()
-                e.move_balls(board, h)
-        # is hero dead?
+
+        # CHECK IF THE GAME IS OVER
         isdead = global_stuff.check_if_dead()
         if(isdead != "" and isdead != "Alive"):
             break
+
+        # DEFINE THE FRAME RATE
         time.sleep(global_stuff.frame_refresh_time)
-    # ...
+
+    # THE LAST GAME OVER SCREEN
     term.clrscr()
     print("GAME OVER")
     print()
@@ -183,4 +205,3 @@ if __name__ == "__main__":
         print("Baby Yoda still needs your help.. why you quit my friend?")
     else:
         print("Reason of death: "+isdead)
-    global_stuff.username = input()

@@ -25,6 +25,7 @@ Additional/Re-written Member Functions
 
 This fixes the shape of the bullet.
 Shape: ≡>
+Also makes exist and deployable 0
 
 - check_if_exist
 
@@ -70,6 +71,7 @@ class bullet(obstacle):
         """
         Initialises an obstacle with the length and width and shape of the bullet
         Shape: ≡>
+        Also makes exist and deployable 0
         """
         super().__init__(0, 0, 1, 2, [["≡", ">"]], "Bullet")
         self.__exist = 0
@@ -137,14 +139,15 @@ class bullet(obstacle):
                 # move it left
                 self._y += 2
                 # if it crosses the right end of the screen, it ceases to exist
-                if(self._y+1 >= board.columns):
+                if(self._y+1 >= global_stuff.screen_length):
                     self.delete_from_board()
                 elif(self.check_if_exist() == 1):  # if and only if the bullet still exists, print it
                     self.write_self_on_board(board)
                     if(global_stuff.debug == 1):
                         print("BULLET", self._x, self._y)
-            except:
+            except Exception as e:
                 # if there is any error while displaying the bullet, just remove its existence
+                print(e)
                 self.delete_from_board()
 
     def deploy(self, hero):

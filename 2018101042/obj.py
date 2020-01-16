@@ -63,6 +63,10 @@ Change the type of the object (used for changing the colors of the object mid-ga
 
 Gets the coordinates of the current object in (x,y) format
 
+- get_dim
+
+Gets the dimensions of the current object in (h,w) format
+
 """
 import colored_printing
 
@@ -125,3 +129,9 @@ class obj:
         Gets the coordinates of the current object in (x,y) format
         """
         return (self._x, self._y)
+
+    def get_dim(self):
+        """
+        Gets the dimensions of the current object in (h,w) format
+        """
+        return (self._h, self._w)
