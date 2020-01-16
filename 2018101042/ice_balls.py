@@ -1,4 +1,4 @@
-"""
+'''
 ball
 ====
 
@@ -38,7 +38,7 @@ Move the ball left after destroying everything in its path
 - deploy(self, x, y):
 
 Deploy the ball
-"""
+'''
 
 import global_stuff
 from obstacle import obstacle

@@ -4,7 +4,7 @@ powerUpTesting = 0
 test_enemy = 0
 
 # THE PLAYER PERSONAL STUFF
-username = "Player"
+username = 'Player'
 score = 0
 coins_collected = 0
 
@@ -32,7 +32,7 @@ boss_life_remaining = boss_total_life
 enemy_come = 0
 magnet_y_pos_fullboard = 0
 time_left = total_time
-ball_gravity_count=0
+ball_gravity_count = 0
 
 # POWER UP RELATED VARIABLES
 speeded = 0
@@ -98,14 +98,14 @@ def check_if_dead():
         Answers all these questions
     '''
     if(hit_by_a_magnet == 1):
-        return "Death by Magnet"
+        return 'Death by Magnet'
     elif (lives_remaining <= 0):
-        return "No Lives Remaining"
+        return 'No Lives Remaining'
     elif(time_left <= 0):
-        return "Time out"
+        return 'Time out'
     elif(touch_boss == 1):
-        return "Touched Boss"
+        return 'Touched Boss'
     elif(boss_dead == 1):
-        return "Boss Dead"
+        return 'Boss Dead'
     else:
-        return "Alive"
+        return 'Alive'

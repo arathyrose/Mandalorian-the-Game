@@ -1,4 +1,4 @@
-r"""
+r'''
 enemy
 =====
 
@@ -69,7 +69,7 @@ Moves the balls left
 Checks if the hero is colliding with the boss 
 Decrease the boss health if bullet hits the boss and increase the score by 10 per pain inflicted to the enemy
 Also checks if his ball is colliding with anything
-"""
+'''
 
 
 from person import person
@@ -85,7 +85,7 @@ class enemy(person):
         Initialises the person with the characteristics of an enemy and gives it two additional attributes: state and ball
         '''
         super().__init__(2, global_stuff.screen_length-2,
-                         5, 13, global_stuff.enemy_style_1, "Enemy")
+                         5, 13, global_stuff.enemy_style_1, 'Enemy')
         self._state = 0
         self.ball = ball()
 
@@ -109,12 +109,12 @@ class enemy(person):
         '''
         (hx, _) = h.get_coord()
         if(global_stuff.debug == 1):
-            print("Following ", hx, self._x, global_stuff.screen_height-5-3)
+            print('Following ', hx, self._x, global_stuff.screen_height-5-3)
         if(hx > self._x):
             if(self._x <= global_stuff.screen_height-9):
-                super().move("down")
+                super().move('down')
         elif(hx < self._x):
-            super().move("up")
+            super().move('up')
 
     def release_balls(self):
         '''
@@ -151,7 +151,7 @@ class enemy(person):
             if(bullet_accounted == 1):
                 break
             for j in range(self._w):
-                if(board.board[self._x+i][self._y-j][1] == "Bullet"):
+                if(board.board[self._x+i][self._y-j][1] == 'Bullet'):
                     global_stuff.boss_life_remaining -= 1
                     bullet_accounted = 1
                     break

@@ -1,4 +1,4 @@
-""" 
+''' 
 powerup
 ======
 
@@ -27,7 +27,8 @@ The obstacle is initialised as a powerup of whatever type you want it to be
 - collect
 
 Collect the powerup and make the powerup active
-"""
+
+'''
 
 
 from obstacle import obstacle

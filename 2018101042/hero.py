@@ -1,4 +1,4 @@
-"""
+'''
 hero
 ====
 
@@ -36,7 +36,7 @@ Manages the collision of the hero with the beams, coins, magnet and powerups on 
 
 Manages the attraction of the hero towards the magnet if the magnet is on the screen
 
-"""
+'''
 
 
 from person import person
@@ -47,25 +47,25 @@ from powerUp import powerup
 class hero(person):
 
     def __init__(self):
-        """
+        '''
         Initialises the person with the characteristics of a hero
-        """
+        '''
         super().__init__(global_stuff.screen_height - 5,
-                         0, 2, 2, [['▄', '['], ['|', '|']], "Hero")
+                         0, 2, 2, [['▄', '['], ['|', '|']], 'Hero')
 
     def print_direct(self):
-        """
+        '''
         Checks how high the hero is currently (that is, which all power-ups are active atm)
         Then prints the hero directly onto the screen
-        """
+        '''
         if(global_stuff.shielded == 1):
-            self.change_type("ShieldedHero")
+            self.change_type('ShieldedHero')
             super().print_direct()
         elif(global_stuff.speeded == 1):
-            self.change_type("SpeededHero")
+            self.change_type('SpeededHero')
             super().print_direct()
         else:
-            self.change_type("Hero")
+            self.change_type('Hero')
             super().print_direct()
 
     def collision_manager(self, board):
@@ -76,7 +76,7 @@ class hero(person):
             for j in range(self._w):
                 what_is_destroyed = board.destroy_object(self._x+i, self._y+j)
                 if(global_stuff.debug == 1):
-                    if(what_is_destroyed != "No collision"):
+                    if(what_is_destroyed != 'No collision'):
                         print(what_is_destroyed)
                 # coins
                 if(what_is_destroyed == 'Coin'):
@@ -102,11 +102,11 @@ class hero(person):
         Manages the attraction of the hero towards the magnet if the magnet is on the screen
         '''
         is_magnet_on_screen = board.is_magnet_on_screen()
-        if(is_magnet_on_screen != "NOT ON SCREEN"):
+        if(is_magnet_on_screen != 'NOT ON SCREEN'):
             if(global_stuff.debug == 1):
-                print("Moving the guy close to ", is_magnet_on_screen)
+                print('Moving the guy close to ', is_magnet_on_screen)
             if(is_magnet_on_screen+4-1 > self._y):
-                self.move("right")
+                self.move('right')
             elif(is_magnet_on_screen+4-1 < self._y):
-                self.move("left")
+                self.move('left')
             self.collision_manager(board)

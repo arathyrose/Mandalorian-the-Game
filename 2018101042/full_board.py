@@ -1,4 +1,4 @@
-"""
+'''
 full_board
 ==========
 
@@ -95,7 +95,7 @@ Screen number 3
 
 Prepares the board :)
 
-"""
+'''
 
 import global_stuff
 import numpy as np
@@ -118,7 +118,7 @@ class full_board():
         self.__rows = rows-5
         self.__columns = columns*global_stuff.total_no_screens
         self.board = np.full((self.__rows, self.__columns, 2),
-                             " "*global_stuff.total_no_screens)
+                             ' '*global_stuff.total_no_screens)
 
     def getrows(self):
         '''
@@ -132,16 +132,16 @@ class full_board():
         '''
         for i in range(self.__rows):
             for j in range(global_stuff.screen_length*global_stuff.enemy_comes_after):
-                self.board[i][j][0] = " "
+                self.board[i][j][0] = ' '
                 prob = random.random()
                 if(prob > 0.9):
-                    self.board[i][j][1] = "Bg2"
+                    self.board[i][j][1] = 'Bg2'
                 else:
-                    self.board[i][j][1] = "Bg1"
+                    self.board[i][j][1] = 'Bg1'
         for i in range(self.__rows):
             for j in range(global_stuff.screen_length*global_stuff.enemy_comes_after, self.__columns):
-                self.board[i][j][0] = " "
-                self.board[i][j][1] = "Normal"
+                self.board[i][j][0] = ' '
+                self.board[i][j][1] = 'Normal'
 
     def check_if_permissible(self, X, Y):
         ''' 
@@ -190,9 +190,9 @@ class full_board():
         attempt = 0
         while (attempt <= 100):
             try:
-                if(ty == "h"):
+                if(ty == 'h'):
                     xpos = random.randint(2, self.__rows-4)
-                elif(ty in ["d1", "d2", "v"]):
+                elif(ty in ['d1', 'd2', 'v']):
                     xpos = random.randint(
                         2, self.__rows-int(global_stuff.length_of_beam/2)+2*global_stuff.safe_region-3)
                 ypos = random.randint(int((screen_no-1)*global_stuff.screen_length), int(
@@ -216,7 +216,7 @@ class full_board():
                     attempt += 1
             except:
                 if(global_stuff.debug == 1):
-                    print("Error")
+                    print('Error')
                     getch.getch()
                 attempt += 1
 
@@ -244,7 +244,7 @@ class full_board():
                     attempt += 1
             except:
                 if(global_stuff.debug == 1):
-                    print("Error")
+                    print('Error')
                     getch.getch()
                 attempt += 1
 
@@ -255,7 +255,7 @@ class full_board():
         Screen 2 - 9: 4 blocks (need not be distinct)
         '''
         if(global_stuff.debug == 1):
-            print("Generating coins...")
+            print('Generating coins...')
         # SCREEN 1
         for _ in range(2):
             # only the y position i.e. the horizontal position of the coin set keeps changing so...
@@ -271,9 +271,9 @@ class full_board():
         Generate all kinds of beams randomly on the board based on the following metric
         Screen 0.5 - 5    : 2 blocks (placing if permissible) per beam type
         '''
-        for typ in ["h", "v", "d1", "d2"]:
+        for typ in ['h', 'v', 'd1', 'd2']:
             if(global_stuff.debug == 1):
-                print("Generating "+typ+" beams....")
+                print('Generating '+typ+' beams....')
             for i in range(1, 5):
                 for _ in range(2):
                     self.put_beam_block(typ, i+0.5)
@@ -287,22 +287,22 @@ class full_board():
         Snek       :     1- 2:         1 (placing if permissible)
         '''
         if(global_stuff.debug == 1):
-            print("Generating extra life powerups...")
+            print('Generating extra life powerups...')
         for screen in range(1, 10):
-            self.put_powerup("ExtraLife", screen)
+            self.put_powerup('ExtraLife', screen)
         if(global_stuff.debug == 1):
-            print("Generating Speed Up powerups...")
+            print('Generating Speed Up powerups...')
         for screen in range(1, 5):
-            self.put_powerup("SpeedBoost", screen)
+            self.put_powerup('SpeedBoost', screen)
         if(global_stuff.debug == 1):
-            print("Generating Shield powerups...")
+            print('Generating Shield powerups...')
         for screen in range(1, 5):
             for _ in range(2):
-                self.put_powerup("ShieldPU", screen)
+                self.put_powerup('ShieldPU', screen)
         if(global_stuff.debug == 1):
-            print("Generating Snake powerups...")
+            print('Generating Snake powerups...')
         for screen in range(1, 2):
-            self.put_powerup("Snek", screen+0.5)
+            self.put_powerup('Snek', screen+0.5)
 
     def add_magnet(self):
         '''
@@ -310,7 +310,7 @@ class full_board():
         Screen number 3
         '''
         if(global_stuff.debug == 1):
-            print("Generating magnet...")
+            print('Generating magnet...')
         if(global_stuff.powerUpTesting == 1):
             kdd = 0
         else:
@@ -327,7 +327,7 @@ class full_board():
                         if(self.check_if_permissible(xpos+i, ypos+j) == 0):
                             ok = 0
                             if(global_stuff.debug == 1):
-                                print("Not ok at ", xpos+i, ypos+j)
+                                print('Not ok at ', xpos+i, ypos+j)
                             break
                     if(ok == 0):
                         break

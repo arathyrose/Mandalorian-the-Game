@@ -1,10 +1,10 @@
-"""
+'''
 NBInput
 =======
 
 This class deals with non-blocking input.
 This was obtained from a stack overflow website (moss have mercy)
-"""
+'''
 
 import sys
 import select
@@ -54,16 +54,17 @@ class NBInput:
 
 # USE CASE
 
-if __name__ == "__main__":
-    keys = NBInput() # initialize
+
+if __name__ == '__main__':
+    keys = NBInput()  # initialize
     keys.nbTerm()  # enable non-blocking input
     keys.flush()  # Flush everything
-    k = keys.getCh() # get the key pressed
+    k = keys.getCh()  # get the key pressed
     print(k)
-    input = ""
-    while input != 'q': # GAME LOOP
+    input = ''
+    while input != 'q':  # GAME LOOP
         if keys.kbHit():  # poll for input
             input = keys.getCh()  # get the input and store it in the variable
             print(input)
-        print('.', end="")
+        print('.', end='')
     keys.orTerm()  # DONE

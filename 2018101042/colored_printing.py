@@ -1,12 +1,12 @@
-"""
+'''
 Has the different colors used in the game
 Contains the following global function:
 
 color_text(text,color)
 
 Colors the text according to the given color
-The color can be one of the "COLORS" in the array "COLORS" or can be explicitly mentioned using ASCII color codes.
-"""
+The color can be one of the 'COLORS' in the array 'COLORS' or can be explicitly mentioned using ASCII color codes.
+'''
 
 COLORS = {
     'Normal': '\x1b[40;37m',
@@ -43,10 +43,10 @@ END_COLOR = '\033[m'
 
 
 def color_text(text, color):
-    """ 
+    ''' 
     Colors the text according to the given color
-    The color can be one of the "COLORS" in the array "COLORS" or can be explicitly mentioned using ASCII color codes.
-    """
+    The color can be one of the 'COLORS' in the array 'COLORS' or can be explicitly mentioned using ASCII color codes.
+    '''
     if '\x1b' in color:
         return color + text + END_COLOR
     else:

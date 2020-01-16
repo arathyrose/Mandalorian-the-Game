@@ -11,13 +11,14 @@ from enemy import enemy
 from bullet import bullet
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+
     term.clrscr()  # clear the screen
 
     # SCREEN 1
-    print("THE MANDALORIAN : THE GAME")
+    print('THE MANDALORIAN : THE GAME')
     print()
-    print("Enter your name: ")
+    print('Enter your name: ')
     global_stuff.username = input()
 
     # SET UP THE INPUE
@@ -46,7 +47,7 @@ if __name__ == "__main__":
     for i in range(global_stuff.bullets_left):
         bullet_list[i].make_deployable()
     if(global_stuff.debug == 1):
-        print("Game starts at "+str(global_stuff.game_start_time))
+        print('Game starts at '+str(global_stuff.game_start_time))
 
     # TIME MANAGEMENT
     global_stuff.game_start_time = time.time()  # get the start time of the game
@@ -57,7 +58,7 @@ if __name__ == "__main__":
     restore_bullet = 0
 
     # OTHER LOCAL GAME VARIABLES
-    isdead = "Alive"
+    isdead = 'Alive'
 
     # GAME LOOP
     while(1):
@@ -76,8 +77,8 @@ if __name__ == "__main__":
             #  THE SCREEN COLUMN THAT WILL BE DISPLAYED NEXT
             print(global_stuff.shown_until)
             #  WHETHER THE MAGNET IS ON THE SCREEN
-            if(board.is_magnet_on_screen() != "NOT ON SCREEN"):
-                print("YES MAGNET ON SCREEN")
+            if(board.is_magnet_on_screen() != 'NOT ON SCREEN'):
+                print('YES MAGNET ON SCREEN')
 
         # POLL FOR THE INPUT EVERY FRAME CYCLE
         if keys.kbHit():
@@ -142,7 +143,7 @@ if __name__ == "__main__":
             # GRAVITY
             gravity_ok += 1
             if(gravity_ok == 2):  # change this to change gravity strength
-                h.move("down")
+                h.move('down')
                 gravity_ok = 0
                 # check for collisions
                 h.collision_manager(board)
@@ -188,7 +189,7 @@ if __name__ == "__main__":
 
         # CHECK IF THE GAME IS OVER
         isdead = global_stuff.check_if_dead()
-        if(isdead != "" and isdead != "Alive"):
+        if(isdead != '' and isdead != 'Alive'):
             break
 
         # DEFINE THE FRAME RATE
@@ -196,12 +197,12 @@ if __name__ == "__main__":
 
     # THE LAST GAME OVER SCREEN
     term.clrscr()
-    print("GAME OVER")
+    print('GAME OVER')
     print()
-    print("Congratulations "+global_stuff.username)
-    print("Score: "+str(global_stuff.score))
-    print("Time left: "+str(global_stuff.time_left))
-    if(isdead == "" or isdead == "Alive"):
-        print("Baby Yoda still needs your help.. why you quit my friend?")
+    print('Congratulations '+global_stuff.username)
+    print('Score: '+str(global_stuff.score))
+    print('Time left: '+str(global_stuff.time_left))
+    if(isdead == '' or isdead == 'Alive'):
+        print('Baby Yoda still needs your help.. why you quit my friend?')
     else:
-        print("Reason of death: "+isdead)
+        print('Reason of death: '+isdead)

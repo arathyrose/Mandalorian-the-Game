@@ -116,29 +116,29 @@ class gameboard:
         '''
         self.__rows = rows
         self.__columns = columns
-        self.board = np.full((rows, columns, 2), " "*10)
+        self.board = np.full((rows, columns, 2), ' '*10)
         # The top bar
         for i in range(0, 2):
             for j in range(self.__columns):
-                self.board[i][j][0] = " "
-                self.board[i][j][1] = "Top Bar"
+                self.board[i][j][0] = ' '
+                self.board[i][j][1] = 'Top Bar'
         # The game body
         for i in range(2, self.__rows-3):
             for j in range(self.__columns):
-                self.board[i][j][0] = " "
-                self.board[i][j][1] = "Normal"
+                self.board[i][j][0] = ' '
+                self.board[i][j][1] = 'Normal'
         # the bottom bar
         for i in range(self.__rows-3, self.__rows):
             for j in range(self.__columns):
-                self.board[i][j][0] = " "
-                self.board[i][j][1] = "Bottom Bar"
+                self.board[i][j][0] = ' '
+                self.board[i][j][1] = 'Bottom Bar'
         self.gamename_display()
 
     def gamename_display(self):
         '''
         Displays the game name on the top left corner of the game board on the top bar
         '''
-        gamename = "THE MANDALORIAN: THE GAME"
+        gamename = 'THE MANDALORIAN: THE GAME'
         leng = len(gamename)
         startat = 2
         for i in range(leng):
@@ -149,7 +149,7 @@ class gameboard:
         Displays the score on the top right corner of the game board on the top bar 
         The score is left padded with 0s
         '''
-        scorename = "SCORE: "+str(global_stuff.score).rjust(10, "0")
+        scorename = 'SCORE: '+str(global_stuff.score).rjust(10, '0')
         leng = len(scorename)
         startat = self.__columns-2-leng
         for i in range(leng):
@@ -159,8 +159,8 @@ class gameboard:
         '''
         Displays the number of coins collected by the hero on the top right corner of the bottom bar
         '''
-        scorename = "COINS COLLECTED:   " + \
-            str(global_stuff.coins_collected).rjust(5, " ")
+        scorename = 'COINS COLLECTED:   ' + \
+            str(global_stuff.coins_collected).rjust(5, ' ')
         leng = len(scorename)
         startat = int(self.__columns/2)+5
         for i in range(leng):
@@ -172,7 +172,7 @@ class gameboard:
         The life remaining is drawn using black blocks like a progress bar
         '''
         # Print the word life
-        lf = "LIFE:     "
+        lf = 'LIFE:     '
         leng = len(lf)
         for i in range(leng):
             self.board[self.__rows-3][i][0] = lf[i]
@@ -180,15 +180,15 @@ class gameboard:
         percentage_to_fill = global_stuff.lives_remaining/global_stuff.total_life
         totwid = int(self.__columns/2-10)
         fill = int(percentage_to_fill*totwid)
-        k = ""
+        k = ''
         for _ in range(fill):
-            k += "█"
+            k += '█'
         for _ in range(fill, totwid):
-            k += " "
+            k += ' '
         ln = len(k)
         for i in range(ln):
             self.board[self.__rows-3][i+leng][0] = k[i]
-            self.board[self.__rows-3][i+leng][1] = "Life"
+            self.board[self.__rows-3][i+leng][1] = 'Life'
 
     def time_display(self):
         '''
@@ -196,7 +196,7 @@ class gameboard:
         The time remaining is drawn using black blocks like a progress bar
         '''
         # Print the word 'TIME LEFT'
-        lf = "TIME LEFT:"
+        lf = 'TIME LEFT:'
         leng = len(lf)
         for i in range(leng):
             self.board[self.__rows-2][i][0] = lf[i]
@@ -206,11 +206,11 @@ class gameboard:
         percentage_to_fill = global_stuff.time_left/global_stuff.total_time
         totwid = int(self.__columns/2-10)
         fill = int(percentage_to_fill*totwid)
-        k = ""
+        k = ''
         for _ in range(fill):
-            k += "█"
+            k += '█'
         for _ in range(fill, totwid):
-            k += " "
+            k += ' '
         ln = len(k)
         for i in range(ln):
             self.board[self.__rows-2][i+leng][0] = k[i]
@@ -224,7 +224,7 @@ class gameboard:
         The progress is drawn using black blocks like a progress bar
         '''
         # Print the word progress
-        lf = "PROGRESS: "
+        lf = 'PROGRESS: '
         leng = len(lf)
         for i in range(leng):
             self.board[self.__rows-1][i][0] = lf[i] 
@@ -236,11 +236,11 @@ class gameboard:
             percentage_to_fill = 1
         totwid = int(self.__columns/2-10)
         fill = int(percentage_to_fill*totwid)
-        k = ""
+        k = ''
         for _ in range(fill):
-            k += "█"
+            k += '█'
         for _ in range(fill, totwid):
-            k += " "
+            k += ' '
         ln = len(k)
         for i in range(ln):
             self.board[self.__rows-1][i+leng][0] = k[i]  # put the time left
@@ -249,12 +249,12 @@ class gameboard:
         '''
         Displays the number of bullets that are ready to be deployed but not deployed yet on the right side of the bottom bar
         '''
-        lf = "BULLETS LEFT:      "
-        k = ""
+        lf = 'BULLETS LEFT:      '
+        k = ''
         for _ in range(global_stuff.bullets_left):
-            k += "> "
+            k += '> '
         for _ in range(global_stuff.bullets_left, global_stuff.total_bullets):
-            k += "  "
+            k += '  '
         lf += k
         leng = len(lf)
         for i in range(leng):
@@ -264,7 +264,7 @@ class gameboard:
         '''
         Displays those powerups that are active on the right side of the bottom bar
         '''
-        l = "POWERUPS ACTIVE:   "
+        l = 'POWERUPS ACTIVE:   '
         leng = len(l)
         i = int(global_stuff.screen_length/2)+5
         for j in range(leng):
@@ -274,31 +274,31 @@ class gameboard:
             p = powerup(self.__rows-2, i, 'Snek')
             p.write_self_on_board(self)
         else:
-            self.board[self.__rows-2][i][0] = " "
-            self.board[self.__rows-2][i][1] = "Bottom Bar"
+            self.board[self.__rows-2][i][0] = ' '
+            self.board[self.__rows-2][i][1] = 'Bottom Bar'
         i += 1
-        self.board[self.__rows-2][i][0] = " "
-        self.board[self.__rows-2][i][1] = "Bottom Bar"
+        self.board[self.__rows-2][i][0] = ' '
+        self.board[self.__rows-2][i][1] = 'Bottom Bar'
         i += 1
         if(global_stuff.shielded == 1):
             p = powerup(self.__rows-2, i, 'ShieldPU')
             p.write_self_on_board(self)
         else:
-            self.board[self.__rows-2][i][0] = " "
-            self.board[self.__rows-2][i][1] = "Bottom Bar"
+            self.board[self.__rows-2][i][0] = ' '
+            self.board[self.__rows-2][i][1] = 'Bottom Bar'
         i += 1
-        self.board[self.__rows-2][i][0] = " "
-        self.board[self.__rows-2][i][1] = "Bottom Bar"
+        self.board[self.__rows-2][i][0] = ' '
+        self.board[self.__rows-2][i][1] = 'Bottom Bar'
         i += 1
         if(global_stuff.speeded == 1):
             p = powerup(self.__rows-2, i, 'SpeedBoost')
             p.write_self_on_board(self)
         else:
-            self.board[self.__rows-2][i][0] = " "
-            self.board[self.__rows-2][i][1] = "Bottom Bar"
+            self.board[self.__rows-2][i][0] = ' '
+            self.board[self.__rows-2][i][1] = 'Bottom Bar'
         i += 1
-        self.board[self.__rows-2][i][0] = " "
-        self.board[self.__rows-2][i][1] = "Bottom Bar"
+        self.board[self.__rows-2][i][0] = ' '
+        self.board[self.__rows-2][i][1] = 'Bottom Bar'
         i += 1
 
     def print_enemy_life(self):
@@ -307,7 +307,7 @@ class gameboard:
         The life remaining is drawn using black blocks like a progress bar
         '''
         # Print the word enemy
-        lf = "ENEMY: "
+        lf = 'ENEMY: '
         leng = len(lf)
         for i in range(leng):
             self.board[1][i][0] = lf[i] 
@@ -317,11 +317,11 @@ class gameboard:
             global_stuff.boss_dead = 1
         totwid = int(self.__columns-10)
         fill = int(percentage_to_fill*totwid)
-        k = ""
+        k = ''
         for _ in range(fill):
-            k += "█"
+            k += '█'
         for _ in range(fill, totwid):
-            k += " "
+            k += ' '
         ln = len(k)
         for i in range(ln):
             self.board[1][i+leng][0] = k[i]  
@@ -347,7 +347,7 @@ class gameboard:
         for i in range(self.__rows):
             for j in range(self.__columns):
                 print(color_text(self.board[i][j]
-                                 [0], self.board[i][j][1]), end="")
+                                 [0], self.board[i][j][1]), end='')
             print()
 
     def write_full_on_board(self, full_board, start_in):
@@ -383,7 +383,7 @@ class gameboard:
             global_stuff.shown_until+global_stuff.screen_length
         if(position < global_stuff.screen_length and position >= -7):
             return position
-        return "NOT ON SCREEN"
+        return 'NOT ON SCREEN'
 
     def destroy_object(self, X, Y):  
         '''
@@ -393,12 +393,12 @@ class gameboard:
         '''
         # No collision
         if(self.board[X][Y][1] == 'Normal' or self.board[X][Y][1] == 'Bg1' or self.board[X][Y][1] == 'Bg2'):
-            return "No collision"
+            return 'No collision'
         # Coin 
         elif(self.board[X][Y][1] == 'Coin'):
             self.board[X][Y][0] = ' '
             self.board[X][Y][1] = 'Normal'
-            return "Coin"
+            return 'Coin'
         # Horizontal beam
         elif(self.board[X][Y][1] == 'Hbeam'):  
             try:  # for left side

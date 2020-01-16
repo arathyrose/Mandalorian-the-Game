@@ -1,4 +1,4 @@
-"""
+'''
 obstacle
 ========
 
@@ -19,14 +19,15 @@ Additional/Re-written Member Functions
 
 It just calls the constructor of the parent class object. 
 
-"""
+'''
+
 from obj import obj
 
 
 class obstacle(obj):
 
     def __init__(self, xpos, ypos, length, width, shape, style):
-        """
+        '''
         Initialize an object as an obstacle (no extra features)
-        """
+        '''
         super().__init__(xpos, ypos, length, width, shape, style)
