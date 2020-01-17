@@ -1,4 +1,4 @@
-# THE MANDALORIAN : THE GAME
+# THE MANDALORIAN : THE GAME : VERSION 1
 
 This is an terminal-based arcade game designed in python3 using OOPS concepts.
 
