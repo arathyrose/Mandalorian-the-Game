@@ -64,7 +64,7 @@ release those balls, filled with ice if it is not already deployed
 
 Moves the balls left
 
-- check_collision(self, board, h):
+- check_collision
 
 Checks if the hero is colliding with the boss 
 Decrease the boss health if bullet hits the boss and increase the score by 10 per pain inflicted to the enemy

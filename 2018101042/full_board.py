@@ -261,7 +261,7 @@ class full_board():
             # only the y position i.e. the horizontal position of the coin set keeps changing so...
             self.put_coins_block(1)
         # SCREEN 2 - 9
-        for screen in range(2, 10):  # screen loop
+        for screen in range(2, global_stuff.total_no_screens):  # screen loop
             for _ in range(4):  # count loop
                 # only the y position i.e. the horizontal position of the coin set keeps changing so...
                 self.put_coins_block(screen)
