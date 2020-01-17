@@ -34,6 +34,7 @@ COLORS = {
 
     'Coin': '\x1b[1;33;40m',
     'ExtraLife': '\x1b[41;1;37m',
+    'ExtraTime': '\x1b[46;1;37m',
     'ShieldPU': '\x1b[46;1;37m',
     'SpeedBoost': '\x1b[42;5;37m',
     'Snek': '\x1b[0;37;42m',

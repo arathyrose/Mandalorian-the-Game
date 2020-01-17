@@ -199,11 +199,6 @@ and the following functions
 - [x] Make the duration of the game according to the speed of left movement of the game screen
 - [x] Make the boss come later in game
 
-## THINGS LEFT TO DO
-
-- [ ] SNAKE POWERUP
-- [ ] Privatize everything
-
 ## NOTE
 
 All powerups are single tiled with a symbol denoting it (similar to a coin)
@@ -308,3 +303,9 @@ The bullets fired by your Mandalorian has a special ability to continue existing
 - [x] person.py
 - [x] powerUp.py
 - [x] term.py
+
+## THINGS LEFT TO DO
+
+- [ ] SNAKE POWERUP
+- [ ] Correct the shield powerup
+- [x] Add an extra powerup called extra time that gives a time of move_left*screenlength/2

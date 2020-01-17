@@ -4,6 +4,7 @@ powerup
 
 This class denotes the following power-ups: 
 - shield ░  
+- Extra Time +   
 - speed-boost A 
 - extra life + 
 - snake $
@@ -44,6 +45,8 @@ class powerup(obstacle):
         self._type = ty
         if(ty == 'ShieldPU'):
             super().__init__(xpos, ypos, 1, 1, '░', 'ShieldPU')
+        elif(ty == 'ExtraTime'):
+            super().__init__(xpos, ypos, 1, 1, '+', 'ExtraTime')
         elif(ty == 'SpeedBoost'):
             super().__init__(xpos, ypos, 1, 1, 'A', 'SpeedBoost')
         elif(ty == 'ExtraLife'):
@@ -58,9 +61,8 @@ class powerup(obstacle):
         if(global_stuff.debug == 1):
             print(self._type)
         super().destroy_self(board)  # destroy the powerup on the board
-        if(self._type == 'ShieldPU'):
-            global_stuff.shielded_power_up_counter = 0
-            global_stuff.shielded = 1
+        if(self._type == 'ExtraTime'):
+            global_stuff.total_time+=int((global_stuff.screen_length*global_stuff.move_left_time)/2)
         elif(self._type == 'SpeedBoost'):
             global_stuff.speeded_power_up_counter = 0
             if(global_stuff.speeded == 0):

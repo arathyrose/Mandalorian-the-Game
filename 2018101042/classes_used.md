@@ -101,7 +101,7 @@ Generate all types of powerups randomly on the board based on the following metr
 | ---------- | ------------------ | -------------------------- |
 | Extra Life | 1-10               | 1 (placing if permissible) |
 | Speed Up   | 1- 5               | 1 (placing if permissible) |
-| Shield     | 1- 5               | 2 (placing if permissible) |
+| Extra Time | 1- 5               | 2 (placing if permissible) |
 | Snek       | 1- 2               | 1 (placing if permissible) |
 
 - add_magnet
@@ -369,7 +369,7 @@ Let him die
 
 This class denotes the following power-ups:
 
-- shield ░
+- ExtraTime +
 - speed-boost A
 - extra life +
 - snake $

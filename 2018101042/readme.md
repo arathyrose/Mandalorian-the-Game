@@ -53,6 +53,7 @@ Following are the powerups implemented
 | ExtraLife    | +    | Increases your life by 1                   |
 | Snake        | $    | Convert to your dragon form                |
 | shield       | ░    | Puts a shield that protects you from beams |
+| Extra Time   | +    | Gives extra time                           |
 
 ### - enemy
 

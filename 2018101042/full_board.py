@@ -283,22 +283,27 @@ class full_board():
         Generate all types of powerups randomly on the board based on the following metric
         Extra Life :     1-10:         1 (placing if permissible)
         Speed Up   :     1- 5:         1 (placing if permissible)
-        Shield     :     1- 5:         2 (placing if permissible)
+        // Shield  :     1- 5:         2 (placing if permissible)
+        Extra Time :     1-10:         1 (placing if permissible) 
         Snek       :     1- 2:         1 (placing if permissible)
         '''
         if(global_stuff.debug == 1):
             print('Generating extra life powerups...')
-        for screen in range(1, 10):
+        for screen in range(1, global_stuff.total_no_screens):
             self.put_powerup('ExtraLife', screen)
         if(global_stuff.debug == 1):
             print('Generating Speed Up powerups...')
         for screen in range(1, 5):
             self.put_powerup('SpeedBoost', screen)
-        if(global_stuff.debug == 1):
+        """ if(global_stuff.debug == 1):
             print('Generating Shield powerups...')
         for screen in range(1, 5):
             for _ in range(2):
-                self.put_powerup('ShieldPU', screen)
+                self.put_powerup('ShieldPU', screen) """
+        if(global_stuff.debug==1):
+            print('Generating Extra Time powerups...')
+        for screen in range(1, global_stuff.total_no_screens):
+            self.put_powerup('ExtraTime', screen)
         if(global_stuff.debug == 1):
             print('Generating Snake powerups...')
         for screen in range(1, 2):

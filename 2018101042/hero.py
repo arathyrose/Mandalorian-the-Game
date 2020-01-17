@@ -90,7 +90,7 @@ class hero(person):
                     else:
                         global_stuff.lives_remaining -= 1
                 # power-ups
-                elif what_is_destroyed in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek']:
+                elif what_is_destroyed in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek','ExtraLife']:
                     p = powerup(self._x+i, self._y+j, what_is_destroyed)
                     p.collect(board)
                 # magnets

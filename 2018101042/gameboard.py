@@ -476,7 +476,7 @@ class gameboard:
                 pass
             return 'Dbeam2'
         # Power-ups
-        elif(self.board[X][Y][1] in ['ExtraLife' , 'ShieldPU' , 'SpeedBoost' , 'Snek']):
+        elif(self.board[X][Y][1] in ['ExtraLife' , 'ShieldPU' , 'SpeedBoost' , 'Snek','ExtraTime']):
             t = self.board[X][Y][1]
             self.board[X][Y][0] = ' '
             self.board[X][Y][1] = 'Normal'
