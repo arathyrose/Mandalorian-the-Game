@@ -109,3 +109,12 @@ def check_if_dead():
         return 'Boss Dead'
     else:
         return 'Alive'
+
+
+# NEWLY ADDED STUFF
+is_shielded = 0
+shield_countdown = 0
+shield_active_timer = 0
+shield_total_active_time = 20
+shield_total_countdown = 100
+shield_is_active = 0

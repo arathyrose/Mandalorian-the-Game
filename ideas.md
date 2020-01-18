@@ -307,5 +307,9 @@ The bullets fired by your Mandalorian has a special ability to continue existing
 ## THINGS LEFT TO DO
 
 - [ ] SNAKE POWERUP
-- [ ] Correct the shield powerup
+- [x] Correct the shield powerup
 - [x] Add an extra powerup called extra time that gives a time of move_left*screenlength/2
+- [x] Modify the shield mode of the hero (create another class deriving from it that makes it look beautiful)
+- [ ] Create another class called snake that derives from the hero class
+- [ ] Make the snake look cute
+- [ ] Add random people

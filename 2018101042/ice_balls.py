@@ -75,8 +75,12 @@ class ball(obstacle):
                     for k in range(hh):
                         for l in range(hw):
                             if((hx+k, hy-l) == (self._x, self._y+i)):
-                                # you lose two lives if that ball touches you; so be warned!!
-                                global_stuff.lives_remaining -= 2
+                                # you lose two lives if that ball touches you; so be warned! (if you are not shielded)
+                                if(global_stuff.shield_is_active==0):
+                                    global_stuff.lives_remaining -= 2
+                                else:
+                                    global_stuff.shield_is_active=0
+                                    h.unshield_self()
                                 self.__exist = 0
                                 return
             except Exception as e:

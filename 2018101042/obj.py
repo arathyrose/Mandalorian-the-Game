@@ -106,7 +106,7 @@ class obj:
         for i in range(self._h):
             for j in range(self._w):
                 print('\033['+str(self._x+i+1)+';' +
-                      str(self._y-j+2)+'H'+colored_printing.color_text(self._style[i][j], self._type))
+                      str(self._y-j+2)+'H'+colored_printing.color_text(self._style[i][j], self._type),end="")
         print('\033[u')  # restore position
 
     def destroy_self(self, gameboard):

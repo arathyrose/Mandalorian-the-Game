@@ -216,7 +216,35 @@ class gameboard:
             self.board[self.__rows-2][i+leng][0] = k[i]
             self.board[self.__rows-2][i+leng][1] = 'Time'
 
-    
+    def shield_pu_display(self):
+        '''
+        Displays the shield powerup, that is, if it is active or not and so on
+        '''
+        # Print the word Shield
+        lf='SHIELD:            '
+        leng = len(lf)
+        for i in range(leng):
+            self.board[self.__rows-2][i+int(global_stuff.screen_length/2)+5][0] = lf[i] 
+        # Print the progress bar
+        if(global_stuff.shield_is_active==0):
+            percentage_to_fill=global_stuff.shield_countdown/global_stuff.shield_total_countdown
+            typ='ShieldedHero'
+        else:
+            percentage_to_fill=global_stuff.shield_active_timer/global_stuff.shield_total_active_time
+            typ='ShieldPU'
+        if(percentage_to_fill >= 1):
+            percentage_to_fill = 1
+        totwid = int(self.__columns/2-30)
+        fill = int(percentage_to_fill*totwid)
+        k = ''
+        for _ in range(fill):
+            k += '█'
+        for _ in range(fill, totwid):
+            k += ' '
+        ln = len(k)
+        for i in range(ln):
+            self.board[self.__rows-2][i+leng+int(global_stuff.screen_length/2)+5][0] = k[i]  # put the time left
+            self.board[self.__rows-2][i+leng+int(global_stuff.screen_length/2)+5][1] = typ
 
     def game_progress_display(self):
         '''
@@ -260,6 +288,7 @@ class gameboard:
         for i in range(leng):
             self.board[self.__rows-3][i +
                                       int(global_stuff.screen_length/2)+5][0] = lf[i]
+
     def display_powerups_active(self):
         '''
         Displays those powerups that are active on the right side of the bottom bar
@@ -337,6 +366,7 @@ class gameboard:
         self.game_progress_display()
         self.display_powerups_active()
         self.coins_collected_update()
+        self.shield_pu_display()
     def print(self):
         '''
         Prints the gameboard onto the screen

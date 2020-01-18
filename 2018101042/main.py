@@ -96,10 +96,18 @@ if __name__ == '__main__':
                 e.check_collision(board, h)
 
             # SHOOT BULLETS BY THE HERO
-            if(control_pressed == ' '):
+            if(control_pressed == 'x'):
                 for i in range(global_stuff.total_bullets):
                     if(bullet_list[i].deploy(h) == 1):
                         break
+
+            # SHIELD ACTIVATE
+            if(control_pressed == ' '):
+                if(global_stuff.shield_is_active == 0 and global_stuff.shield_countdown == 0):
+                    global_stuff.shield_is_active = 1
+                    # global_stuff.shield_countdown = global_stuff.shield_total_countdown
+                    global_stuff.shield_active_timer = global_stuff.shield_total_active_time
+                    h.shield_self()
 
             # QUIT THE GAME
             elif(control_pressed == 'q'):
@@ -166,11 +174,15 @@ if __name__ == '__main__':
             # POWER-UP RUN OUT CHECK
 
             # SHIELD POWER-UP
-            if(global_stuff.shielded == 1):
-                global_stuff.shielded_power_up_counter += 1
-                if(global_stuff.shielded_power_up_counter >= global_stuff.shield_timer):
-                    global_stuff.shielded_power_up_counter = -1
-                    global_stuff.shielded = 0
+            if(global_stuff.shield_is_active == 1):
+                global_stuff.shield_active_timer -= 1
+                if(global_stuff.shield_active_timer == 0):
+                    h.unshield_self()
+
+            # SHIELD RESTORATION
+            if(global_stuff.shield_is_active == 0):
+                if(global_stuff.shield_countdown > 0):
+                    global_stuff.shield_countdown -= 1
 
             # SPEED POWER UP
             if(global_stuff.speeded == 1):

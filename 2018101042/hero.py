@@ -58,7 +58,7 @@ class hero(person):
         Checks how high the hero is currently (that is, which all power-ups are active atm)
         Then prints the hero directly onto the screen
         '''
-        if(global_stuff.shielded == 1):
+        if(global_stuff.shield_is_active == 1):
             self.change_type('ShieldedHero')
             super().print_direct()
         elif(global_stuff.speeded == 1):
@@ -84,13 +84,12 @@ class hero(person):
                     global_stuff.score += 10
                 # beams
                 elif what_is_destroyed in ['Hbeam', 'Vbeam', 'Dbeam1', 'Dbeam2']:
-                    if(global_stuff.shielded == 1):
-                        global_stuff.shielded = 0
-                        global_stuff.shielded_power_up_counter = -1
+                    if(global_stuff.shield_is_active == 1):
+                        self.unshield_self()
                     else:
                         global_stuff.lives_remaining -= 1
                 # power-ups
-                elif what_is_destroyed in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek','ExtraLife']:
+                elif what_is_destroyed in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek', 'ExtraLife']:
                     p = powerup(self._x+i, self._y+j, what_is_destroyed)
                     p.collect(board)
                 # magnets
@@ -110,3 +109,23 @@ class hero(person):
             elif(is_magnet_on_screen+4-1 < self._y):
                 self.move('left')
             self.collision_manager(board)
+
+    def shield_self(self):
+        '''
+        Develop a shield around the hero
+        '''
+        self._style = [['█', '['], ['║', '║']]
+        self.change_type('ShieldedHero')
+        global_stuff.shield_is_active = 1
+        global_stuff.shield_active_timer = global_stuff.shield_total_active_time
+
+
+    def unshield_self(self):
+        '''
+        remove the shield around the hero
+        '''
+        self._style = [['▄', '['], ['|', '|']]
+        self.change_type('Hero')
+        global_stuff.shield_is_active = 0
+        global_stuff.shield_active_timer = 0
+        global_stuff.shield_countdown=global_stuff.shield_total_countdown
