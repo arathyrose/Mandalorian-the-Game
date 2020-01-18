@@ -245,7 +245,29 @@ class gameboard:
         for i in range(ln):
             self.board[self.__rows-2][i+leng+int(global_stuff.screen_length/2)+5][0] = k[i]  # put the time left
             self.board[self.__rows-2][i+leng+int(global_stuff.screen_length/2)+5][1] = typ
-
+    def SpeedBoost_pu_display(self):
+        lf='SPEED BOOST:       '
+        leng = len(lf)
+        for i in range(leng):
+            self.board[self.__rows-1][i+int(global_stuff.screen_length/2)+5][0] = lf[i] 
+        # Print the progress bar
+        if(global_stuff.speeded==0):
+            percentage_to_fill=0
+        else:
+            percentage_to_fill=1-global_stuff.speeded_power_up_counter/global_stuff.speed_timer
+        if(percentage_to_fill >= 1):
+            percentage_to_fill = 1
+        totwid = int(self.__columns/2-30)
+        fill = int(percentage_to_fill*totwid)
+        k = ''
+        for _ in range(fill):
+            k += '█'
+        for _ in range(fill, totwid):
+            k += ' '
+        ln = len(k)
+        for i in range(ln):
+            self.board[self.__rows-1][i+leng+int(global_stuff.screen_length/2)+5][0] = k[i]  # put the time left
+            self.board[self.__rows-1][i+leng+int(global_stuff.screen_length/2)+5][1] = "SpeededHero"
     def game_progress_display(self):
         '''
         Displays the progress, i.e. how close the hero is to see the boss, on left side of the bottom bar
@@ -367,6 +389,7 @@ class gameboard:
         self.display_powerups_active()
         self.coins_collected_update()
         self.shield_pu_display()
+        self.SpeedBoost_pu_display()
     def print(self):
         '''
         Prints the gameboard onto the screen
