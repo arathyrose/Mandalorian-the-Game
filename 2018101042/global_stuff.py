@@ -19,7 +19,7 @@ total_bullets = 10
 total_no_screens = 15
 enemy_comes_after = 5
 boss_total_life = 200
-move_left_time = 0.4
+move_left_time = 0.1
 total_time = int(min(enemy_comes_after*2*screen_length *
                      move_left_time, total_no_screens*screen_length*move_left_time))
 

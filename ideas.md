@@ -313,3 +313,41 @@ The bullets fired by your Mandalorian has a special ability to continue existing
 - [ ] Create another class called snake that derives from the hero class
 - [ ] Make the snake look cute
 - [ ] Add random people
+
+## MAJOR UPDATE
+
+So here is the plan of exexution:
+Just make the left shifting into the counter type execution:
+Each count denotes one frame time (0.05 s) [ Rather than the left shift time ]
+
+- SO COUNT THE NUMBER OF COUNTS
+- IF THE NUMBER OF COUNTS MOD TO_SHIFT_SCREEN IS ZERO, LEFT SHIFT
+
+```less
+for the time out check,
+
+MAXIMUM_NO = TOTAL_TIME / FRAME_TIME
+REMAINING_NO = MAXIMUM_NO - COUNTS
+
+for moving the screen left,
+TO_SHIFT_SCREEN = TO_SHIFT_SCREEN_TIME / FRAME_TIME
+
+for checking the powerups,
+MAX_SHIELD_ACTIVE = MAX_SHIELD_ACTIVE_TIME / FRAME_TIME
+MAX_SHIELD_COOLDOWN = MAX_SHIELD_COOLDOWN_TIME / FRAME_TIME
+MAX_SPEED_ACTIVE = MAX_SPEED_ACTIVE_TIME / FRAME_TIME
+```
+
+- HERE THE FRAME TIME IS 0.05 i.e. 20 FPS
+
+This update is evolutionary as it removes the need of checking time anywhere in the program.  
+Also, gravity can be implemeneted in a good way.
+
+### IMPLEMENTING GRAVITY
+
+- IDK
+- ok let me think better
+- if it is falling down, say that it is falling down
+- make a global variable for that purpose
+- once he touches the ground, make the variable 0
+- otherwise, the variable contains the no_of_frames for which it is falling down

@@ -221,17 +221,20 @@ class gameboard:
         Displays the shield powerup, that is, if it is active or not and so on
         '''
         # Print the word Shield
-        lf='SHIELD:            '
+        lf = 'SHIELD:            '
         leng = len(lf)
         for i in range(leng):
-            self.board[self.__rows-2][i+int(global_stuff.screen_length/2)+5][0] = lf[i] 
+            self.board[self.__rows-2][i +
+                                      int(global_stuff.screen_length/2)+5][0] = lf[i]
         # Print the progress bar
-        if(global_stuff.shield_is_active==0):
-            percentage_to_fill=global_stuff.shield_countdown/global_stuff.shield_total_countdown
-            typ='ShieldedHero'
+        if(global_stuff.shield_is_active == 0):
+            percentage_to_fill = global_stuff.shield_countdown / \
+                global_stuff.shield_total_countdown
+            typ = 'ShieldedHero'
         else:
-            percentage_to_fill=global_stuff.shield_active_timer/global_stuff.shield_total_active_time
-            typ='ShieldPU'
+            percentage_to_fill = global_stuff.shield_active_timer / \
+                global_stuff.shield_total_active_time
+            typ = 'ShieldPU'
         if(percentage_to_fill >= 1):
             percentage_to_fill = 1
         totwid = int(self.__columns/2-30)
@@ -243,18 +246,23 @@ class gameboard:
             k += ' '
         ln = len(k)
         for i in range(ln):
-            self.board[self.__rows-2][i+leng+int(global_stuff.screen_length/2)+5][0] = k[i]  # put the time left
-            self.board[self.__rows-2][i+leng+int(global_stuff.screen_length/2)+5][1] = typ
+            # put the time left
+            self.board[self.__rows-2][i+leng +
+                                      int(global_stuff.screen_length/2)+5][0] = k[i]
+            self.board[self.__rows-2][i+leng +
+                                      int(global_stuff.screen_length/2)+5][1] = typ
+
     def SpeedBoost_pu_display(self):
-        lf='SPEED BOOST:       '
+        lf = 'SPEED BOOST:       '
         leng = len(lf)
         for i in range(leng):
-            self.board[self.__rows-1][i+int(global_stuff.screen_length/2)+5][0] = lf[i] 
+            self.board[self.__rows-1][i +
+                                      int(global_stuff.screen_length/2)+5][0] = lf[i]
         # Print the progress bar
-        if(global_stuff.speeded==0):
-            percentage_to_fill=0
+        if(global_stuff.speeded == 0):
+            percentage_to_fill = 0
         else:
-            percentage_to_fill=1-global_stuff.speeded_power_up_counter/global_stuff.speed_timer
+            percentage_to_fill = 1-global_stuff.speeded_power_up_counter/global_stuff.speed_timer
         if(percentage_to_fill >= 1):
             percentage_to_fill = 1
         totwid = int(self.__columns/2-30)
@@ -266,8 +274,12 @@ class gameboard:
             k += ' '
         ln = len(k)
         for i in range(ln):
-            self.board[self.__rows-1][i+leng+int(global_stuff.screen_length/2)+5][0] = k[i]  # put the time left
-            self.board[self.__rows-1][i+leng+int(global_stuff.screen_length/2)+5][1] = "SpeededHero"
+            # put the time left
+            self.board[self.__rows-1][i+leng +
+                                      int(global_stuff.screen_length/2)+5][0] = k[i]
+            self.board[self.__rows-1][i+leng +
+                                      int(global_stuff.screen_length/2)+5][1] = "SpeededHero"
+
     def game_progress_display(self):
         '''
         Displays the progress, i.e. how close the hero is to see the boss, on left side of the bottom bar
@@ -277,7 +289,7 @@ class gameboard:
         lf = 'PROGRESS: '
         leng = len(lf)
         for i in range(leng):
-            self.board[self.__rows-1][i][0] = lf[i] 
+            self.board[self.__rows-1][i][0] = lf[i]
         # Print the progress bar
         progress = global_stuff.shown_until-global_stuff.screen_length
         percentage_to_fill = progress / \
@@ -295,6 +307,7 @@ class gameboard:
         for i in range(ln):
             self.board[self.__rows-1][i+leng][0] = k[i]  # put the time left
             self.board[self.__rows-1][i+leng][1] = 'Progress'
+
     def bullets_display(self):
         '''
         Displays the number of bullets that are ready to be deployed but not deployed yet on the right side of the bottom bar
@@ -361,7 +374,7 @@ class gameboard:
         lf = 'ENEMY: '
         leng = len(lf)
         for i in range(leng):
-            self.board[1][i][0] = lf[i] 
+            self.board[1][i][0] = lf[i]
         # Print the enemy life bar
         percentage_to_fill = global_stuff.boss_life_remaining / global_stuff.boss_total_life
         if(percentage_to_fill <= 0):
@@ -375,8 +388,9 @@ class gameboard:
             k += ' '
         ln = len(k)
         for i in range(ln):
-            self.board[1][i+leng][0] = k[i]  
+            self.board[1][i+leng][0] = k[i]
             self.board[1][i+leng][1] = 'Life'
+
     def prepare_board(self):
         '''
         Prepares, i.e. updates the board before printing it on the screen
@@ -390,6 +404,7 @@ class gameboard:
         self.coins_collected_update()
         self.shield_pu_display()
         self.SpeedBoost_pu_display()
+
     def print(self):
         '''
         Prints the gameboard onto the screen
@@ -438,7 +453,7 @@ class gameboard:
             return position
         return 'NOT ON SCREEN'
 
-    def destroy_object(self, X, Y):  
+    def destroy_object(self, X, Y):
         '''
         Destroys whatever object is there at position X,Y completely and returns the object type
         This function deals only with coins, beams and powerups
@@ -447,13 +462,13 @@ class gameboard:
         # No collision
         if(self.board[X][Y][1] == 'Normal' or self.board[X][Y][1] == 'Bg1' or self.board[X][Y][1] == 'Bg2'):
             return 'No collision'
-        # Coin 
+        # Coin
         elif(self.board[X][Y][1] == 'Coin'):
             self.board[X][Y][0] = ' '
             self.board[X][Y][1] = 'Normal'
             return 'Coin'
         # Horizontal beam
-        elif(self.board[X][Y][1] == 'Hbeam'):  
+        elif(self.board[X][Y][1] == 'Hbeam'):
             try:  # for left side
                 i = 0
                 while (self.board[X][Y+i][1] == 'Hbeam'):
@@ -472,7 +487,7 @@ class gameboard:
                 pass
             return 'Hbeam'
         # Vertical beam
-        elif (self.board[X][Y][1] == 'Vbeam'): 
+        elif (self.board[X][Y][1] == 'Vbeam'):
             try:  # for up or down
                 i = 0
                 while (self.board[X+i][Y][1] == 'Vbeam'):
@@ -491,8 +506,8 @@ class gameboard:
                 pass
             return 'Vbeam'
         # Diagonal 1 beam
-        elif (self.board[X][Y][1] == 'Dbeam1'): 
-            try:  
+        elif (self.board[X][Y][1] == 'Dbeam1'):
+            try:
                 i = 0
                 while (self.board[X+i][Y+i][1] == 'Dbeam1'):
                     self.board[X+i][Y+i][0] = ' '
@@ -500,7 +515,7 @@ class gameboard:
                     i += 1
             except:
                 pass
-            try:  
+            try:
                 i = 1
                 while (self.board[X-i][Y-i][1] == 'Dbeam1'):
                     self.board[X-i][Y-i][0] = ' '
@@ -510,8 +525,8 @@ class gameboard:
                 pass
             return 'Dbeam1'
         # Diagonal 2 beam
-        elif(self.board[X][Y][1] == 'Dbeam2'): 
-            try: 
+        elif(self.board[X][Y][1] == 'Dbeam2'):
+            try:
                 i = 0
                 while (self.board[X-i][Y+i][1] == 'Dbeam2'):
                     self.board[X-i][Y+i][0] = ' '
@@ -519,7 +534,7 @@ class gameboard:
                     i += 1
             except:
                 pass
-            try: 
+            try:
                 i = 1
                 while (self.board[X+i][Y-i][1] == 'Dbeam2'):
                     self.board[X+i][Y-i][0] = ' '
@@ -529,7 +544,7 @@ class gameboard:
                 pass
             return 'Dbeam2'
         # Power-ups
-        elif(self.board[X][Y][1] in ['ExtraLife' , 'ShieldPU' , 'SpeedBoost' , 'Snek','ExtraTime']):
+        elif(self.board[X][Y][1] in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek', 'ExtraTime']):
             t = self.board[X][Y][1]
             self.board[X][Y][0] = ' '
             self.board[X][Y][1] = 'Normal'
