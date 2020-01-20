@@ -68,7 +68,7 @@ Gets the coordinates of the current object in (x,y) format
 Gets the dimensions of the current object in (h,w) format
 
 '''
-import colored_printing
+from colored_printing import color_text
 
 
 class obj:
@@ -91,12 +91,10 @@ class obj:
         for i in range(self._h):
             for j in range(self._w):
                 if(self._style[i][j] != ' '):
-                    gameboard.board[i+self._x][j +
-                                               self._y][0] = self._style[i][j]
-                    gameboard.board[i+self._x][j+self._y][1] = self._type
+                    gameboard.put_to_board(
+                        i+self._x, j+self._y, self._style[i][j], self._type)
                 else:
-                    gameboard.board[i+self._x][j+self._y][0] = ' '
-                    gameboard.board[i+self._x][j+self._y][1] = 'Normal'
+                    gameboard.put_to_board(i+self._x, j+self._y, ' ', 'Normal')
 
     def print_direct(self):
         '''
@@ -106,7 +104,7 @@ class obj:
         for i in range(self._h):
             for j in range(self._w):
                 print('\033['+str(self._x+i+1)+';' +
-                      str(self._y-j+2)+'H'+colored_printing.color_text(self._style[i][j], self._type),end="")
+                      str(self._y-j+2)+'H'+color_text(self._style[i][j], self._type), end="")
         print('\033[u')  # restore position
 
     def destroy_self(self, gameboard):
@@ -115,8 +113,7 @@ class obj:
         '''
         for i in range(self._h):
             for j in range(self._w):
-                gameboard.board[i+self._x][j+self._y][0] = ' '
-                gameboard.board[i+self._x][j+self._y][1] = 'Normal'
+                gameboard.remove_from_board(i+self._x, j+self._y)
 
     def change_type(self, new_type):
         '''

@@ -60,12 +60,17 @@ if __name__ == '__main__':
     # OTHER LOCAL GAME VARIABLES
     isdead = 'Alive'
 
+    # COUNT
+    global_stuff.COUNT=0
+
     # GAME LOOP
     while(1):
+        # INCREASE THE COUNT
+        global_stuff.COUNT+=1
 
         # DISPLAY THE BOARD, HERO, BULLETS AND ENEMY(if applicable)
         term.next_play()
-        board.print()
+        board.print(h,e)
         h.print_direct()
         if(global_stuff.enemy_come == 1):
             e.print_direct()
@@ -200,7 +205,7 @@ if __name__ == '__main__':
                     global_stuff.snek = 0
 
         # CHECK IF THE GAME IS OVER
-        isdead = global_stuff.check_if_dead()
+        isdead = h.check_if_dead()
         if(isdead != '' and isdead != 'Alive'):
             break
 

@@ -11,8 +11,8 @@ Playable area:
 height: 2, screen_height-3
 width: screen_length * total_no_screens
 
-Data Members:
--------------
+Additional Data Members:
+-----------------------
 
 - rows
 
@@ -100,14 +100,13 @@ Prepares the board :)
 import global_stuff
 import numpy as np
 from coins import coins
-import getch
 import random
 from beam import beam
 from powerUp import powerup
 from magnet import magnet
+from  board import board
 
-
-class full_board():
+class full_board(board):
 
     def __init__(self, rows, columns):
         '''
@@ -115,33 +114,22 @@ class full_board():
         Here, the board matrix is kept as public, to allow all the functions to gain a direct access to it
         Each element in the board matrix is of the form (ASCII CHARACTER, TYPE OF THE OBSTACLE/BOARD ELEMENT) at that spot
         '''
-        self.__rows = rows-5
-        self.__columns = columns*global_stuff.total_no_screens
-        self.board = np.full((self.__rows, self.__columns, 2),
-                             ' '*global_stuff.total_no_screens)
+        super().__init__(rows-5,columns*global_stuff.total_no_screens)
 
-    def getrows(self):
-        '''
-        A getter function for getting the number of rows in the full_board
-        '''
-        return self.__rows
+    
 
     def generate_background(self):
         '''
         generate a background of modern art up to the point where the enemy comes. Once the enemy comes, then the background is black and dismal
         '''
-        for i in range(self.__rows):
-            for j in range(global_stuff.screen_length*global_stuff.enemy_comes_after):
-                self.board[i][j][0] = ' '
+        for i in range(self._rows):
+            for j in range(self._columns):
                 prob = random.random()
-                if(prob > 0.9):
-                    self.board[i][j][1] = 'Bg2'
+                if(prob > 0.99):
+                    self.put_to_board(i,j,' ','Bg2')
                 else:
-                    self.board[i][j][1] = 'Bg1'
-        for i in range(self.__rows):
-            for j in range(global_stuff.screen_length*global_stuff.enemy_comes_after, self.__columns):
-                self.board[i][j][0] = ' '
-                self.board[i][j][1] = 'Normal'
+                    self.put_to_board(i,j,' ','Bg1')
+        
 
     def check_if_permissible(self, X, Y):
         ''' 
@@ -151,9 +139,7 @@ class full_board():
         for i in range(-1, 2):
             for j in range(-1, 2):
                 try:
-                    if self.board[X+i][Y+j][1] not in ['Normal', 'Bg1', 'Bg2']:
-                        if(global_stuff.debug == 1):
-                            print(self.board[X+i][Y+j][1])
+                    if self.get_type(X+i,Y+j) != 'Normal':
                         return 0
                 except:
                     continue
@@ -166,12 +152,11 @@ class full_board():
         '''
         h = random.randint(2, 7)
         w = random.randint(10, 30)
-        xpos = random.randint(3, self.__rows-2)  # man anything is enough
+        xpos = random.randint(3, self._rows-2)  # man anything is enough
         ypos = random.randint(int((screen_no-1)*global_stuff.screen_length),
                               int(screen_no*global_stuff.screen_length))  # 1st screen
         if(global_stuff.debug == 1):
             print(ypos)
-            getch.getch()
         for i in range(h):
             for j in range(w):
                 c = coins(xpos+i, ypos+j)
@@ -191,10 +176,10 @@ class full_board():
         while (attempt <= 100):
             try:
                 if(ty == 'h'):
-                    xpos = random.randint(2, self.__rows-4)
+                    xpos = random.randint(2, self._rows-4)
                 elif(ty in ['d1', 'd2', 'v']):
                     xpos = random.randint(
-                        2, self.__rows-int(global_stuff.length_of_beam/2)+2*global_stuff.safe_region-3)
+                        2, self._rows-int(global_stuff.length_of_beam/2)+2*global_stuff.safe_region-3)
                 ypos = random.randint(int((screen_no-1)*global_stuff.screen_length), int(
                     screen_no*global_stuff.screen_length))
                 beami = beam(xpos, ypos, ty)
@@ -209,7 +194,6 @@ class full_board():
                 if(ifp == 1):
                     if(global_stuff.debug == 1):
                         print(xpos, ypos)
-                        getch.getch()
                     beami.write_self_on_board(self)
                     return
                 else:
@@ -217,7 +201,6 @@ class full_board():
             except:
                 if(global_stuff.debug == 1):
                     print('Error')
-                    getch.getch()
                 attempt += 1
 
     def put_powerup(self, ty, screen_no):
@@ -230,14 +213,13 @@ class full_board():
         attempt = 0
         while (attempt <= 100):
             try:
-                xpos = random.randint(5, self.__rows-5)
+                xpos = random.randint(5, self._rows-5)
                 ypos = random.randint(int((screen_no-1)*global_stuff.screen_length), int(
                     screen_no*global_stuff.screen_length))
                 pu = powerup(xpos, ypos, ty)
                 if(self.check_if_permissible(xpos, ypos) != 0):
                     if(global_stuff.debug == 1):
                         print(xpos, ypos)
-                        getch.getch()
                     pu.write_self_on_board(self)
                     return
                 else:
@@ -245,7 +227,6 @@ class full_board():
             except:
                 if(global_stuff.debug == 1):
                     print('Error')
-                    getch.getch()
                 attempt += 1
 
     def randomly_add_coins_everywhere(self):
@@ -283,7 +264,6 @@ class full_board():
         Generate all types of powerups randomly on the board based on the following metric
         Extra Life :     1-10:         1 (placing if permissible)
         Speed Up   :     1- 5:         1 (placing if permissible)
-        // Shield  :     1- 5:         2 (placing if permissible)
         Extra Time :     1-10:         1 (placing if permissible) 
         Snek       :     1- 2:         1 (placing if permissible)
         '''
@@ -295,11 +275,6 @@ class full_board():
             print('Generating Speed Up powerups...')
         for screen in range(1, 5):
             self.put_powerup('SpeedBoost', screen)
-        """ if(global_stuff.debug == 1):
-            print('Generating Shield powerups...')
-        for screen in range(1, 5):
-            for _ in range(2):
-                self.put_powerup('ShieldPU', screen) """
         if(global_stuff.debug==1):
             print('Generating Extra Time powerups...')
         for screen in range(1, global_stuff.total_no_screens):
@@ -341,7 +316,6 @@ class full_board():
                     global_stuff.magnet_y_pos_fullboard = ypos
                     if(global_stuff.debug == 1):
                         print(xpos, ypos)
-                        getch.getch()
                     return
                 else:
                     if(global_stuff.debug == 1):

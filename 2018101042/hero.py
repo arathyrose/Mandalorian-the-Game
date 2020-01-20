@@ -52,6 +52,7 @@ class hero(person):
         '''
         super().__init__(global_stuff.screen_height - 5,
                          0, 2, 2, [['▄', '['], ['|', '|']], 'Hero')
+        self._life_remaining = global_stuff.total_life
 
     def print_direct(self):
         '''
@@ -68,6 +69,20 @@ class hero(person):
             self.change_type('Hero')
             super().print_direct()
 
+    def lose_life(self, k):
+        if(global_stuff.shield_is_active == 1):
+            self.unshield_self()
+        else:
+            self._life_remaining -= k
+        if(self._life_remaining<0):
+            self._life_remaining=0
+
+    def get_lives_remaining(self):
+        return self._life_remaining
+    def gain_life(self):
+        self._life_remaining+=1
+        if(self._life_remaining >= global_stuff.total_life):
+            self._life_remaining = global_stuff.total_life
     def collision_manager(self, board):
         '''
         Manages the collision of the hero with the beams, coins, magnet and powerups on the board
@@ -84,14 +99,11 @@ class hero(person):
                     global_stuff.score += 10
                 # beams
                 elif what_is_destroyed in ['Hbeam', 'Vbeam', 'Dbeam1', 'Dbeam2']:
-                    if(global_stuff.shield_is_active == 1):
-                        self.unshield_self()
-                    else:
-                        global_stuff.lives_remaining -= 1
+                    self.lose_life(1)
                 # power-ups
                 elif what_is_destroyed in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek', 'ExtraLife']:
                     p = powerup(self._x+i, self._y+j, what_is_destroyed)
-                    p.collect(board)
+                    p.collect(board,self)
                 # magnets
                 elif(what_is_destroyed == 'Magnet'):
                     global_stuff.hit_by_a_magnet = 1
@@ -119,7 +131,6 @@ class hero(person):
         global_stuff.shield_is_active = 1
         global_stuff.shield_active_timer = global_stuff.shield_total_active_time
 
-
     def unshield_self(self):
         '''
         remove the shield around the hero
@@ -128,4 +139,24 @@ class hero(person):
         self.change_type('Hero')
         global_stuff.shield_is_active = 0
         global_stuff.shield_active_timer = 0
-        global_stuff.shield_countdown=global_stuff.shield_total_countdown
+        global_stuff.shield_countdown = global_stuff.shield_total_countdown
+
+    def check_if_dead(self):
+        '''
+        Checks if the hero is dead or not:
+            How did you die?
+            How did the game end?
+            Answers all these questions
+        '''
+        if(global_stuff.hit_by_a_magnet == 1):
+            return 'Death by Magnet'
+        elif (self._life_remaining <= 0):
+            return 'No Lives Remaining'
+        elif(global_stuff.time_left <= 0):
+            return 'Time out'
+        elif(global_stuff.touch_boss == 1):
+            return 'Touched Boss'
+        elif(global_stuff.boss_dead == 1):
+            return 'Boss Dead'
+        else:
+            return 'Alive'

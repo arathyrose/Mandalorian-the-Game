@@ -87,7 +87,8 @@ class enemy(person):
         super().__init__(2, global_stuff.screen_length-2,
                          5, 13, global_stuff.enemy_style_1, 'Enemy')
         self._state = 0
-        self.ball = ball()
+        self._ball = ball()
+        self._life_remaining=global_stuff.boss_total_life
 
     def print_direct(self):
         '''
@@ -100,8 +101,8 @@ class enemy(person):
         elif(self._state == 'DEAD'):
             self._style = global_stuff.enemy_style_dead
         super().print_direct()
-        if(self.ball.check_if_exists() == 1):
-            self.ball.print_direct()
+        if(self._ball.check_if_exists() == 1):
+            self._ball.print_direct()
 
     def follow(self, h):
         '''
@@ -120,15 +121,15 @@ class enemy(person):
         '''
         release those balls, filled with ice if it is not already deployed
         '''
-        if(self.ball.check_if_exists() == 0):
+        if(self._ball.check_if_exists() == 0):
             p = random.randint(0, 4)
-            self.ball.deploy(self._x+p, self._y)
+            self._ball.deploy(self._x+p, self._y)
 
     def move_balls(self, board, hero):
         '''
         Moves the balls left
         '''
-        self.ball.move_left(board, hero)
+        self._ball.move_left(board, hero)
 
     def check_collision(self, board, h):
         '''
@@ -151,9 +152,14 @@ class enemy(person):
             if(bullet_accounted == 1):
                 break
             for j in range(self._w):
-                if(board.board[self._x+i][self._y-j][1] == 'Bullet'):
-                    global_stuff.boss_life_remaining -= 1
+                if(board.get_type(self._x+i,self._y-j)  == 'Bullet'):
+                    self._life_remaining-=1
                     bullet_accounted = 1
                     break
         # otherwise check if the ball is colliding with anything
-        self.ball.check_collision(board, h)
+        self._ball.check_collision(board, h)
+    def get_lives_remaining(self):
+        '''
+        A getter function to return the lives remaining of the boss
+        '''
+        return self._life_remaining

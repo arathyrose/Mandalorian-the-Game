@@ -356,3 +356,4 @@ Also, gravity can be implemeneted in a good way.
 
 - [ ] Difficulty levels
 - [ ] Above mentioned stuff
+- [x] Added global variables

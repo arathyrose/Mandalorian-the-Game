@@ -54,7 +54,7 @@ class powerup(obstacle):
         elif(ty == 'Snek'):
             super().__init__(xpos, ypos, 1, 1, '$', 'Snek')
 
-    def collect(self, board):
+    def collect(self, board,h):
         '''
         Collect the powerup and make the powerup active
         '''
@@ -69,8 +69,7 @@ class powerup(obstacle):
                 global_stuff.move_left_time /= 2
                 global_stuff.speeded = 1
         elif(self._type == 'ExtraLife'):
-            global_stuff.lives_remaining += 1
-            if(global_stuff.lives_remaining >= global_stuff.total_life):
-                global_stuff.lives_remaining = global_stuff.total_life
+            h.gain_life()
+            
         elif(self._type == 'Snek'):
             global_stuff.snek = 1
