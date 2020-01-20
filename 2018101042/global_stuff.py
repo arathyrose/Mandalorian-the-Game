@@ -118,3 +118,36 @@ shield_active_timer = 0
 shield_total_active_time = 20
 shield_total_countdown = 100
 shield_is_active = 0
+
+######################################################
+#   NEXT MAJOR CHANGE GLOBAL VARIABLES
+######################################################
+
+# FRAME REFRESHING
+FPS = 20
+FRAME_TIME = 1/FPS
+
+# COUNT OF FRAME REFRESHES
+COUNT = 0
+
+# TOTAL TIME THINGS
+TOTAL_TIME = enemy_comes_after*2*screen_length
+MAXIMUM_NO = TOTAL_TIME / FRAME_TIME
+REMAINING_NO = MAXIMUM_NO - COUNT
+
+# WHEN TO MOVE SCREEN
+TO_SHIFT_SCREEN_TIME = 0.5 # put difficulty levels
+TO_SHIFT_SCREEN = TO_SHIFT_SCREEN_TIME / FRAME_TIME
+
+# POWER UPS
+MAX_SHIELD_ACTIVE_TIME = 10 # 10 seconds active
+MAX_SHIELD_COOLDOWN_TIME = 60 # 60 seconds cooldown
+MAX_SPEED_ACTIVE_TIME = 30 # 30 seconds active, personal choice
+MAX_SHIELD_ACTIVE = MAX_SHIELD_ACTIVE_TIME / FRAME_TIME
+MAX_SHIELD_COOLDOWN = MAX_SHIELD_COOLDOWN_TIME / FRAME_TIME
+MAX_SPEED_ACTIVE = MAX_SPEED_ACTIVE_TIME / FRAME_TIME
+
+# SCORES
+SCORE = 0
+COINS = 0
+BEAMS = 0

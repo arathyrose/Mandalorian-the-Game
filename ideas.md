@@ -351,3 +351,8 @@ Also, gravity can be implemeneted in a good way.
 - make a global variable for that purpose
 - once he touches the ground, make the variable 0
 - otherwise, the variable contains the no_of_frames for which it is falling down
+
+## TODO
+
+- [ ] Difficulty levels
+- [ ] Above mentioned stuff
