@@ -20,18 +20,19 @@ total_no_screens = 15
 enemy_comes_after = 5
 boss_total_life = 200
 move_left_time = 0.1
-total_time = int(min(enemy_comes_after*2*screen_length *
-                     move_left_time, total_no_screens*screen_length*move_left_time))
+total_time = 2000
+# int(min(enemy_comes_after*2*screen_length *
+#                    move_left_time, total_no_screens*screen_length*move_left_time))
 
 # GAME RELATED GLOBAL VARIABLES
 game_start_time = 0
 shown_until = screen_length
-# lives_remaining = total_life
 bullets_left = 3  # count of deployable bullets
 enemy_come = 0
 magnet_y_pos_fullboard = 0
 time_left = total_time
 ball_gravity_count = 0
+last_move_up_time = 0
 
 # POWER UP RELATED VARIABLES
 speeded = 0
@@ -40,9 +41,9 @@ shielded = 0
 shielded_power_up_counter = -1
 speeded_power_up_counter = -1
 snek_power_up_counter = -1
-shield_timer = 100
 snake_timer = 50
 speed_timer = 100
+speeded_active_timer = 0
 
 # ENEMY STYLES
 
@@ -107,24 +108,33 @@ FRAME_TIME = 1/FPS
 # COUNT OF FRAME REFRESHES
 COUNT = 0
 
+# WHEN TO MOVE SCREEN
+TO_SHIFT_SCREEN_TIME = 0.2  # put difficulty levels
+TO_SHIFT_SCREEN = TO_SHIFT_SCREEN_TIME / FRAME_TIME
+
 # TOTAL TIME THINGS
-TOTAL_TIME = enemy_comes_after*2*screen_length
+TOTAL_TIME = enemy_comes_after*2*screen_length*TO_SHIFT_SCREEN_TIME
 MAXIMUM_NO = TOTAL_TIME / FRAME_TIME
 REMAINING_NO = MAXIMUM_NO - COUNT
 
-# WHEN TO MOVE SCREEN
-TO_SHIFT_SCREEN_TIME = 0.5 # put difficulty levels
-TO_SHIFT_SCREEN = TO_SHIFT_SCREEN_TIME / FRAME_TIME
-
 # POWER UPS
-MAX_SHIELD_ACTIVE_TIME = 10 # 10 seconds active
-MAX_SHIELD_COOLDOWN_TIME = 60 # 60 seconds cooldown
-MAX_SPEED_ACTIVE_TIME = 30 # 30 seconds active, personal choice
+MAX_SHIELD_ACTIVE_TIME = 10  # 10 seconds active
+MAX_SHIELD_COOLDOWN_TIME = 60  # 60 seconds cooldown
+MAX_SPEED_ACTIVE_TIME = 30  # 30 seconds active, personal choice
 MAX_SHIELD_ACTIVE = MAX_SHIELD_ACTIVE_TIME / FRAME_TIME
 MAX_SHIELD_COOLDOWN = MAX_SHIELD_COOLDOWN_TIME / FRAME_TIME
 MAX_SPEED_ACTIVE = MAX_SPEED_ACTIVE_TIME / FRAME_TIME
+
+# GRAVITY
+GRAVITY_TIME_START = TO_SHIFT_SCREEN*4
+GRAVITY_STEP = 1
+
+# BULLETS RESTORATION
+BULLETS_RESTORATION_TIME = 2  # 2 seconds per bullet to restore
+BULLETS_RESTORATION = BULLETS_RESTORATION_TIME/FRAME_TIME
 
 # SCORES
 SCORE = 0
 COINS = 0
 BEAMS = 0
+

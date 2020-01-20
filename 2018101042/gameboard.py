@@ -178,9 +178,7 @@ class gameboard(board):
         for i in range(leng):
             self.put_to_board(self._rows-2, i, lf[i], "Bottom Bar")
         # Print the time bar
-        global_stuff.time_left = int(
-            global_stuff.total_time+global_stuff.game_start_time-time.time())
-        percentage_to_fill = global_stuff.time_left/global_stuff.total_time
+        percentage_to_fill = global_stuff.REMAINING_NO/global_stuff.MAXIMUM_NO
         totwid = int(self._columns/2-10)
         fill = int(percentage_to_fill*totwid)
         k = ''
@@ -248,8 +246,7 @@ class gameboard(board):
         ln = len(k)
         for i in range(ln):
             # put the time left
-            self.put_to_board(self._rows-1, i + leng +
-                              startat, k[i], "SpeededHero")
+            self.put_to_board(self._rows-1, i + leng +    startat, k[i], "SpeededHero")
 
     def game_progress_display(self):
         '''

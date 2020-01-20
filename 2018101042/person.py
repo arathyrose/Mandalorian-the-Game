@@ -42,6 +42,7 @@ class person(obj):
         '''
         Moves the hero according to the direction given
         The direction can be given either in wasd or up down left right
+        Returns 0 if he moves up, otherwise returns 1
         '''
         if direction in ['w', 'up']:
             if(self._x > 2):
@@ -55,5 +56,9 @@ class person(obj):
         elif direction in ['d', 'right']:
             if(self._y < global_stuff.screen_length-2):
                 self._y += 1
+        if direction in ['w', 'up']:
+            return 0
+        else: 
+            return 1
         if(global_stuff.debug == 1):
             print(self._x, self._y)

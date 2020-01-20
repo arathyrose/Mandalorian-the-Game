@@ -42,7 +42,7 @@ Manages the attraction of the hero towards the magnet if the magnet is on the sc
 from person import person
 import global_stuff
 from powerUp import powerup
-
+import time
 
 class hero(person):
 
@@ -53,24 +53,29 @@ class hero(person):
         super().__init__(global_stuff.screen_height - 5,
                          0, 2, 2, [['▄', '['], ['|', '|']], 'Hero')
         self._life_remaining = global_stuff.total_life
-
+        self._is_shielded=0
+    def is_shield(self):
+        '''
+        returns 1 if the hero is shielded
+        '''
+        return self._is_shielded
     def print_direct(self):
         '''
         Checks how high the hero is currently (that is, which all power-ups are active atm)
         Then prints the hero directly onto the screen
         '''
-        if(global_stuff.shield_is_active == 1):
-            self.change_type('ShieldedHero')
-            super().print_direct()
-        elif(global_stuff.speeded == 1):
+        if(global_stuff.speeded == 1):
             self.change_type('SpeededHero')
+            super().print_direct()
+        elif(self._is_shielded == 1):
+            self.change_type('ShieldedHero')
             super().print_direct()
         else:
             self.change_type('Hero')
             super().print_direct()
 
     def lose_life(self, k):
-        if(global_stuff.shield_is_active == 1):
+        if(self._is_shielded == 1):
             self.unshield_self()
         else:
             self._life_remaining -= k
@@ -128,8 +133,8 @@ class hero(person):
         '''
         self._style = [['█', '['], ['║', '║']]
         self.change_type('ShieldedHero')
-        global_stuff.shield_is_active = 1
-        global_stuff.shield_active_timer = global_stuff.shield_total_active_time
+        self._is_shielded = 1
+        global_stuff.shield_active_timer = global_stuff.MAX_SHIELD_ACTIVE
 
     def unshield_self(self):
         '''
@@ -137,9 +142,9 @@ class hero(person):
         '''
         self._style = [['▄', '['], ['|', '|']]
         self.change_type('Hero')
-        global_stuff.shield_is_active = 0
+        self._is_shielded = 0
         global_stuff.shield_active_timer = 0
-        global_stuff.shield_countdown = global_stuff.shield_total_countdown
+        global_stuff.shield_countdown = global_stuff.MAX_SHIELD_COOLDOWN
 
     def check_if_dead(self):
         '''
@@ -160,3 +165,14 @@ class hero(person):
             return 'Boss Dead'
         else:
             return 'Alive'
+    def move(self,direction):
+        k=super().move(direction)
+        if(k==1): # if he is moving up, then initialise the time
+            global_stuff.last_move_up_time=time.time()
+        
+    def do_gravity(self,v):
+        '''
+        Perform the gravity part
+        '''
+        v+=1
+        self._x+=v
