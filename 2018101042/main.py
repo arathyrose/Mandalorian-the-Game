@@ -60,13 +60,8 @@ if __name__ == '__main__':
     # OTHER LOCAL GAME VARIABLES
     isdead = 'Alive'
 
-    # COUNT
-    global_stuff.COUNT=0
-
     # GAME LOOP
     while(1):
-        # INCREASE THE COUNT
-        global_stuff.COUNT+=1
 
         # DISPLAY THE BOARD, HERO, BULLETS AND ENEMY(if applicable)
         term.next_play()
