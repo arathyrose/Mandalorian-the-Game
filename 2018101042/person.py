@@ -58,7 +58,7 @@ class person(obj):
                 self._y += 1
         if direction in ['w', 'up']:
             return 0
-        else: 
+        else:
             return 1
         if(global_stuff.debug == 1):
             print(self._x, self._y)

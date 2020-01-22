@@ -104,7 +104,8 @@ import random
 from beam import beam
 from powerUp import powerup
 from magnet import magnet
-from  board import board
+from board import board
+
 
 class full_board(board):
 
@@ -114,9 +115,7 @@ class full_board(board):
         Here, the board matrix is kept as public, to allow all the functions to gain a direct access to it
         Each element in the board matrix is of the form (ASCII CHARACTER, TYPE OF THE OBSTACLE/BOARD ELEMENT) at that spot
         '''
-        super().__init__(rows-5,columns*global_stuff.total_no_screens)
-
-    
+        super().__init__(rows-5, columns*global_stuff.total_no_screens)
 
     def generate_background(self):
         '''
@@ -126,10 +125,9 @@ class full_board(board):
             for j in range(self._columns):
                 prob = random.random()
                 if(prob > 0.99):
-                    self.put_to_board(i,j,' ','Bg2')
+                    self.put_to_board(i, j, ' ', 'Bg2')
                 else:
-                    self.put_to_board(i,j,' ','Bg1')
-        
+                    self.put_to_board(i, j, ' ', 'Bg1')
 
     def check_if_permissible(self, X, Y):
         ''' 
@@ -139,7 +137,7 @@ class full_board(board):
         for i in range(-1, 2):
             for j in range(-1, 2):
                 try:
-                    if self.get_type(X+i,Y+j) != 'Normal':
+                    if self.get_type(X+i, Y+j) != 'Normal':
                         return 0
                 except:
                     continue
@@ -275,7 +273,7 @@ class full_board(board):
             print('Generating Speed Up powerups...')
         for screen in range(1, 5):
             self.put_powerup('SpeedBoost', screen)
-        if(global_stuff.debug==1):
+        if(global_stuff.debug == 1):
             print('Generating Extra Time powerups...')
         for screen in range(1, global_stuff.total_no_screens):
             self.put_powerup('ExtraTime', screen)

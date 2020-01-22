@@ -54,7 +54,7 @@ class powerup(obstacle):
         elif(ty == 'Snek'):
             super().__init__(xpos, ypos, 1, 1, '$', 'Snek')
 
-    def collect(self, board,h):
+    def collect(self, board, h):
         '''
         Collect the powerup and make the powerup active
         '''
@@ -62,15 +62,16 @@ class powerup(obstacle):
             print(self._type)
         super().destroy_self(board)  # destroy the powerup on the board
         if(self._type == 'ExtraTime'):
-            global_stuff.REMAINING_NO+=global_stuff.screen_length*global_stuff.TO_SHIFT_SCREEN_TIME/2
+            global_stuff.REMAINING_NO += global_stuff.screen_length * \
+                global_stuff.TO_SHIFT_SCREEN_TIME/2
         elif(self._type == 'SpeedBoost'):
             global_stuff.speeded_power_up_counter = global_stuff.MAX_SPEED_ACTIVE
             if(global_stuff.speeded == 0):
                 global_stuff.TO_SHIFT_SCREEN /= 2
                 global_stuff.speeded = 1
-                global_stuff.speeded_active_timer =global_stuff.MAX_SPEED_ACTIVE
+                global_stuff.speeded_active_timer = global_stuff.MAX_SPEED_ACTIVE
         elif(self._type == 'ExtraLife'):
             h.gain_life()
         elif(self._type == 'Snek'):
             global_stuff.snek = 1
-            global_stuff.snake_collected=1
+            global_stuff.snake_collected = 1

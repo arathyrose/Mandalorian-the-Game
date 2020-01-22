@@ -224,6 +224,9 @@ class gameboard(board):
             self.put_to_board(self._rows-2, i+leng + startat, k[i], typ)
 
     def SpeedBoost_pu_display(self):
+        '''
+        prints the time remaining for the speedboost
+        '''
         lf = 'SPEED BOOST:       '
         leng = len(lf)
         startat = int(global_stuff.screen_length/2)+5
@@ -246,7 +249,8 @@ class gameboard(board):
         ln = len(k)
         for i in range(ln):
             # put the time left
-            self.put_to_board(self._rows-1, i + leng +    startat, k[i], "SpeededHero")
+            self.put_to_board(self._rows-1, i + leng +
+                              startat, k[i], "SpeededHero")
 
     def game_progress_display(self):
         '''
@@ -344,7 +348,7 @@ class gameboard(board):
         ''' 
         Writes from the canvas onto the gameboard from the start_in to till the screen is completely filled
         '''
-        (r,_)=full_board.getdim()
+        (r, _) = full_board.getdim()
         try:
             for i in range(0, r):  # all the rows from blahblahblah
                 for j in range(0, self._columns):  # all the columns from teh gameboard
@@ -356,7 +360,7 @@ class gameboard(board):
         '''
         Shift everything to right every .5 seconds
         '''
-        (r,_)=full_board.getdim()
+        (r, _) = full_board.getdim()
         for i in range(r):
             for j in range(self._columns-1):
                 self._board[i+2][j] = self._board[i+2][j+1]

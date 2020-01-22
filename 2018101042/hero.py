@@ -44,6 +44,7 @@ import global_stuff
 from powerUp import powerup
 import time
 
+
 class hero(person):
 
     def __init__(self):
@@ -53,12 +54,14 @@ class hero(person):
         super().__init__(global_stuff.screen_height - 5,
                          0, 2, 2, global_stuff.hero, 'Hero')
         self._life_remaining = global_stuff.total_life
-        self._is_shielded=0
+        self._is_shielded = 0
+
     def is_shield(self):
         '''
         returns 1 if the hero is shielded
         '''
         return self._is_shielded
+
     def print_direct(self):
         '''
         Checks how high the hero is currently (that is, which all power-ups are active atm)
@@ -75,27 +78,38 @@ class hero(person):
             super().print_direct()
 
     def lose_life(self, k):
+        '''
+        reduce the life of the hero by k if he is not in snake or shield mode
+        '''
         if(self._is_shielded == 1):
             self.unshield_self()
-        elif(global_stuff.snek==1):
-            global_stuff.snek=0
-            global_stuff.trigger=1
+        elif(global_stuff.snek == 1):
+            global_stuff.snek = 0
+            global_stuff.trigger = 1
         else:
             self._life_remaining -= k
-        if(self._life_remaining<0):
-            self._life_remaining=0
+        if(self._life_remaining < 0):
+            self._life_remaining = 0
 
     def get_lives_remaining(self):
+        '''
+        gets the number of lives remaining
+        '''
         return self._life_remaining
+
     def gain_life(self):
-        self._life_remaining+=1
+        '''
+        Adds a life to the hero
+        '''
+        self._life_remaining += 1
         if(self._life_remaining >= global_stuff.total_life):
             self._life_remaining = global_stuff.total_life
+
     def collision_manager(self, board):
         '''
         Manages the collision of the hero with the beams, coins, magnet and powerups on the board
         '''
-        #print(self._h,self._w)
+        # print(self._h,self._w)
         for i in range(self._h):
             for j in range(self._w):
                 what_is_destroyed = board.destroy_object(self._x+i, self._y+j)
@@ -112,7 +126,7 @@ class hero(person):
                 # power-ups
                 elif what_is_destroyed in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek', 'ExtraLife']:
                     p = powerup(self._x+i, self._y+j, what_is_destroyed)
-                    p.collect(board,self)
+                    p.collect(board, self)
                 # magnets
                 elif(what_is_destroyed == 'Magnet'):
                     global_stuff.hit_by_a_magnet = 1
@@ -169,14 +183,15 @@ class hero(person):
             return 'Boss Dead'
         else:
             return 'Alive'
-    def move(self,direction):
-        k=super().move(direction)
-        if(k==1): # if he is moving up, then initialise the time
-            global_stuff.last_move_up_time=time.time()
-        
-    def do_gravity(self,v):
+
+    def move(self, direction):
+        k = super().move(direction)
+        if(k == 1):  # if he is moving up, then initialise the time
+            global_stuff.last_move_up_time = time.time()
+
+    def do_gravity(self, v):
         '''
         Perform the gravity part
         '''
-        v+=1
-        self._x+=v
+        v += 1
+        self._x += v

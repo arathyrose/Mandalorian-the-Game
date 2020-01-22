@@ -88,7 +88,7 @@ class enemy(person):
                          5, 13, global_stuff.enemy_style_1, 'Enemy')
         self._state = 0
         self._ball = ball()
-        self._life_remaining=global_stuff.boss_total_life
+        self._life_remaining = global_stuff.boss_total_life
 
     def print_direct(self):
         '''
@@ -152,12 +152,13 @@ class enemy(person):
             if(bullet_accounted == 1):
                 break
             for j in range(self._w):
-                if(board.get_type(self._x+i,self._y-j)  == 'Bullet'):
-                    self._life_remaining-=1
+                if(board.get_type(self._x+i, self._y-j) == 'Bullet'):
+                    self._life_remaining -= 1
                     bullet_accounted = 1
                     break
         # otherwise check if the ball is colliding with anything
         self._ball.check_collision(board, h)
+
     def get_lives_remaining(self):
         '''
         A getter function to return the lives remaining of the boss

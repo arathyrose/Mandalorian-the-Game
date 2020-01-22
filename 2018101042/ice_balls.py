@@ -71,7 +71,7 @@ class ball(obstacle):
                     board.destroy_object(self._x, self._y+i)
                     # what if it touches the hero
                     (hh, hw) = h.get_dim()
-                    (hx, hy)=h.get_coord()
+                    (hx, hy) = h.get_coord()
                     for k in range(hh):
                         for l in range(hw):
                             if((hx+k, hy-l) == (self._x, self._y+i)):
@@ -94,12 +94,12 @@ class ball(obstacle):
             except:
                 pass
             self._y -= 5
-            if(global_stuff.ball_gravity_count==3):
-                if(self._x<global_stuff.screen_height-4):
-                    self._x+=1
-                global_stuff.ball_gravity_count=0      
+            if(global_stuff.ball_gravity_count == 3):
+                if(self._x < global_stuff.screen_height-4):
+                    self._x += 1
+                global_stuff.ball_gravity_count = 0
             else:
-                global_stuff.ball_gravity_count+=1
+                global_stuff.ball_gravity_count += 1
             if(self._y <= 0):
                 self.__exist = 0
             try:

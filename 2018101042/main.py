@@ -24,7 +24,7 @@ if __name__ == '__main__':
     print("1- TA mode: Completely chill, slow gameplay, not much complicated, easy to win")
     print("2- Challenger: Fast with not many lives; best of luck if you survive")
     print("3- Practice: Check your skills with the end dragon")
-    difficulty=int(input('Enter difficulty: '))
+    difficulty = int(input('Enter difficulty: '))
     term.setup(difficulty)
 
     # SET UP THE INPUT
@@ -67,26 +67,26 @@ if __name__ == '__main__':
     gravity_counter = 0
 
     # COUNT
-    global_stuff.COUNT=0
-    global_stuff.REMAINING_NO=global_stuff.MAXIMUM_NO
-    down_move=-1
-    last_left_shift_count=0
+    global_stuff.COUNT = 0
+    global_stuff.REMAINING_NO = global_stuff.MAXIMUM_NO
+    down_move = -1
+    last_left_shift_count = 0
 
     # SNEK CHECK
-    if(global_stuff.snek==1):
-        (hx,hy)=h.get_coord()
-        h=snake(hx,hy)
+    if(global_stuff.snek == 1):
+        (hx, hy) = h.get_coord()
+        h = snake(hx, hy)
 
     # GAME LOOP
     while(1):
         # INCREASE THE COUNT AND DECREASE THE REMAINING NO
-        global_stuff.COUNT+=1
-        global_stuff.REMAINING_NO-=1
-        last_left_shift_count+=1
+        global_stuff.COUNT += 1
+        global_stuff.REMAINING_NO -= 1
+        last_left_shift_count += 1
 
         # DISPLAY THE BOARD, HERO, BULLETS AND ENEMY(if applicable)
         term.next_play()
-        board.print(h,e)
+        board.print(h, e)
         h.print_direct()
         if(global_stuff.enemy_come == 1):
             e.print_direct()
@@ -106,10 +106,10 @@ if __name__ == '__main__':
 
             # GET THE INPUT AND STORE IT IN A VARIABLE
             control_pressed = keys.getCh()
-            if(control_pressed=='w'):
-                gravity_counter=1
-                last_pressed_up=0
-                down_move=global_stuff.GRAVITY_TIME_START
+            if(control_pressed == 'w'):
+                gravity_counter = 1
+                last_pressed_up = 0
+                down_move = global_stuff.GRAVITY_TIME_START
             if(global_stuff.debug == 1):
                 print(h.get_coord(), control_pressed)
 
@@ -142,9 +142,9 @@ if __name__ == '__main__':
             control_pressed = None
 
         # MOVE THE BOARD BACKWARDS EVERY FEW 100s OF MILLISECONDS
-        #if(global_stuff.COUNT % global_stuff.TO_SHIFT_SCREEN==0):
-        if(last_left_shift_count-global_stuff.TO_SHIFT_SCREEN>=0):
-            last_left_shift_count=0
+        # if(global_stuff.COUNT % global_stuff.TO_SHIFT_SCREEN==0):
+        if(last_left_shift_count-global_stuff.TO_SHIFT_SCREEN >= 0):
+            last_left_shift_count = 0
 
             # SHIFT THE BOARD
             if(global_stuff.debug == 1):
@@ -174,13 +174,13 @@ if __name__ == '__main__':
             h.magnet_attraction(board)
 
         # GRAVITY MANAGEMENT WOULD BE DIFFERENT
-        gravity_counter+=1
+        gravity_counter += 1
         if(gravity_counter % down_move == 0):
             # GRAVITY
-            down_move-=global_stuff.GRAVITY_STEP
-            if(down_move<=0):
-                down_move=1
-            gravity_counter=1
+            down_move -= global_stuff.GRAVITY_STEP
+            if(down_move <= 0):
+                down_move = 1
+            gravity_counter = 1
             h.move('down')
             gravity_ok = 0
             # check for collisions
@@ -189,7 +189,7 @@ if __name__ == '__main__':
                 e.follow(h)  # make the enemy follow our hero
                 e.check_collision(board, h)
 
-        if(global_stuff.COUNT%global_stuff.BULLETS_RESTORATION==0):
+        if(global_stuff.COUNT % global_stuff.BULLETS_RESTORATION == 0):
             # RESTORE BULLETS ONCE EVERY 5 SHIFTS
             for i in range(global_stuff.total_bullets):
                 if(bullet_list[i].check_if_deployable() == 0 and bullet_list[i].check_if_exist() == 0):
@@ -200,7 +200,7 @@ if __name__ == '__main__':
                 global_stuff.bullets_left = global_stuff.total_bullets
 
         # POWER-UP RUN OUT CHECK
-            
+
         # SHIELD POWER-UP
         if(h.is_shield() == 1):
             global_stuff.shield_active_timer -= 1
@@ -213,29 +213,27 @@ if __name__ == '__main__':
 
         # SPEED POWER UP
         if(global_stuff.speeded == 1):
-                global_stuff.speeded_active_timer -= 1
-                if(global_stuff.speeded_active_timer <0):
-                    global_stuff.speeded_active_timer = -1
-                    global_stuff.speeded = 0
-                    global_stuff.TO_SHIFT_SCREEN = global_stuff.TO_SHIFT_SCREEN* 2
-                    
+            global_stuff.speeded_active_timer -= 1
+            if(global_stuff.speeded_active_timer < 0):
+                global_stuff.speeded_active_timer = -1
+                global_stuff.speeded = 0
+                global_stuff.TO_SHIFT_SCREEN = global_stuff.TO_SHIFT_SCREEN * 2
 
-        
         # CHECK IF THE GAME IS OVER
         isdead = h.check_if_dead()
         if(isdead != '' and isdead != 'Alive'):
             break
         # SNAKE DEAD CHECK
-        if(global_stuff.trigger==1):
-            global_stuff.trigger=0
-            h=hero()
+        if(global_stuff.trigger == 1):
+            global_stuff.trigger = 0
+            h = hero()
         # SNAKE COLLECTED CHECK
-        if(global_stuff.snake_collected==1):
-            global_stuff.snake_collected=0
-            global_stuff.snek=1
-            (hx,hy)=h.get_coord()
-            h=snake(hx,hy)
-        
+        if(global_stuff.snake_collected == 1):
+            global_stuff.snake_collected = 0
+            global_stuff.snek = 1
+            (hx, hy) = h.get_coord()
+            h = snake(hx, hy)
+
         # DEFINE THE FRAME RATE
         time.sleep(global_stuff.FRAME_TIME)
 

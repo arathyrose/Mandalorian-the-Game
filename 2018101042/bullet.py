@@ -128,10 +128,10 @@ class bullet(obstacle):
                 pass
             try:
                 # remove all traces of the earlier position of the bullet
-                board.remove_from_board(self._x,self._y)
+                board.remove_from_board(self._x, self._y)
                 if(is_magnet == 0):
-                    board.remove_from_board(self._x,self._y+1)
-                board.remove_from_board(self._x,self._y-1)
+                    board.remove_from_board(self._x, self._y+1)
+                board.remove_from_board(self._x, self._y-1)
 
                 # move it left
                 self._y += 2
