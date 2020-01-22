@@ -101,10 +101,13 @@ class obj:
         Prints the object directly on the screen without disturbing the board
         '''
         print('\033[s')  # save position
+        
         for i in range(self._h):
-            for j in range(self._w):
-                print('\033['+str(self._x+i+1)+';' +
-                      str(self._y-j+2)+'H'+color_text(self._style[i][j], self._type), end="")
+                for j in range(self._w):
+                   
+                        print('\033['+str(self._x+i+1)+';' +
+                        str(self._y-j+self._h)+'H'+color_text(self._style[i][j], self._type), end="")
+                    
         print('\033[u')  # restore position
 
     def destroy_self(self, gameboard):

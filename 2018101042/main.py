@@ -9,7 +9,7 @@ from coins import coins
 from full_board import full_board
 from enemy import enemy
 from bullet import bullet
-
+from snake import snake
 
 if __name__ == '__main__':
 
@@ -57,7 +57,6 @@ if __name__ == '__main__':
 
     # TIME MANAGEMENT
     global_stuff.game_start_time = time.time()  # get the start time of the game
-    last_shift_time = global_stuff.game_start_time
 
     # INITIALISE THE LOCAL COUNTERS USED
     gravity_ok = 0
@@ -66,15 +65,24 @@ if __name__ == '__main__':
     # OTHER LOCAL GAME VARIABLES
     isdead = 'Alive'
     gravity_counter = 0
+
     # COUNT
     global_stuff.COUNT=0
     global_stuff.REMAINING_NO=global_stuff.MAXIMUM_NO
     down_move=-1
+    last_left_shift_count=0
+
+    # SNEK CHECK
+    if(global_stuff.snek==1):
+        (hx,hy)=h.get_coord()
+        h=snake(hx,hy)
+
     # GAME LOOP
     while(1):
         # INCREASE THE COUNT AND DECREASE THE REMAINING NO
         global_stuff.COUNT+=1
         global_stuff.REMAINING_NO-=1
+        last_left_shift_count+=1
 
         # DISPLAY THE BOARD, HERO, BULLETS AND ENEMY(if applicable)
         term.next_play()
@@ -134,9 +142,9 @@ if __name__ == '__main__':
             control_pressed = None
 
         # MOVE THE BOARD BACKWARDS EVERY FEW 100s OF MILLISECONDS
-        if(global_stuff.COUNT % global_stuff.TO_SHIFT_SCREEN==0):
-        
-            last_shift_time = time.time()
+        #if(global_stuff.COUNT % global_stuff.TO_SHIFT_SCREEN==0):
+        if(last_left_shift_count-global_stuff.TO_SHIFT_SCREEN>=0):
+            last_left_shift_count=0
 
             # SHIFT THE BOARD
             if(global_stuff.debug == 1):
@@ -209,14 +217,25 @@ if __name__ == '__main__':
                 if(global_stuff.speeded_active_timer <0):
                     global_stuff.speeded_active_timer = -1
                     global_stuff.speeded = 0
-                    global_stuff.TO_SHIFT_SCREEN /= 2
+                    global_stuff.TO_SHIFT_SCREEN = global_stuff.TO_SHIFT_SCREEN* 2
+                    
 
-
+        
         # CHECK IF THE GAME IS OVER
         isdead = h.check_if_dead()
         if(isdead != '' and isdead != 'Alive'):
             break
-
+        # SNAKE DEAD CHECK
+        if(global_stuff.trigger==1):
+            global_stuff.trigger=0
+            h=hero()
+        # SNAKE COLLECTED CHECK
+        if(global_stuff.snake_collected==1):
+            global_stuff.snake_collected=0
+            global_stuff.snek=1
+            (hx,hy)=h.get_coord()
+            h=snake(hx,hy)
+        
         # DEFINE THE FRAME RATE
         time.sleep(global_stuff.FRAME_TIME)
 

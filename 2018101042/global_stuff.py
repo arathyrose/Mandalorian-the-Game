@@ -21,8 +21,6 @@ enemy_comes_after = 5
 boss_total_life = 200
 move_left_time = 0.1
 total_time = 2000
-# int(min(enemy_comes_after*2*screen_length *
-#                    move_left_time, total_no_screens*screen_length*move_left_time))
 
 # GAME RELATED GLOBAL VARIABLES
 game_start_time = 0
@@ -36,7 +34,7 @@ last_move_up_time = 0
 
 # POWER UP RELATED VARIABLES
 speeded = 0
-snek = 0
+snek = 1
 shielded = 0
 shielded_power_up_counter = -1
 speeded_power_up_counter = -1
@@ -44,6 +42,8 @@ snek_power_up_counter = -1
 snake_timer = 50
 speed_timer = 100
 speeded_active_timer = 0
+trigger=0
+snake_collected=0
 
 # ENEMY STYLES
 
@@ -71,6 +71,11 @@ enemy_style_dead = [
     [' ', '¨', '-', '¨', '-', '¨', '-', '¨', '-', '¨', ' ', ' ', ' ']
 ]
 
+snake_test=[
+  [' ',' ',' ','.','-','-',',',' ','/','[','▄'],
+  ['-','-','/',' ',' ',' ',' ','\\','-','|','|'] 
+  ]
+snake=[['-','_'],['-','_']]
 # STUFF TO BE DONE BEFORE THE START OF THE GAME
 
 
@@ -138,3 +143,9 @@ SCORE = 0
 COINS = 0
 BEAMS = 0
 
+# SNAKE DESIGNS
+snake_generator=[
+  [' ',' ',' ',' ','.','-','-','-',',',' '],
+  ['-','-','-','/',' ',' ',' ',' ',' ','\\']
+      ]
+hero=[['▄', '['], ['|', '|']]

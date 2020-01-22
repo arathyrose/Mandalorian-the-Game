@@ -233,7 +233,7 @@ class gameboard(board):
         if(global_stuff.speeded == 0):
             percentage_to_fill = 0
         else:
-            percentage_to_fill = 1-global_stuff.speeded_power_up_counter/global_stuff.speed_timer
+            percentage_to_fill = global_stuff.speeded_active_timer/global_stuff.MAX_SPEED_ACTIVE
         if(percentage_to_fill >= 1):
             percentage_to_fill = 1
         totwid = int(self._columns/2-30)
@@ -300,7 +300,7 @@ class gameboard(board):
         lf = 'ENEMY: '
         leng = len(lf)
         for i in range(leng):
-            self.put_to_board(1, i+leng, lf[i], 'Top Bar')
+            self.put_to_board(1, i, lf[i], 'Top Bar')
         # Print the enemy life bar
         percentage_to_fill = enemy.get_lives_remaining() / global_stuff.boss_total_life
         if(percentage_to_fill <= 0):

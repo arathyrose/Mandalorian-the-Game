@@ -84,7 +84,7 @@ class enemy(person):
         '''
         Initialises the person with the characteristics of an enemy and gives it two additional attributes: state and ball
         '''
-        super().__init__(2, global_stuff.screen_length-2,
+        super().__init__(2, global_stuff.screen_length-5,
                          5, 13, global_stuff.enemy_style_1, 'Enemy')
         self._state = 0
         self._ball = ball()

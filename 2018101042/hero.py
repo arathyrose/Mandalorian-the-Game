@@ -51,7 +51,7 @@ class hero(person):
         Initialises the person with the characteristics of a hero
         '''
         super().__init__(global_stuff.screen_height - 5,
-                         0, 2, 2, [['▄', '['], ['|', '|']], 'Hero')
+                         0, 2, 2, global_stuff.hero, 'Hero')
         self._life_remaining = global_stuff.total_life
         self._is_shielded=0
     def is_shield(self):
@@ -77,6 +77,9 @@ class hero(person):
     def lose_life(self, k):
         if(self._is_shielded == 1):
             self.unshield_self()
+        elif(global_stuff.snek==1):
+            global_stuff.snek=0
+            global_stuff.trigger=1
         else:
             self._life_remaining -= k
         if(self._life_remaining<0):
@@ -92,6 +95,7 @@ class hero(person):
         '''
         Manages the collision of the hero with the beams, coins, magnet and powerups on the board
         '''
+        #print(self._h,self._w)
         for i in range(self._h):
             for j in range(self._w):
                 what_is_destroyed = board.destroy_object(self._x+i, self._y+j)
@@ -140,7 +144,7 @@ class hero(person):
         '''
         remove the shield around the hero
         '''
-        self._style = [['▄', '['], ['|', '|']]
+        self._style = global_stuff.hero
         self.change_type('Hero')
         self._is_shielded = 0
         global_stuff.shield_active_timer = 0

@@ -66,9 +66,11 @@ class powerup(obstacle):
         elif(self._type == 'SpeedBoost'):
             global_stuff.speeded_power_up_counter = global_stuff.MAX_SPEED_ACTIVE
             if(global_stuff.speeded == 0):
-                global_stuff.TO_SHIFT_SCREEN *= 2
+                global_stuff.TO_SHIFT_SCREEN /= 2
                 global_stuff.speeded = 1
+                global_stuff.speeded_active_timer =global_stuff.MAX_SPEED_ACTIVE
         elif(self._type == 'ExtraLife'):
             h.gain_life()
         elif(self._type == 'Snek'):
             global_stuff.snek = 1
+            global_stuff.snake_collected=1
