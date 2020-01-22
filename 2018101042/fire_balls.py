@@ -108,4 +108,3 @@ class fire(obstacle):
         self._y = y
         self.__exist = 1
         self.print_direct()
-    

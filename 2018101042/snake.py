@@ -12,6 +12,8 @@ import global_stuff
 from colored_printing import color_text
 import numpy as np
 from fire_balls import fire
+
+
 class snake(hero):
 
     def __init__(self, x, y):
@@ -21,9 +23,9 @@ class snake(hero):
         super().__init__()
         self._w = self._y+2
         self._start_ind = 0
-        self._type="SnekHero"
-        self._bal1=fire()
-        self._bal2=fire()
+        self._type = "SnekHero"
+        self._bal1 = fire()
+        self._bal2 = fire()
 
     def change_shape(self):
         '''
@@ -53,10 +55,10 @@ class snake(hero):
         '''
         print the snake by creating a person 
         '''
-        if(self.is_shield()==1):
-            self._type="ShieldSnekHero"
+        if(self.is_shield() == 1):
+            self._type = "ShieldSnekHero"
         else:
-            self._type='SnekHero'
+            self._type = 'SnekHero'
         self.change_shape()
         p = person(self._x, self._y, 2, self._y+2, self._style, self._type)
         p.print_direct()
@@ -65,11 +67,12 @@ class snake(hero):
             self._bal1.print_direct()
         if(self._bal2.check_if_exists() == 1):
             self._bal2.print_direct()
+
     def release_balls(self):
         '''
         release those balls, filled with ice if it is not already deployed
         '''
-        if(self._bal1.check_if_exists() == 0 and self._bal2.check_if_exists() == 0 ):
+        if(self._bal1.check_if_exists() == 0 and self._bal2.check_if_exists() == 0):
             self._bal1.deploy(self._x, self._y+6)
             self._bal2.deploy(self._x+1, self._y+6)
 
@@ -82,13 +85,14 @@ class snake(hero):
         self._w = saving+2
         super().collision_manager(board)
         self._y = saving
+
     def move_balls(self, board):
         '''
         Moves the balls right
         '''
-        self._bal1.move_right(board,self._y)
-        self._bal2.move_right(board,self._y)
-        
+        self._bal1.move_right(board, self._y)
+        self._bal2.move_right(board, self._y)
+
     def make_both_exist(self):
         '''
         deletes both in case one of them disappears
@@ -96,4 +100,3 @@ class snake(hero):
         if(self._bal1.check_if_exists() == 0 or self._bal2.check_if_exists() == 0):
             self._bal1.erase_ball()
             self._bal2.erase_ball()
-            
