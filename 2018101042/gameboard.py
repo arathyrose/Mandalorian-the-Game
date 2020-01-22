@@ -190,7 +190,7 @@ class gameboard(board):
         for i in range(ln):
             self.put_to_board(self._rows-2, i+leng, k[i], "Time")
 
-    def shield_pu_display(self):
+    def shield_pu_display(self, h):
         '''
         Displays the shield powerup, that is, if it is active or not and so on
         '''
@@ -201,13 +201,13 @@ class gameboard(board):
         for i in range(leng):
             self.put_to_board(self._rows-2, i+startat, lf[i], "Bottom Bar")
         # Print the progress bar
-        if(global_stuff.shield_is_active == 0):
+        if(h.is_shield() == 0):
             percentage_to_fill = global_stuff.shield_countdown / \
-                global_stuff.shield_total_countdown
+                global_stuff.MAX_SHIELD_COOLDOWN
             typ = 'ShieldedHero'
         else:
             percentage_to_fill = global_stuff.shield_active_timer / \
-                global_stuff.shield_total_active_time
+                global_stuff.MAX_SHIELD_ACTIVE
             typ = 'ShieldPU'
         if(percentage_to_fill >= 1):
             percentage_to_fill = 1
@@ -329,7 +329,7 @@ class gameboard(board):
         self.time_display()
         self.bullets_display()
         self.game_progress_display()
-        self.shield_pu_display()
+        self.shield_pu_display(h)
         self.SpeedBoost_pu_display()
 
     def print(self, h, enemy):

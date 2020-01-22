@@ -22,6 +22,8 @@ COLORS = {
     'Hero': '\x1b[1;36;47m',
     'ShieldedHero': '\x1b[1;32;47m',
     'SpeededHero': '\x1b[1;35;47m',
+    'SnekHero': '\x1b[0;33;42m',
+    'ShieldSnekHero': '\x1b[0;37;42m',
     'Bullet': '\x1b[38;5;208m',
 
     'Hbeam': '\x1b[1;31;40m',
@@ -31,6 +33,7 @@ COLORS = {
 
     'Enemy': '\x1b[1;31;40m',
     'Ice Ball': '\x1b[1;36;40m',
+    'Fire': '\x1b[1;31;40m',
 
     'Coin': '\x1b[1;33;40m',
     'ExtraLife': '\x1b[41;1;37m',

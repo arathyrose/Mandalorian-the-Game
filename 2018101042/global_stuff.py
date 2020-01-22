@@ -34,7 +34,7 @@ last_move_up_time = 0
 
 # POWER UP RELATED VARIABLES
 speeded = 0
-snek = 1
+snek = 0
 shielded = 0
 shielded_power_up_counter = -1
 speeded_power_up_counter = -1
@@ -95,12 +95,8 @@ touch_boss = 0
 boss_dead = 0
 
 # NEWLY ADDED STUFF
-is_shielded = 0
 shield_countdown = 0
 shield_active_timer = 0
-shield_total_active_time = 20
-shield_total_countdown = 100
-shield_is_active = 0
 
 ######################################################
 #   NEXT MAJOR CHANGE GLOBAL VARIABLES

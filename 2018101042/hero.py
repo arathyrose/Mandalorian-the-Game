@@ -143,6 +143,7 @@ class hero(person):
                 self.move('right')
             elif(is_magnet_on_screen+4-1 < self._y):
                 self.move('left')
+                self.move('left')
             self.collision_manager(board)
 
     def shield_self(self):

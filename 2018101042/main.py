@@ -121,17 +121,16 @@ if __name__ == '__main__':
                 e.check_collision(board, h)
 
             # SHOOT BULLETS BY THE HERO
-            if(control_pressed == 'x'):
+            if(global_stuff.snek == 0 and control_pressed == 'x'):
                 for i in range(global_stuff.total_bullets):
                     if(bullet_list[i].deploy(h) == 1):
                         break
 
             # SHIELD ACTIVATE
             if(control_pressed == ' '):
-                if(global_stuff.shield_is_active == 0 and global_stuff.shield_countdown == 0):
-                    global_stuff.shield_is_active = 1
+                if(h.is_shield() == 0 and global_stuff.shield_countdown == 0):
                     # global_stuff.shield_countdown = global_stuff.shield_total_countdown
-                    global_stuff.shield_active_timer = global_stuff.shield_total_active_time
+                    global_stuff.shield_active_timer = global_stuff.MAX_SHIELD_ACTIVE_TIME
                     h.shield_self()
 
             # QUIT THE GAME
@@ -169,6 +168,10 @@ if __name__ == '__main__':
                 e.release_balls()
                 e.move_balls(board, h)
                 e.check_collision(board, h)
+
+            # SNAKEY STUFF
+            if(global_stuff.snek==1):
+                h.move_balls(board)
 
             # MOVE THE HERO DEPENDING ON THE POSITION OF THE MAGNET
             h.magnet_attraction(board)
@@ -239,12 +242,51 @@ if __name__ == '__main__':
 
     # THE LAST GAME OVER SCREEN
     term.clrscr()
-    print('GAME OVER')
-    print()
-    print('Congratulations '+global_stuff.username)
+    if(isdead in ['', 'Alive']):
+        print("GAME OVER")
+        print()
+        print("WHY DID YOU QUIT ", global_stuff.username, "?")
+        print("Baby Yoda still needs your help")
+        print()
+    elif(isdead == "Boss Dead"):
+        print("CONGRATULATIONS ", global_stuff.username)
+        print()
+        print(
+            "Baby Yoda has been successfully rescued and the evil dragon has been killed.")
+        print(
+            "The developer likes you for playing this game (please rate/mark it with love)")
+        print()
+    elif(isdead == "Death by Magnet"):
+        print("GAME OVER")
+        print()
+        print("Don't you know that touching a magnet in that full iron suit can kill you with its really strong attractive force ",
+              global_stuff.username, "?")
+        print("But don't give up!")
+        print("Baby Yoda still needs your help")
+        print()
+    elif(isdead == "No Lives Remaining"):
+        print("GAME OVER")
+        print()
+        print("You have died. You had been electrocuted way too many times by beams and frozen many more times by ice balls..")
+        print("But don't give up!")
+        print("Baby Yoda still needs your help")
+        print()
+    elif(isdead == "Time out"):
+        print("GAME OVER")
+        print()
+        print("You ran out of precious time. Baby Yoda has now been slaughtered by the dragon, as you were too slow.")
+        print("But don't give up!")
+        print("Zombie Baby Yoda still needs your help! Try again!")
+        print()
+    elif(isdead == "Touched Boss"):
+        print("GAME OVER")
+        print()
+        print("Oh dear, you thought you can fight the dragon with your bare hands(without using the bullet). Sadly, the dragon has annihilated you..")
+        print("But don't give up!")
+        print("Baby Yoda still needs your help")
+        print()
+
+    print('STATISTICS')
+
     print('Score: '+str(global_stuff.score))
-    print('Time left: '+str(global_stuff.time_left))
-    if(isdead == '' or isdead == 'Alive'):
-        print('Baby Yoda still needs your help.. why you quit my friend?')
-    else:
-        print('Reason of death: '+isdead)
+    print('Time left: '+str(global_stuff.REMAINING_NO*global_stuff.FRAME_TIME))
