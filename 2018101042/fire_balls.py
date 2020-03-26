@@ -1,9 +1,9 @@
 '''
-ball
+fire
 ====
 
-This class denotes the Bullet of the dragon enemy
-Ice ball is an obstacle with the ability to move only backward (the BOSS is backward in both thinking and working)
+This class denotes the firey nature of the snek version of hero
+Fire is an obstacle with the ability to move only foreward by a few steps
 
 It inherits from obstacle class.
 
@@ -12,7 +12,7 @@ Additional Data Members
 
 - exist
 
-This variable is 1 if the ball has already been deployed by the enemy and is currently on the screen
+This variable is 1 if the ball has already been deployed by the snek and is currently on the screen
 
 Additional/Re-written Member Functions
 --------------------------------------
@@ -20,7 +20,7 @@ Additional/Re-written Member Functions
 - Constructor
 
 Fixes the shape of the ball
-Style: █▓▒░·     
+Style: reverse (█▓▒░·   )  
 Makes its existence 0
 
 - check_if_exists
@@ -44,14 +44,14 @@ import global_stuff
 from obstacle import obstacle
 
 
-class ball(obstacle):
+class fire(obstacle):
 
     def __init__(self):
         '''
         Fixes the shape of the ball
         Makes its existence 0
         '''
-        super().__init__(0, 0, 1, 5, [['·', '░', '▒', '▓', '█']], 'Ice Ball')
+        super().__init__(0, 0, 1, 5, [['█', '▓', '▒', '░', '·']], 'Fire')
         self.__exist = 0
 
     def check_if_exists(self):
@@ -60,50 +60,43 @@ class ball(obstacle):
         '''
         return self.__exist
 
-    def check_collision(self, board, h):  # RECHECK
+    def erase_ball(self):
+        '''
+        Erases the ball out of existance
+        '''
+        self.__exist = 0
+
+    def check_collision(self, board):
         '''
         Manages the collision of the ball with the coins and obstacles, and the hero
         '''
         if(self.check_if_exists() == 1):
             try:
-                for i in range(0, 5):
+                for i in range(-5, 1):
                     # whatever obstacle it touches would be destroyed (there would be only coins :/) no need to give coins or shiz
-                    board.destroy_object(self._x, self._y+i)
-                    # what if it touches the hero
-                    (hh, hw) = h.get_dim()
-                    (hx, hy) = h.get_coord()
-                    for k in range(hh):
-                        for l in range(hw):
-                            if((hx+k, hy-l) == (self._x, self._y+i)):
-                                # you lose two lives if that ball touches you; so be warned! (if you are not shielded)
-                                h.lose_life(2)
-                                self.__exist = 0
-                                return
+                    c = board.destroy_object(self._x, self._y+i)
+                    if(c == "Coin"):
+                        global_stuff.coins_collected += 1
+                        global_stuff.score += 10
             except Exception as e:
                 if(global_stuff.debug):
                     print(e)
                 pass
 
-    def move_left(self, board, h):
+    def move_right(self, board, posi):
         '''
-        Move the ball left after destroying everything in its path
+        Move the ball right after destroying everything in its path
         '''
         if(self.check_if_exists() == 1):
             try:
-                self.check_collision(board, h)
+                self.check_collision(board)
             except:
                 pass
-            self._y -= 5
-            if(global_stuff.ball_gravity_count == 3):
-                if(self._x < global_stuff.screen_height-4):
-                    self._x += 1
-                global_stuff.ball_gravity_count = 0
-            else:
-                global_stuff.ball_gravity_count += 1
-            if(self._y <= 0):
+            self._y += 5
+            if(self._y >= posi+20):
                 self.__exist = 0
             try:
-                self.check_collision(board, h)
+                self.check_collision(board)
             except:
                 pass
 

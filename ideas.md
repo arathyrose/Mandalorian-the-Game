@@ -199,11 +199,6 @@ and the following functions
 - [x] Make the duration of the game according to the speed of left movement of the game screen
 - [x] Make the boss come later in game
 
-## THINGS LEFT TO DO
-
-- [ ] SNAKE POWERUP
-- [ ] Privatize everything
-
 ## NOTE
 
 All powerups are single tiled with a symbol denoting it (similar to a coin)
@@ -294,17 +289,71 @@ The bullets fired by your Mandalorian has a special ability to continue existing
 - [x] bullet.py
 - [x] coins.py
 - [x] colored_printing.py
-- [ ] enemy.py
-- [ ] full_board.py
-- [ ] gameboard.py
-- [ ] global_stuff.py
+- [x] enemy.py
+- [x] full_board.py
+- [x] gameboard.py
+- [x] global_stuff.py
 - [x] hero.py
-- [ ] ice_balls.py
+- [x] ice_balls.py
 - [x] inputs.py
 - [x] magnet.py
-- [ ] main.py
+- [x] main.py
 - [x] obj.py
 - [x] obstacle.py
 - [x] person.py
-- [ ] powerUp.py
+- [x] powerUp.py
 - [x] term.py
+
+## THINGS LEFT TO DO
+
+- [ ] SNAKE POWERUP
+- [x] Correct the shield powerup
+- [x] Add an extra powerup called extra time that gives a time of move_left*screenlength/2
+- [x] Modify the shield mode of the hero (create another class deriving from it that makes it look beautiful)
+- [ ] Create another class called snake that derives from the hero class
+- [ ] Make the snake look cute
+- [ ] Add random people
+
+## MAJOR UPDATE
+
+So here is the plan of exexution:
+Just make the left shifting into the counter type execution:
+Each count denotes one frame time (0.05 s) [ Rather than the left shift time ]
+
+- SO COUNT THE NUMBER OF COUNTS
+- IF THE NUMBER OF COUNTS MOD TO_SHIFT_SCREEN IS ZERO, LEFT SHIFT
+
+```less
+for the time out check,
+
+MAXIMUM_NO = TOTAL_TIME / FRAME_TIME
+REMAINING_NO = MAXIMUM_NO - COUNTS
+
+for moving the screen left,
+TO_SHIFT_SCREEN = TO_SHIFT_SCREEN_TIME / FRAME_TIME
+
+for checking the powerups,
+MAX_SHIELD_ACTIVE = MAX_SHIELD_ACTIVE_TIME / FRAME_TIME
+MAX_SHIELD_COOLDOWN = MAX_SHIELD_COOLDOWN_TIME / FRAME_TIME
+MAX_SPEED_ACTIVE = MAX_SPEED_ACTIVE_TIME / FRAME_TIME
+```
+
+- HERE THE FRAME TIME IS 0.05 i.e. 20 FPS
+
+This update is evolutionary as it removes the need of checking time anywhere in the program.  
+Also, gravity can be implemeneted in a good way.
+
+### IMPLEMENTING GRAVITY
+
+- IDK
+- ok let me think better
+- if it is falling down, say that it is falling down
+- make a global variable for that purpose
+- once he touches the ground, make the variable 0
+- otherwise, the variable contains the no_of_frames for which it is falling down
+
+## TODO
+
+- [ ] Difficulty levels
+- [ ] Above mentioned stuff
+- [x] Added global variables

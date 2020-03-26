@@ -1,4 +1,4 @@
-""" 
+''' 
 coins
 ====
 
@@ -24,7 +24,7 @@ It is initialised as an obstacle with 0 as its shape. (well, a coin is never an 
 This is supposed to be called when the coin is collected
 Sadly, noone called it...
 
-"""
+'''
 
 from obstacle import obstacle
 import global_stuff

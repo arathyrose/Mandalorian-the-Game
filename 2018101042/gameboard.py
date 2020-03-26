@@ -1,265 +1,372 @@
 '''
-Contains the initialization of the game board
-has the following components:
+gameboard
+=========
 
-rows: height of the board   : Here I fix it as 50
-columns: width of the board : Here I fix it as 200
+This class denotes the game board that is currently being displayed on the screen.
 
-The rows can be divided into the following parts
-0 -> 2: The top bar that contains the name of the game colored with blue
-rows-3 -> rows: the bottom bar containing the lives left and the time remaining
+Data Members:
+-------------
+
+- rows
+
+Denotes the number of rows (horizontal things) : 50
+
+- columns
+
+Denotes the number of columns (vertical things) : 200
+
+- board
+
+Denotes the canvas were we would draw everything
+
+Member Functions:
+-----------------
+
+- Constructor
+
+Initialises the full board with the length, width and the board matrix
+Here, the board matrix is kept as public, to allow all the functions to gain a direct access to it
+Each element in the board matrix is of the form (ASCII CHARACTER, TYPE OF THE OBSTACLE/BOARD ELEMENT) at that spot
+Also sets up the top bar(the first two rows), bottom bar(the last three rows) and prints all the accessories of the game board
+
+- gamename_display
+
+Displays the game name on the top left corner of the game board on the top bar
+
+- score_update
+
+Displays the score on the top right corner of the game board on the top bar 
+The score is left padded with 0s
+
+- life_display
+
+Displays the life remaining of the hero on the top left corner of the bottom bar
+The life remaining is drawn using black blocks like a progress bar
+
+- time_display
+
+Displays the time remaining for the hero to save Baby Yoda on left side of the bottom bar
+The time remaining is drawn using black blocks like a progress bar
+
+- game_progress_display
+
+Displays the progress, i.e. how close the hero is to see the boss, on left side of the bottom bar
+The progress is drawn using black blocks like a progress bar
+
+- bullets_display
+
+Displays the number of bullets that are ready to be deployed but not deployed yet on the right side of the bottom bar
+
+
+- print_enemy_life
+
+Displays the life remaining of the enemy on the top bar when the enemy comes
+The life remaining is drawn using black blocks like a progress bar
+
+- prepare_board(self):
+
+Prepares, i.e. updates the board before printing it on the screen
+
+- print(self):
+
+Prints the gameboard onto the screen
+
+- write_full_on_board(self, full_board, start_in):
+
+Writes from the canvas onto the gameboard from the start_in to till the screen is completely filled
+
+- shift_right(self, full_board, line_to_add):
+
+Shift everything to right every .5 seconds
+
+- is_magnet_on_screen(self):
+
+Returns the y coordinate of the magnet if it is on the screen, otherwise return -1
+
+- destroy_object(self, X, Y):  
+
+Destroys whatever object is there at position X,Y completely and returns the object type
+This function deals only with coins, beams and powerups
+However since magnets cannot be destoyed, if the current position has a magnet, then it does not destroy it
+
 '''
+
 import numpy as np
-from colorama import Fore, Back, Style
 from colored_printing import color_text
-from termcolor import colored
 import global_stuff
 from full_board import full_board
 import time
 from powerUp import powerup
-# from getch import getch
+from board import board
 
 
-class gameboard:
+class gameboard(board):
     def __init__(self, rows, columns):
-        self.rows = rows
-        self.columns = columns
-        self.board = np.full((rows, columns, 2), " "*10)
-        # the structure of each element of the 2D matrix of tuples is: {CHAR, TYPE}
-        # The upper part
+        '''
+        Initialises the full board with the length, width and the board matrix
+        Here, the board matrix is kept as public, to allow all the functions to gain a direct access to it
+        Each element in the board matrix is of the form (ASCII CHARACTER, TYPE OF THE OBSTACLE/BOARD ELEMENT) at that spot
+        Also sets up the top bar(the first two rows), bottom bar(the last three rows) and prints all the accessories of the game board
+        '''
+        super().__init__(rows, columns)
+        # The top bar
         for i in range(0, 2):
-            for j in range(self.columns):
-                self.board[i][j][0] = " "
-                self.board[i][j][1] = "Top Bar"
+            for j in range(self._columns):
+                self.put_to_board(i, j, ' ', 'Top Bar')
         # The game body
-        for i in range(2, self.rows-3):
-            for j in range(self.columns):
-                self.board[i][j][0] = " "
-                self.board[i][j][1] = "Normal"
-        # the lower part
-        for i in range(self.rows-3, self.rows):
-            for j in range(self.columns):
-                self.board[i][j][0] = " "
-                self.board[i][j][1] = "Bottom Bar"
-        # Adding beautiful stuff
-        global_stuff.game_start_time = time.time()
-        self.gamename_display()        # put the game name
+        for i in range(2, self._rows-3):
+            for j in range(self._columns):
+                self.put_to_board(i, j, ' ', 'Normal')
+        # the bottom bar
+        for i in range(self._rows-3, self._rows):
+            for j in range(self._columns):
+                self.put_to_board(i, j, ' ', 'Bottom Bar')
+        self.gamename_display()
 
     def gamename_display(self):
-        # put the game name
-        gamename = "THE MANDALORIAN: THE GAME"
+        '''
+        Displays the game name on the top left corner of the game board on the top bar
+        '''
+        gamename = 'THE MANDALORIAN: THE GAME'
         leng = len(gamename)
-        startat = 2  # int(columns/2-leng/2)
+        startat = 2
         for i in range(leng):
-            self.board[0][i+startat][0] = gamename[i]  # put the game name
+            self.put_to_board(0, i+startat, gamename[i], "Top Bar")
 
     def score_update(self):
-        # put the score
-        scorename = "SCORE: "+str(global_stuff.score).rjust(10, "0")
+        '''
+        Displays the score on the top right corner of the game board on the top bar 
+        The score is left padded with 0s
+        '''
+        scorename = 'SCORE: '+str(global_stuff.score).rjust(10, '0')
         leng = len(scorename)
-        startat = self.columns-2-leng
+        startat = self._columns-2-leng
         for i in range(leng):
-            self.board[0][i+startat][0] = scorename[i]
+            self.put_to_board(0, i+startat, scorename[i], "Top Bar")
 
-    def coins_collected_update(self):
-        # put the score
-        scorename = "COINS COLLECTED:   " + \
-            str(global_stuff.coins_collected).rjust(5, " ")
-        leng = len(scorename)
-        startat = int(self.columns/2)+5
-        for i in range(leng):
-            self.board[self.rows-1][i+startat][0] = scorename[i]
-
-    def life_display(self):
-        # put the life
-        lf = "LIFE:     "
-        # totally print columns/2 -10 of which all of them are " " except the first life_remaining/total_life
-        percentage_to_fill = global_stuff.lives_remaining/global_stuff.total_life
-        totwid = int(self.columns/2-10)
-        fill = int(percentage_to_fill*totwid)
-        k = ""
-        for _ in range(fill):
-            k += "█"
-        for _ in range(fill, totwid):
-            k += " "
+    def life_display(self, h):
+        '''
+        Displays the life remaining of the hero on the top left corner of the bottom bar
+        The life remaining is drawn using black blocks like a progress bar
+        '''
+        # Print the word life
+        lf = 'LIFE:     '
         leng = len(lf)
         for i in range(leng):
-            self.board[self.rows-3][i][0] = lf[i]  # put the life left
+            self.put_to_board(self._rows-3, i, lf[i], "Bottom Bar")
+        # Print the life bar
+        percentage_to_fill = h.get_lives_remaining() / global_stuff.total_life
+        totwid = int(self._columns/2-10)
+        fill = int(percentage_to_fill*totwid)
+        k = ''
+        for _ in range(fill):
+            k += '█'
+        for _ in range(fill, totwid):
+            k += ' '
         ln = len(k)
         for i in range(ln):
-            self.board[self.rows-3][i+leng][0] = k[i]  # put the life left
-            self.board[self.rows-3][i+leng][1] = "Life"
+            self.put_to_board(self._rows-3, i+leng, k[i], "Life")
 
     def time_display(self):
-        # put the time
-        lf = "TIME LEFT:"
-        # totally print columns/2 -10 of which all of them are " " except the first few
-        global_stuff.time_left = int(
-            global_stuff.total_time-(-global_stuff.game_start_time+time.time()))
-        percentage_to_fill = global_stuff.time_left/global_stuff.total_time
-        totwid = int(self.columns/2-10)
-        fill = int(percentage_to_fill*totwid)
-        # print(global_stuff.game_start_time,global_stuff.time_left,fill,totwid)
-        k = ""
-        for _ in range(fill):
-            k += "█"
-        for _ in range(fill, totwid):
-            k += " "
+        '''
+        Displays the time remaining for the hero to save Baby Yoda on left side of the bottom bar
+        The time remaining is drawn using black blocks like a progress bar
+        '''
+        # Print the word 'TIME LEFT'
+        lf = 'TIME LEFT:'
         leng = len(lf)
         for i in range(leng):
-            self.board[self.rows-2][i][0] = lf[i]  # put the life left
+            self.put_to_board(self._rows-2, i, lf[i], "Bottom Bar")
+        # Print the time bar
+        percentage_to_fill = global_stuff.REMAINING_NO/global_stuff.MAXIMUM_NO
+        totwid = int(self._columns/2-10)
+        fill = int(percentage_to_fill*totwid)
+        k = ''
+        for _ in range(fill):
+            k += '█'
+        for _ in range(fill, totwid):
+            k += ' '
         ln = len(k)
         for i in range(ln):
-            self.board[self.rows-2][i+leng][0] = k[i]  # put the time left
-            self.board[self.rows-2][i+leng][1] = 'Time'
+            self.put_to_board(self._rows-2, i+leng, k[i], "Time")
 
-    def bullets_display(self):
-        # put the bullets left
-        lf = "BULLETS LEFT:      "
-        k = ""
-        for _ in range(global_stuff.bullets_left):
-            k += "> "
-        for _ in range(global_stuff.bullets_left, global_stuff.total_bullets):
-            k += "  "
-        lf += k
+    def shield_pu_display(self, h):
+        '''
+        Displays the shield powerup, that is, if it is active or not and so on
+        '''
+        # Print the word Shield
+        lf = 'SHIELD:            '
         leng = len(lf)
+        startat = int(global_stuff.screen_length/2)+5
         for i in range(leng):
-            # put the bullets
-            self.board[self.rows-3][i +
-                                    int(global_stuff.screen_length/2)+5][0] = lf[i]
+            self.put_to_board(self._rows-2, i+startat, lf[i], "Bottom Bar")
+        # Print the progress bar
+        if(h.is_shield() == 0):
+            percentage_to_fill = global_stuff.shield_countdown / \
+                global_stuff.MAX_SHIELD_COOLDOWN
+            typ = 'ShieldedHero'
+        else:
+            percentage_to_fill = global_stuff.shield_active_timer / \
+                global_stuff.MAX_SHIELD_ACTIVE
+            typ = 'ShieldPU'
+        if(percentage_to_fill >= 1):
+            percentage_to_fill = 1
+        totwid = int(self._columns/2-30)
+        fill = int(percentage_to_fill*totwid)
+        k = ''
+        for _ in range(fill):
+            k += '█'
+        for _ in range(fill, totwid):
+            k += ' '
+        ln = len(k)
+        for i in range(ln):
+            # put the time left
+            self.put_to_board(self._rows-2, i+leng + startat, k[i], typ)
+
+    def SpeedBoost_pu_display(self):
+        '''
+        prints the time remaining for the speedboost
+        '''
+        lf = 'SPEED BOOST:       '
+        leng = len(lf)
+        startat = int(global_stuff.screen_length/2)+5
+        for i in range(leng):
+            self.put_to_board(self._rows-1, i + startat, lf[i], "Bottom Bar")
+        # Print the progress bar
+        if(global_stuff.speeded == 0):
+            percentage_to_fill = 0
+        else:
+            percentage_to_fill = global_stuff.speeded_active_timer/global_stuff.MAX_SPEED_ACTIVE
+        if(percentage_to_fill >= 1):
+            percentage_to_fill = 1
+        totwid = int(self._columns/2-30)
+        fill = int(percentage_to_fill*totwid)
+        k = ''
+        for _ in range(fill):
+            k += '█'
+        for _ in range(fill, totwid):
+            k += ' '
+        ln = len(k)
+        for i in range(ln):
+            # put the time left
+            self.put_to_board(self._rows-1, i + leng +
+                              startat, k[i], "SpeededHero")
 
     def game_progress_display(self):
-        # put the progress
-        lf = "PROGRESS: "
-        # totally print columns/2 -10 of which all of them are " " except the first few
+        '''
+        Displays the progress, i.e. how close the hero is to see the boss, on left side of the bottom bar
+        The progress is drawn using black blocks like a progress bar
+        '''
+        # Print the word progress
+        lf = 'PROGRESS: '
+        leng = len(lf)
+        for i in range(leng):
+            self.put_to_board(self._rows-1, i, lf[i], "Bottom Bar")
+        # Print the progress bar
         progress = global_stuff.shown_until-global_stuff.screen_length
         percentage_to_fill = progress / \
             ((global_stuff.enemy_comes_after-1)*global_stuff.screen_length)
-        if(percentage_to_fill>=1):
-            percentage_to_fill=1
-        totwid = int(self.columns/2-10)
+        if(percentage_to_fill >= 1):
+            percentage_to_fill = 1
+        totwid = int(self._columns/2-10)
         fill = int(percentage_to_fill*totwid)
-        k = ""
+        k = ''
         for _ in range(fill):
-            k += "█"
+            k += '█'
         for _ in range(fill, totwid):
-            k += " "
-        leng = len(lf)
-        for i in range(leng):
-            self.board[self.rows-1][i][0] = lf[i]  # put the word progress
+            k += ' '
         ln = len(k)
         for i in range(ln):
-            self.board[self.rows-1][i+leng][0] = k[i]  # put the time left
-            self.board[self.rows-1][i+leng][1] = 'Progress'
+            self.put_to_board(self._rows-1, i + leng, k[i], "Progress")
 
-    def display_powerups_active(self):
-        l = "POWERUPS ACTIVE:   "
-        leng = len(l)
-        i = int(global_stuff.screen_length/2)+5
-        for j in range(leng):
-            self.board[self.rows-2][i][0] = l[j]
-            i += 1
-        if(global_stuff.snek == 1):
-            p = powerup(self.rows-2, i, 'Snek')
-            p.write_self_on_board(self)
-        else:
-            self.board[self.rows-2][i][0] = " "
-            self.board[self.rows-2][i][1] = "Bottom Bar"
-        i += 1
-        self.board[self.rows-2][i][0] = " "
-        self.board[self.rows-2][i][1] = "Bottom Bar"
-        i += 1
-        if(global_stuff.shielded == 1):
-            p = powerup(self.rows-2, i, 'ShieldPU')
-            p.write_self_on_board(self)
-        else:
-            self.board[self.rows-2][i][0] = " "
-            self.board[self.rows-2][i][1] = "Bottom Bar"
-        i += 1
-        self.board[self.rows-2][i][0] = " "
-        self.board[self.rows-2][i][1] = "Bottom Bar"
-        i += 1
-        if(global_stuff.speeded == 1):
-            p = powerup(self.rows-2, i, 'SpeedBoost')
-            p.write_self_on_board(self)
-        else:
-            self.board[self.rows-2][i][0] = " "
-            self.board[self.rows-2][i][1] = "Bottom Bar"
-        i += 1
-        self.board[self.rows-2][i][0] = " "
-        self.board[self.rows-2][i][1] = "Bottom Bar"
-        i += 1
+    def bullets_display(self):
+        '''
+        Displays the number of bullets that are ready to be deployed but not deployed yet on the right side of the bottom bar
+        '''
+        lf = 'BULLETS LEFT:      '
+        k = ''
+        for _ in range(global_stuff.bullets_left):
+            k += '> '
+        for _ in range(global_stuff.bullets_left, global_stuff.total_bullets):
+            k += '  '
+        lf += k
+        leng = len(lf)
+        startat = int(global_stuff.screen_length/2)+5
+        for i in range(leng):
+            self.put_to_board(self._rows-3, i + startat, lf[i], "Bottom Bar")
 
-    def print_enemy_life(self):
-        # put the enemy life
-        lf = "ENEMY: "
-        # totally print columns -10 of which all of them are " " except the first few
-        percentage_to_fill = global_stuff.boss_life_remaining / global_stuff.boss_total_life
-        if(percentage_to_fill<=0):
-            global_stuff.boss_dead=1
-        totwid = int(self.columns-10)
-        fill = int(percentage_to_fill*totwid)
-        k = ""
-        for _ in range(fill):
-            k += "█"
-        for _ in range(fill, totwid):
-            k += " "
+    def print_enemy_life(self, enemy):
+        '''
+        Displays the life remaining of the enemy on the top bar when the enemy comes
+        The life remaining is drawn using black blocks like a progress bar
+        '''
+        # Print the word enemy
+        lf = 'ENEMY: '
         leng = len(lf)
         for i in range(leng):
-            self.board[1][i][0] = lf[i]  # put the life left
+            self.put_to_board(1, i, lf[i], 'Top Bar')
+        # Print the enemy life bar
+        percentage_to_fill = enemy.get_lives_remaining() / global_stuff.boss_total_life
+        if(percentage_to_fill <= 0):
+            global_stuff.boss_dead = 1
+        totwid = int(self._columns-10)
+        fill = int(percentage_to_fill*totwid)
+        k = ''
+        for _ in range(fill):
+            k += '█'
+        for _ in range(fill, totwid):
+            k += ' '
         ln = len(k)
         for i in range(ln):
-            self.board[1][i+leng][0] = k[i]  # put the time left
-            self.board[1][i+leng][1] = 'Life'
+            self.put_to_board(1, i+leng, k[i], 'Life')
 
-    def print(self):
+    def prepare_board(self, h):
+        '''
+        Prepares, i.e. updates the board before printing it on the screen
+        '''
         self.score_update()
-        self.life_display()
+        self.life_display(h)
         self.time_display()
         self.bullets_display()
         self.game_progress_display()
-        self.display_powerups_active()
-        self.coins_collected_update()
+        self.shield_pu_display(h)
+        self.SpeedBoost_pu_display()
+
+    def print(self, h, enemy):
+        '''
+        Prints the gameboard onto the screen
+        '''
+        self.prepare_board(h)
         if(global_stuff.enemy_come == 1):
-            self.print_enemy_life()
-        # The top menu
-        #print(Back.BLUE+Fore.WHITE+"", end="")
-        for i in range(self.rows):
-            for j in range(self.columns):
-                # k=self.board[i][j][0]
-                # l=self.board[i][j][1]
-                # print(self.board[i][j])
-                # print(i,j,k,l,self.board[i][j][2])
-                # print(colored(self.board[i][j][0],(self.board[i][j][1]),self.board[i][j][2]),end="")
-                print(color_text(self.board[i][j]
-                                 [0], self.board[i][j][1]), end="")
+            self.print_enemy_life(enemy)
+        for i in range(self._rows):
+            for j in range(self._columns):
+                self.printxy(i, j)
             print()
 
     def write_full_on_board(self, full_board, start_in):
         ''' 
-        writes the thing from the full board onto the gameboard from the start in to till the screen is completely filled
+        Writes from the canvas onto the gameboard from the start_in to till the screen is completely filled
         '''
+        (r, _) = full_board.getdim()
         try:
-            for i in range(0, full_board.rows):  # all the rows from blahblahblah
-                for j in range(0, self.columns):  # all the columns from teh gameboard
-                    self.board[i+2][j] = full_board.board[i][j+start_in]
+            for i in range(0, r):  # all the rows from blahblahblah
+                for j in range(0, self._columns):  # all the columns from teh gameboard
+                    self._board[i+2][j] = full_board.getxy(i, j+start_in)
         except Exception as e:
-            print(i, j)
-            print(full_board.rows, self.columns)
-            print(self.board.shape, full_board.board.shape)
             print(e)
-            # getch()
 
     def shift_right(self, full_board, line_to_add):
         '''
         Shift everything to right every .5 seconds
         '''
-        # board.shift_right(fb,global_stuff.shown_until)
-        for i in range(full_board.rows):
-            for j in range(self.columns-1):
-                self.board[i+2][j] = self.board[i+2][j+1]
-        for i in range(full_board.rows):
-            self.board[i+2][self.columns-1] = full_board.board[i][line_to_add]
+        (r, _) = full_board.getdim()
+        for i in range(r):
+            for j in range(self._columns-1):
+                self._board[i+2][j] = self._board[i+2][j+1]
+        for i in range(r):
+            self._board[i+2][self._columns -
+                             1] = full_board.getxy(i, line_to_add)
 
     def is_magnet_on_screen(self):
         '''
@@ -267,106 +374,96 @@ class gameboard:
         '''
         position = global_stuff.magnet_y_pos_fullboard - \
             global_stuff.shown_until+global_stuff.screen_length
-        if( position < global_stuff.screen_length and position >= -7):
-            # obviously the magnet would start at magnet_y_pos_fullboard - global_stuff.shown_until+global_stuff.screen_length
+        if(position < global_stuff.screen_length and position >= -7):
             return position
-        return "NOT ON SCREEN"
+        return 'NOT ON SCREEN'
 
-    def destroy_object(self, X, Y):  # deals with coins and beams only
-        if(self.board[X][Y][1] == 'Normal' or self.board[X][Y][1] == 'Bg1' or self.board[X][Y][1] == 'Bg2'):
-            return "No collision"
-        # coin collision is actually not dealt with here, it was included here for name sake
-        elif(self.board[X][Y][1] == 'Coin'):
-            # nope, collision of coin by bullets does give points but only 5
-            # why? Your bullet did the dirty work
-            self.board[X][Y][0] = ' '
-            self.board[X][Y][1] = 'Normal'
-            # global_stuff.score+=5
-            return "Coin"
-        elif(self.board[X][Y][1] == 'Hbeam'):  # aah Horizontal beam
-            # no matter who touches the beam, the beam disappears... so
-            # but what exactly is the beam?
-            # all those continuous points on the same line that have the label 'Hbeam' while they say labels are important..
-            # the score system will be discussed later
-            # I mean, no score for dying
-            # 50 for shooting a beam
+    def destroy_object(self, X, Y):
+        '''
+        Destroys whatever object is there at position X,Y completely and returns the object type
+        This function deals only with coins, beams and powerups
+        However since magnets cannot be destoyed, if the current position has a magnet, then it does not destroy it
+        '''
+        # No collision
+        if(self.get_type(X, Y) == 'Normal'):
+            return 'No collision'
+        # Coin
+        elif(self.get_type(X, Y) == 'Coin'):
+            self.remove_from_board(X, Y)
+            return 'Coin'
+        # Horizontal beam
+        elif(self.get_type(X, Y) == 'Hbeam'):
             try:  # for left side
                 i = 0
-                while (self.board[X][Y+i][1] == 'Hbeam'):
-                    self.board[X][Y+i][0] = ' '
-                    self.board[X][Y+i][1] = 'Normal'
+                while (self.get_type(X, Y+i) == 'Hbeam'):
+                    self.remove_from_board(X, Y+i)
                     i += 1
             except:
                 pass
             try:  # for right side
                 i = 1
-                while (self.board[X][Y-i][1] == 'Hbeam'):
-                    self.board[X][Y-i][0] = ' '
-                    self.board[X][Y-i][1] = 'Normal'
+                while (self.get_type(X, Y-i) == 'Hbeam'):
+                    self.remove_from_board(X, Y-i)
                     i += 1
             except:
                 pass
             return 'Hbeam'
-        elif (self.board[X][Y][1] == 'Vbeam'):  # aah verical beam
+        # Vertical beam
+        elif (self.get_type(X, Y) == 'Vbeam'):
             try:  # for up or down
                 i = 0
-                while (self.board[X+i][Y][1] == 'Vbeam'):
-                    self.board[X+i][Y][0] = ' '
-                    self.board[X+i][Y][1] = 'Normal'
+                while (self.get_type(X+i, Y) == 'Vbeam'):
+                    self.remove_from_board(X+i, Y)
                     i += 1
             except:
                 pass
             try:  # for the other thing
                 i = 1
-                while (self.board[X-i][Y][1] == 'Vbeam'):
-                    self.board[X-i][Y][0] = ' '
-                    self.board[X-i][Y][1] = 'Normal'
+                while (self.get_type(X-i, Y) == 'Vbeam'):
+                    self.remove_from_board(X-i, Y)
                     i += 1
             except:
                 pass
             return 'Vbeam'
-        elif (self.board[X][Y][1] == 'Dbeam1'):  # aah verical beam
-            try:  # for up or down
+        # Diagonal 1 beam
+        elif (self.get_type(X, Y) == 'Dbeam1'):
+            try:
                 i = 0
-                while (self.board[X+i][Y+i][1] == 'Dbeam1'):
-                    self.board[X+i][Y+i][0] = ' '
-                    self.board[X+i][Y+i][1] = 'Normal'
+                while (self.get_type(X+i, Y+i) == 'Dbeam1'):
+                    self.remove_from_board(X+i, Y+i)
                     i += 1
             except:
                 pass
-            try:  # for the other thing
+            try:
                 i = 1
-                while (self.board[X-i][Y-i][1] == 'Dbeam1'):
-                    self.board[X-i][Y-i][0] = ' '
-                    self.board[X-i][Y-i][1] = 'Normal'
+                while (self.get_type(X-i, Y-i) == 'Dbeam1'):
+                    self.remove_from_board(X-i, Y-i)
                     i += 1
             except:
                 pass
             return 'Dbeam1'
-        elif(self.board[X][Y][1] == 'Dbeam2'):  # aah verical beam
-            try:  # for up or down
+        # Diagonal 2 beam
+        elif(self.get_type(X, Y) == 'Dbeam2'):
+            try:
                 i = 0
-                while (self.board[X-i][Y+i][1] == 'Dbeam2'):
-                    self.board[X-i][Y+i][0] = ' '
-                    self.board[X-i][Y+i][1] = 'Normal'
+                while (self.get_type(X-i, Y+i) == 'Dbeam2'):
+                    self.remove_from_board(X-i, Y+i)
                     i += 1
             except:
                 pass
-            try:  # for the other thing
+            try:
                 i = 1
-                while (self.board[X+i][Y-i][1] == 'Dbeam2'):
-                    self.board[X+i][Y-i][0] = ' '
-                    self.board[X+i][Y-i][1] = 'Normal'
+                while (self.get_type(X+i, Y-i) == 'Dbeam2'):
+                    self.remove_from_board(X+i, Y-i)
                     i += 1
             except:
                 pass
             return 'Dbeam2'
-
-        elif(self.board[X][Y][1] == 'ExtraLife' or self.board[X][Y][1] == 'ShieldPU' or self.board[X][Y][1] == 'SpeedBoost' or self.board[X][Y][1] == 'Snek'):
-            t = self.board[X][Y][1]
-            self.board[X][Y][0] = ' '
-            self.board[X][Y][1] = 'Normal'
+        # Power-ups
+        elif(self.get_type(X, Y) in ['ExtraLife', 'ShieldPU', 'SpeedBoost', 'Snek', 'ExtraTime']):
+            t = self.get_type(X, Y)
+            self.remove_from_board(X, Y)
             return t
-
-        elif(self.board[X][Y][1] == 'Magnet'):
+        # Magnet
+        elif(self.get_type(X, Y) == 'Magnet'):
             return 'Magnet'

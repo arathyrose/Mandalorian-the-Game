@@ -1,12 +1,12 @@
-"""
+'''
 Has the different colors used in the game
 Contains the following global function:
 
 color_text(text,color)
 
 Colors the text according to the given color
-The color can be one of the "COLORS" in the array "COLORS" or can be explicitly mentioned using ASCII color codes.
-"""
+The color can be one of the 'COLORS' in the array 'COLORS' or can be explicitly mentioned using ASCII color codes.
+'''
 
 COLORS = {
     'Normal': '\x1b[40;37m',
@@ -22,6 +22,8 @@ COLORS = {
     'Hero': '\x1b[1;36;47m',
     'ShieldedHero': '\x1b[1;32;47m',
     'SpeededHero': '\x1b[1;35;47m',
+    'SnekHero': '\x1b[0;33;42m',
+    'ShieldSnekHero': '\x1b[0;37;42m',
     'Bullet': '\x1b[38;5;208m',
 
     'Hbeam': '\x1b[1;31;40m',
@@ -31,9 +33,11 @@ COLORS = {
 
     'Enemy': '\x1b[1;31;40m',
     'Ice Ball': '\x1b[1;36;40m',
+    'Fire': '\x1b[1;31;40m',
 
     'Coin': '\x1b[1;33;40m',
     'ExtraLife': '\x1b[41;1;37m',
+    'ExtraTime': '\x1b[46;1;37m',
     'ShieldPU': '\x1b[46;1;37m',
     'SpeedBoost': '\x1b[42;5;37m',
     'Snek': '\x1b[0;37;42m',
@@ -43,10 +47,10 @@ END_COLOR = '\033[m'
 
 
 def color_text(text, color):
-    """ 
+    ''' 
     Colors the text according to the given color
-    The color can be one of the "COLORS" in the array "COLORS" or can be explicitly mentioned using ASCII color codes.
-    """
+    The color can be one of the 'COLORS' in the array 'COLORS' or can be explicitly mentioned using ASCII color codes.
+    '''
     if '\x1b' in color:
         return color + text + END_COLOR
     else:

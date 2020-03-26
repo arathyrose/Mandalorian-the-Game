@@ -1,5 +1,5 @@
-"""
-bullet
+'''
+magnet
 ======
 
 This class denotes the magnet that attracts the hero
@@ -34,7 +34,7 @@ Make him trust you
 Betray his trust
 Let him die
 
-"""
+'''
 
 
 from obstacle import obstacle
